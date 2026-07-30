@@ -8,10 +8,16 @@
  *
  * 🟢 You can import this file directly.
  */
-export type * from './models/Restaurant.js'
+export type * from './models/Clinic.js'
 export type * from './models/User.js'
-export type * from './models/Category.js'
-export type * from './models/Product.js'
-export type * from './models/Order.js'
-export type * from './models/OrderItem.js'
+export type * from './models/Patient.js'
+export type * from './models/ProcedureCategory.js'
+export type * from './models/Procedure.js'
+export type * from './models/Appointment.js'
+export type * from './models/ToothChartEntry.js'
+export type * from './models/TreatmentPlan.js'
+export type * from './models/TreatmentPlanItem.js'
+export type * from './models/Invoice.js'
+export type * from './models/InvoiceItem.js'
+export type * from './models/Payment.js'
 export type * from './commonInputTypes.js'
