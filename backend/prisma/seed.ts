@@ -17,14 +17,18 @@ const prisma = new PrismaClient({
 async function main() {
   console.log("🌱 Seeding database...");
 
-  const restaurant = await prisma.restaurant.upsert({
+  // =========================
+  // Clinic
+  // =========================
+
+  const clinic = await prisma.clinic.upsert({
     where: {
-      id: "main-restaurant",
+      id: "main-clinic",
     },
     update: {},
     create: {
-      id: "main-restaurant",
-      name: "My Restaurant",
+      id: "main-clinic",
+      name: "My Dental Clinic",
       address: "Algeria",
       phone: "+213000000000",
     },
@@ -36,100 +40,86 @@ async function main() {
 
   const passwordHash = await bcrypt.hash(process.env.SEED_ADMIN_PASSWORD!, 10);
 
+  const email = process.env.SEED_ADMIN_EMAIL!;
+
   const admin = await prisma.user.upsert({
     where: {
-      email: "admin@restaurant.com",
+      email,
     },
     update: {},
     create: {
-      email: process.env.SEED_ADMIN_EMAIL!,
+      email,
       passwordHash,
       firstName: "Super",
       lastName: "Admin",
       role: UserRole.SUPER_ADMIN,
-      restaurantId: restaurant.id,
+      clinicId: clinic.id,
     },
   });
 
   // =========================
-  // Categories
+  // Procedure Categories
   // =========================
 
-  const pizzaCategory = await prisma.category.create({
+  const preventive = await prisma.procedureCategory.create({
     data: {
-      name: "Pizza",
-      restaurantId: restaurant.id,
+      name: "Preventive",
+      clinicId: clinic.id,
       sortOrder: 1,
     },
   });
 
-  const drinksCategory = await prisma.category.create({
+  const restorative = await prisma.procedureCategory.create({
     data: {
-      name: "Drinks",
-      restaurantId: restaurant.id,
+      name: "Restorative",
+      clinicId: clinic.id,
       sortOrder: 2,
     },
   });
 
-  const dessertsCategory = await prisma.category.create({
+  const surgery = await prisma.procedureCategory.create({
     data: {
-      name: "Desserts",
-      restaurantId: restaurant.id,
+      name: "Oral Surgery",
+      clinicId: clinic.id,
       sortOrder: 3,
     },
   });
 
   // =========================
-  // Products
+  // Procedures
   // =========================
 
-  await prisma.product.createMany({
+  await prisma.procedure.createMany({
     data: [
       {
-        name: "Margherita Pizza",
-        description: "Classic pizza with mozzarella",
-        price: 12,
-        cost: 5,
-        categoryId: pizzaCategory.id,
-        restaurantId: restaurant.id,
+        name: "Dental Cleaning",
+        price: 3000,
+        durationMin: 30,
+        categoryId: preventive.id,
+        clinicId: clinic.id,
       },
       {
-        name: "Pepperoni Pizza",
-        description: "Pepperoni & cheese",
-        price: 15,
-        cost: 7,
-        categoryId: pizzaCategory.id,
-        restaurantId: restaurant.id,
+        name: "Tooth Filling",
+        price: 5000,
+        durationMin: 45,
+        categoryId: restorative.id,
+        clinicId: clinic.id,
       },
       {
-        name: "Coca Cola",
-        price: 2,
-        cost: 1,
-        categoryId: drinksCategory.id,
-        restaurantId: restaurant.id,
-      },
-      {
-        name: "Water",
-        price: 1,
-        cost: 0.4,
-        categoryId: drinksCategory.id,
-        restaurantId: restaurant.id,
-      },
-      {
-        name: "Chocolate Cake",
-        price: 6,
-        cost: 2.5,
-        categoryId: dessertsCategory.id,
-        restaurantId: restaurant.id,
+        name: "Tooth Extraction",
+        price: 7000,
+        durationMin: 60,
+        categoryId: surgery.id,
+        clinicId: clinic.id,
       },
     ],
   });
 
   console.log("✅ Database seeded successfully!");
   console.log("--------------------------------");
-  console.log("Restaurant :", restaurant.name);
+  console.log("Clinic :", clinic.name);
   console.log("Admin Email:", admin.email);
-  console.log("Password   : admin123");
+  console.log("Password:", process.env.SEED_ADMIN_PASSWORD);
   console.log("--------------------------------");
 }
 

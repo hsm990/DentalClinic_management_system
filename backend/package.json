@@ -1,8 +1,8 @@
 {
-  "name": "restaurant-pos-backend",
+  "name": "clinic_management_system",
   "version": "1.0.0",
   "private": true,
-  "description": "Restaurant POS Backend API",
+  "description": "CLINIC MANAGMENT Backend API",
   "main": "dist/server.js",
   "scripts": {
     "dev": "tsx watch src/server.ts",
