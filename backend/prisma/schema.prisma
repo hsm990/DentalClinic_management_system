@@ -10,19 +10,50 @@ generator client {
 enum UserRole {
   SUPER_ADMIN
   ADMIN
-  MANAGER
-  CASHIER
-  KITCHEN
-  WAITER
+  DENTIST
+  ASSISTANT
+  RECEPTIONIST
 }
 
-enum OrderStatus {
-  PENDING
+enum AppointmentStatus {
+  SCHEDULED
   CONFIRMED
-  PREPARING
-  READY
-  SERVED
+  CHECKED_IN
+  IN_PROGRESS
+  COMPLETED
   CANCELLED
+  NO_SHOW
+}
+
+enum Gender {
+  MALE
+  FEMALE
+}
+
+enum ToothCondition {
+  HEALTHY
+  DECAYED
+  FILLED
+  CROWNED
+  ROOT_CANAL
+  MISSING
+  IMPLANT
+  FRACTURED
+  IMPACTED
+}
+
+enum TreatmentPlanItemStatus {
+  PLANNED
+  IN_PROGRESS
+  COMPLETED
+  CANCELLED
+}
+
+enum InvoiceStatus {
+  PENDING
+  PARTIALLY_PAID
+  PAID
+  REFUNDED
 }
 
 enum PaymentMethod {
@@ -32,16 +63,9 @@ enum PaymentMethod {
   OTHER
 }
 
-enum PaymentStatus {
-  PENDING
-  PAID
-  REFUNDED
-  PARTIALLY_REFUNDED
-}
-
 // ---------- MODELS ----------
 
-model Restaurant {
+model Clinic {
   id        String   @id @default(cuid())
   name      String
   address   String?
@@ -50,10 +74,12 @@ model Restaurant {
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 
-  users      User[]
-  categories Category[]
-  products   Product[]
-  orders     Order[]
+  users               User[]
+  patients            Patient[]
+  procedureCategories ProcedureCategory[]
+  procedures          Procedure[]
+  appointments        Appointment[]
+  invoices            Invoice[]
 }
 
 model User {
@@ -62,95 +88,206 @@ model User {
   passwordHash String
   firstName    String
   lastName     String
-  role         UserRole @default(CASHIER)
+  role         UserRole @default(RECEPTIONIST)
   isActive     Boolean  @default(true)
-  restaurantId String?
+  clinicId     String?
   createdAt    DateTime @default(now())
   updatedAt    DateTime @updatedAt
 
-  restaurant Restaurant? @relation(fields: [restaurantId], references: [id])
-  orders     Order[]
+  clinic          Clinic?       @relation(fields: [clinicId], references: [id])
+  appointments    Appointment[] @relation("DentistAppointments")
+  createdInvoices Invoice[]
 
-  @@index([restaurantId])
+  @@index([clinicId])
 }
 
-model Category {
-  id           String   @id @default(cuid())
-  name         String
-  sortOrder    Int      @default(0)
-  restaurantId String
-  createdAt    DateTime @default(now())
-  updatedAt    DateTime @updatedAt
+model Patient {
+  id           String    @id @default(cuid())
+  firstName    String
+  lastName     String
+  phone        String?
+  email        String?
+  dateOfBirth  DateTime?
+  gender       Gender?
+  address      String?
+  allergies    String?
+  medicalNotes String?
+  clinicId     String
+  createdAt    DateTime  @default(now())
+  updatedAt    DateTime  @updatedAt
 
-  restaurant Restaurant @relation(fields: [restaurantId], references: [id])
-  products   Product[]
+  clinic         Clinic            @relation(fields: [clinicId], references: [id])
+  appointments   Appointment[]
+  toothChart     ToothChartEntry[]
+  treatmentPlans TreatmentPlan[]
+  invoices       Invoice[]
 
-  @@index([restaurantId])
+  @@index([clinicId])
 }
 
-model Product {
-  id           String   @id @default(cuid())
-  name         String
-  description  String?
-  price        Decimal  @db.Decimal(10, 2)
-  cost         Decimal? @db.Decimal(10, 2)
-  imageUrl     String?
-  isActive     Boolean  @default(true)
-  sortOrder    Int      @default(0)
-  categoryId   String
-  restaurantId String
-  createdAt    DateTime @default(now())
-  updatedAt    DateTime @updatedAt
+model ProcedureCategory {
+  id        String   @id @default(cuid())
+  name      String
+  sortOrder Int      @default(0)
+  clinicId  String
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
 
-  category   Category    @relation(fields: [categoryId], references: [id])
-  restaurant Restaurant  @relation(fields: [restaurantId], references: [id])
-  orderItems OrderItem[]
+  clinic     Clinic      @relation(fields: [clinicId], references: [id])
+  procedures Procedure[]
+
+  @@index([clinicId])
+}
+
+model Procedure {
+  id          String   @id @default(cuid())
+  name        String
+  description String?
+  price       Decimal  @db.Decimal(10, 2)
+  durationMin Int      @default(30)
+  isActive    Boolean  @default(true)
+  categoryId  String
+  clinicId    String
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  category           ProcedureCategory   @relation(fields: [categoryId], references: [id])
+  clinic             Clinic              @relation(fields: [clinicId], references: [id])
+  treatmentPlanItems TreatmentPlanItem[]
+  invoiceItems       InvoiceItem[]
 
   @@index([categoryId])
-  @@index([restaurantId])
+  @@index([clinicId])
 }
 
-model Order {
-  id          String      @id @default(cuid())
-  orderNumber Int         @default(autoincrement())
-  status      OrderStatus @default(PENDING)
-  subtotal    Decimal     @db.Decimal(10, 2)
-  tax         Decimal     @default(0) @db.Decimal(10, 2)
-  discount    Decimal     @default(0) @db.Decimal(10, 2)
-  total       Decimal     @db.Decimal(10, 2)
+model Appointment {
+  id          String            @id @default(cuid())
+  scheduledAt DateTime
+  durationMin Int               @default(30)
+  status      AppointmentStatus @default(SCHEDULED)
+  reason      String?
   notes       String?
 
-  paymentMethod PaymentMethod @default(CASH)
-  paymentStatus PaymentStatus @default(PENDING)
+  patientId String
+  dentistId String
+  clinicId  String
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
 
-  restaurantId String
-  createdById  String?
-  createdAt    DateTime @default(now())
-  updatedAt    DateTime @updatedAt
+  patient Patient @relation(fields: [patientId], references: [id])
+  dentist User    @relation("DentistAppointments", fields: [dentistId], references: [id])
+  clinic  Clinic  @relation(fields: [clinicId], references: [id])
 
-  restaurant Restaurant  @relation(fields: [restaurantId], references: [id])
-  createdBy  User?       @relation(fields: [createdById], references: [id])
-  items      OrderItem[]
+  @@index([clinicId, scheduledAt])
+  @@index([dentistId])
+  @@index([patientId])
+}
 
-  @@unique([restaurantId, orderNumber])
-  @@index([createdById])
+model ToothChartEntry {
+  id          String         @id @default(cuid())
+  toothNumber Int // FDI notation, 11–48
+  condition   ToothCondition @default(HEALTHY)
+  notes       String?
+  patientId   String
+  createdAt   DateTime       @default(now())
+  updatedAt   DateTime       @updatedAt
+
+  patient Patient @relation(fields: [patientId], references: [id])
+
+  @@unique([patientId, toothNumber])
+  @@index([patientId])
+}
+
+model TreatmentPlan {
+  id        String   @id @default(cuid())
+  title     String
+  notes     String?
+  patientId String
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  patient Patient             @relation(fields: [patientId], references: [id])
+  items   TreatmentPlanItem[]
+
+  @@index([patientId])
+}
+
+model TreatmentPlanItem {
+  id            String                  @id @default(cuid())
+  toothNumber   Int?
+  status        TreatmentPlanItemStatus @default(PLANNED)
+  estimatedCost Decimal                 @db.Decimal(10, 2)
+  notes         String?
+
+  treatmentPlanId String
+  procedureId     String
+  createdAt       DateTime @default(now())
+  updatedAt       DateTime @updatedAt
+
+  treatmentPlan TreatmentPlan @relation(fields: [treatmentPlanId], references: [id], onDelete: Cascade)
+  procedure     Procedure     @relation(fields: [procedureId], references: [id])
+
+  @@index([treatmentPlanId])
+  @@index([procedureId])
+}
+
+model Invoice {
+  id            String        @id @default(cuid())
+  invoiceNumber Int           @default(autoincrement())
+  status        InvoiceStatus @default(PENDING)
+  subtotal      Decimal       @db.Decimal(10, 2)
+  discount      Decimal       @default(0) @db.Decimal(10, 2)
+  total         Decimal       @db.Decimal(10, 2)
+  notes         String?
+
+  patientId   String
+  clinicId    String
+  createdById String?
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  patient   Patient       @relation(fields: [patientId], references: [id])
+  clinic    Clinic        @relation(fields: [clinicId], references: [id])
+  createdBy User?         @relation(fields: [createdById], references: [id])
+  items     InvoiceItem[]
+  payments  Payment[]
+
+  @@unique([clinicId, invoiceNumber])
+  @@index([patientId])
   @@index([status])
 }
 
-model OrderItem {
-  id         String   @id @default(cuid())
-  quantity   Int      @default(1)
-  unitPrice  Decimal  @db.Decimal(10, 2)
-  totalPrice Decimal  @db.Decimal(10, 2)
-  notes      String?
-  orderId    String
-  productId  String
-  createdAt  DateTime @default(now())
-  updatedAt  DateTime @updatedAt
+model InvoiceItem {
+  id          String  @id @default(cuid())
+  toothNumber Int?
+  quantity    Int     @default(1)
+  unitPrice   Decimal @db.Decimal(10, 2)
+  totalPrice  Decimal @db.Decimal(10, 2)
+  notes       String?
 
-  order   Order   @relation(fields: [orderId], references: [id], onDelete: Cascade)
-  product Product @relation(fields: [productId], references: [id])
+  invoiceId   String
+  procedureId String
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
 
-  @@index([orderId])
-  @@index([productId])
+  invoice   Invoice   @relation(fields: [invoiceId], references: [id], onDelete: Cascade)
+  procedure Procedure @relation(fields: [procedureId], references: [id])
+
+  @@index([invoiceId])
+  @@index([procedureId])
+}
+
+model Payment {
+  id     String        @id @default(cuid())
+  amount Decimal       @db.Decimal(10, 2)
+  method PaymentMethod @default(CASH)
+  paidAt DateTime      @default(now())
+  notes  String?
+
+  invoiceId String
+  createdAt DateTime @default(now())
+
+  invoice Invoice @relation(fields: [invoiceId], references: [id])
+
+  @@index([invoiceId])
 }

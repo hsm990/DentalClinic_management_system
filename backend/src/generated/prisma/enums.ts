@@ -12,25 +12,68 @@
 export const UserRole = {
   SUPER_ADMIN: 'SUPER_ADMIN',
   ADMIN: 'ADMIN',
-  MANAGER: 'MANAGER',
-  CASHIER: 'CASHIER',
-  KITCHEN: 'KITCHEN',
-  WAITER: 'WAITER'
+  DENTIST: 'DENTIST',
+  ASSISTANT: 'ASSISTANT',
+  RECEPTIONIST: 'RECEPTIONIST'
 } as const
 
 export type UserRole = (typeof UserRole)[keyof typeof UserRole]
 
 
-export const OrderStatus = {
-  PENDING: 'PENDING',
+export const AppointmentStatus = {
+  SCHEDULED: 'SCHEDULED',
   CONFIRMED: 'CONFIRMED',
-  PREPARING: 'PREPARING',
-  READY: 'READY',
-  SERVED: 'SERVED',
+  CHECKED_IN: 'CHECKED_IN',
+  IN_PROGRESS: 'IN_PROGRESS',
+  COMPLETED: 'COMPLETED',
+  CANCELLED: 'CANCELLED',
+  NO_SHOW: 'NO_SHOW'
+} as const
+
+export type AppointmentStatus = (typeof AppointmentStatus)[keyof typeof AppointmentStatus]
+
+
+export const Gender = {
+  MALE: 'MALE',
+  FEMALE: 'FEMALE'
+} as const
+
+export type Gender = (typeof Gender)[keyof typeof Gender]
+
+
+export const ToothCondition = {
+  HEALTHY: 'HEALTHY',
+  DECAYED: 'DECAYED',
+  FILLED: 'FILLED',
+  CROWNED: 'CROWNED',
+  ROOT_CANAL: 'ROOT_CANAL',
+  MISSING: 'MISSING',
+  IMPLANT: 'IMPLANT',
+  FRACTURED: 'FRACTURED',
+  IMPACTED: 'IMPACTED'
+} as const
+
+export type ToothCondition = (typeof ToothCondition)[keyof typeof ToothCondition]
+
+
+export const TreatmentPlanItemStatus = {
+  PLANNED: 'PLANNED',
+  IN_PROGRESS: 'IN_PROGRESS',
+  COMPLETED: 'COMPLETED',
   CANCELLED: 'CANCELLED'
 } as const
 
-export type OrderStatus = (typeof OrderStatus)[keyof typeof OrderStatus]
+export type TreatmentPlanItemStatus = (typeof TreatmentPlanItemStatus)[keyof typeof TreatmentPlanItemStatus]
+
+
+export const InvoiceStatus = {
+  PENDING: 'PENDING',
+  PARTIALLY_PAID: 'PARTIALLY_PAID',
+  PAID: 'PAID',
+  REFUNDED: 'REFUNDED'
+} as const
+
+export type InvoiceStatus = (typeof InvoiceStatus)[keyof typeof InvoiceStatus]
 
 
 export const PaymentMethod = {
@@ -41,13 +84,3 @@ export const PaymentMethod = {
 } as const
 
 export type PaymentMethod = (typeof PaymentMethod)[keyof typeof PaymentMethod]
-
-
-export const PaymentStatus = {
-  PENDING: 'PENDING',
-  PAID: 'PAID',
-  REFUNDED: 'REFUNDED',
-  PARTIALLY_REFUNDED: 'PARTIALLY_REFUNDED'
-} as const
-
-export type PaymentStatus = (typeof PaymentStatus)[keyof typeof PaymentStatus]

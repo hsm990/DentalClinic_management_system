@@ -51,12 +51,18 @@ export const AnyNull = runtime.AnyNull
 
 
 export const ModelName = {
-  Restaurant: 'Restaurant',
+  Clinic: 'Clinic',
   User: 'User',
-  Category: 'Category',
-  Product: 'Product',
-  Order: 'Order',
-  OrderItem: 'OrderItem'
+  Patient: 'Patient',
+  ProcedureCategory: 'ProcedureCategory',
+  Procedure: 'Procedure',
+  Appointment: 'Appointment',
+  ToothChartEntry: 'ToothChartEntry',
+  TreatmentPlan: 'TreatmentPlan',
+  TreatmentPlanItem: 'TreatmentPlanItem',
+  Invoice: 'Invoice',
+  InvoiceItem: 'InvoiceItem',
+  Payment: 'Payment'
 } as const
 
 export type ModelName = (typeof ModelName)[keyof typeof ModelName]
@@ -75,7 +81,7 @@ export const TransactionIsolationLevel = runtime.makeStrictEnum({
 export type TransactionIsolationLevel = (typeof TransactionIsolationLevel)[keyof typeof TransactionIsolationLevel]
 
 
-export const RestaurantScalarFieldEnum = {
+export const ClinicScalarFieldEnum = {
   id: 'id',
   name: 'name',
   address: 'address',
@@ -85,7 +91,7 @@ export const RestaurantScalarFieldEnum = {
   updatedAt: 'updatedAt'
 } as const
 
-export type RestaurantScalarFieldEnum = (typeof RestaurantScalarFieldEnum)[keyof typeof RestaurantScalarFieldEnum]
+export type ClinicScalarFieldEnum = (typeof ClinicScalarFieldEnum)[keyof typeof ClinicScalarFieldEnum]
 
 
 export const UserScalarFieldEnum = {
@@ -96,7 +102,7 @@ export const UserScalarFieldEnum = {
   lastName: 'lastName',
   role: 'role',
   isActive: 'isActive',
-  restaurantId: 'restaurantId',
+  clinicId: 'clinicId',
   createdAt: 'createdAt',
   updatedAt: 'updatedAt'
 } as const
@@ -104,69 +110,155 @@ export const UserScalarFieldEnum = {
 export type UserScalarFieldEnum = (typeof UserScalarFieldEnum)[keyof typeof UserScalarFieldEnum]
 
 
-export const CategoryScalarFieldEnum = {
+export const PatientScalarFieldEnum = {
   id: 'id',
-  name: 'name',
-  sortOrder: 'sortOrder',
-  restaurantId: 'restaurantId',
+  firstName: 'firstName',
+  lastName: 'lastName',
+  phone: 'phone',
+  email: 'email',
+  dateOfBirth: 'dateOfBirth',
+  gender: 'gender',
+  address: 'address',
+  allergies: 'allergies',
+  medicalNotes: 'medicalNotes',
+  clinicId: 'clinicId',
   createdAt: 'createdAt',
   updatedAt: 'updatedAt'
 } as const
 
-export type CategoryScalarFieldEnum = (typeof CategoryScalarFieldEnum)[keyof typeof CategoryScalarFieldEnum]
+export type PatientScalarFieldEnum = (typeof PatientScalarFieldEnum)[keyof typeof PatientScalarFieldEnum]
 
 
-export const ProductScalarFieldEnum = {
+export const ProcedureCategoryScalarFieldEnum = {
+  id: 'id',
+  name: 'name',
+  sortOrder: 'sortOrder',
+  clinicId: 'clinicId',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+} as const
+
+export type ProcedureCategoryScalarFieldEnum = (typeof ProcedureCategoryScalarFieldEnum)[keyof typeof ProcedureCategoryScalarFieldEnum]
+
+
+export const ProcedureScalarFieldEnum = {
   id: 'id',
   name: 'name',
   description: 'description',
   price: 'price',
-  cost: 'cost',
-  imageUrl: 'imageUrl',
+  durationMin: 'durationMin',
   isActive: 'isActive',
-  sortOrder: 'sortOrder',
   categoryId: 'categoryId',
-  restaurantId: 'restaurantId',
+  clinicId: 'clinicId',
   createdAt: 'createdAt',
   updatedAt: 'updatedAt'
 } as const
 
-export type ProductScalarFieldEnum = (typeof ProductScalarFieldEnum)[keyof typeof ProductScalarFieldEnum]
+export type ProcedureScalarFieldEnum = (typeof ProcedureScalarFieldEnum)[keyof typeof ProcedureScalarFieldEnum]
 
 
-export const OrderScalarFieldEnum = {
+export const AppointmentScalarFieldEnum = {
   id: 'id',
-  orderNumber: 'orderNumber',
+  scheduledAt: 'scheduledAt',
+  durationMin: 'durationMin',
+  status: 'status',
+  reason: 'reason',
+  notes: 'notes',
+  patientId: 'patientId',
+  dentistId: 'dentistId',
+  clinicId: 'clinicId',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+} as const
+
+export type AppointmentScalarFieldEnum = (typeof AppointmentScalarFieldEnum)[keyof typeof AppointmentScalarFieldEnum]
+
+
+export const ToothChartEntryScalarFieldEnum = {
+  id: 'id',
+  toothNumber: 'toothNumber',
+  condition: 'condition',
+  notes: 'notes',
+  patientId: 'patientId',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+} as const
+
+export type ToothChartEntryScalarFieldEnum = (typeof ToothChartEntryScalarFieldEnum)[keyof typeof ToothChartEntryScalarFieldEnum]
+
+
+export const TreatmentPlanScalarFieldEnum = {
+  id: 'id',
+  title: 'title',
+  notes: 'notes',
+  patientId: 'patientId',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+} as const
+
+export type TreatmentPlanScalarFieldEnum = (typeof TreatmentPlanScalarFieldEnum)[keyof typeof TreatmentPlanScalarFieldEnum]
+
+
+export const TreatmentPlanItemScalarFieldEnum = {
+  id: 'id',
+  toothNumber: 'toothNumber',
+  status: 'status',
+  estimatedCost: 'estimatedCost',
+  notes: 'notes',
+  treatmentPlanId: 'treatmentPlanId',
+  procedureId: 'procedureId',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+} as const
+
+export type TreatmentPlanItemScalarFieldEnum = (typeof TreatmentPlanItemScalarFieldEnum)[keyof typeof TreatmentPlanItemScalarFieldEnum]
+
+
+export const InvoiceScalarFieldEnum = {
+  id: 'id',
+  invoiceNumber: 'invoiceNumber',
   status: 'status',
   subtotal: 'subtotal',
-  tax: 'tax',
   discount: 'discount',
   total: 'total',
   notes: 'notes',
-  paymentMethod: 'paymentMethod',
-  paymentStatus: 'paymentStatus',
-  restaurantId: 'restaurantId',
+  patientId: 'patientId',
+  clinicId: 'clinicId',
   createdById: 'createdById',
   createdAt: 'createdAt',
   updatedAt: 'updatedAt'
 } as const
 
-export type OrderScalarFieldEnum = (typeof OrderScalarFieldEnum)[keyof typeof OrderScalarFieldEnum]
+export type InvoiceScalarFieldEnum = (typeof InvoiceScalarFieldEnum)[keyof typeof InvoiceScalarFieldEnum]
 
 
-export const OrderItemScalarFieldEnum = {
+export const InvoiceItemScalarFieldEnum = {
   id: 'id',
+  toothNumber: 'toothNumber',
   quantity: 'quantity',
   unitPrice: 'unitPrice',
   totalPrice: 'totalPrice',
   notes: 'notes',
-  orderId: 'orderId',
-  productId: 'productId',
+  invoiceId: 'invoiceId',
+  procedureId: 'procedureId',
   createdAt: 'createdAt',
   updatedAt: 'updatedAt'
 } as const
 
-export type OrderItemScalarFieldEnum = (typeof OrderItemScalarFieldEnum)[keyof typeof OrderItemScalarFieldEnum]
+export type InvoiceItemScalarFieldEnum = (typeof InvoiceItemScalarFieldEnum)[keyof typeof InvoiceItemScalarFieldEnum]
+
+
+export const PaymentScalarFieldEnum = {
+  id: 'id',
+  amount: 'amount',
+  method: 'method',
+  paidAt: 'paidAt',
+  notes: 'notes',
+  invoiceId: 'invoiceId',
+  createdAt: 'createdAt'
+} as const
+
+export type PaymentScalarFieldEnum = (typeof PaymentScalarFieldEnum)[keyof typeof PaymentScalarFieldEnum]
 
 
 export const SortOrder = {

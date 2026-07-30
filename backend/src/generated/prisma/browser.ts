@@ -18,32 +18,62 @@ export { Prisma }
 export * as $Enums from './enums.js'
 export * from './enums.js';
 /**
- * Model Restaurant
+ * Model Clinic
  * 
  */
-export type Restaurant = Prisma.RestaurantModel
+export type Clinic = Prisma.ClinicModel
 /**
  * Model User
  * 
  */
 export type User = Prisma.UserModel
 /**
- * Model Category
+ * Model Patient
  * 
  */
-export type Category = Prisma.CategoryModel
+export type Patient = Prisma.PatientModel
 /**
- * Model Product
+ * Model ProcedureCategory
  * 
  */
-export type Product = Prisma.ProductModel
+export type ProcedureCategory = Prisma.ProcedureCategoryModel
 /**
- * Model Order
+ * Model Procedure
  * 
  */
-export type Order = Prisma.OrderModel
+export type Procedure = Prisma.ProcedureModel
 /**
- * Model OrderItem
+ * Model Appointment
  * 
  */
-export type OrderItem = Prisma.OrderItemModel
+export type Appointment = Prisma.AppointmentModel
+/**
+ * Model ToothChartEntry
+ * 
+ */
+export type ToothChartEntry = Prisma.ToothChartEntryModel
+/**
+ * Model TreatmentPlan
+ * 
+ */
+export type TreatmentPlan = Prisma.TreatmentPlanModel
+/**
+ * Model TreatmentPlanItem
+ * 
+ */
+export type TreatmentPlanItem = Prisma.TreatmentPlanItemModel
+/**
+ * Model Invoice
+ * 
+ */
+export type Invoice = Prisma.InvoiceModel
+/**
+ * Model InvoiceItem
+ * 
+ */
+export type InvoiceItem = Prisma.InvoiceItemModel
+/**
+ * Model Payment
+ * 
+ */
+export type Payment = Prisma.PaymentModel
