@@ -18,9 +18,7 @@ router
 router.route("/logout").post((_req, res) => {
   res.send("Auth API");
 });
-router.route("/refresh").get((_req, res) => {
-  res.send("Auth API");
-});
+router.route("/refresh").get(authController.refresh);
 router.route("/me").get((_req, res) => {
   res.send("Auth API");
 });

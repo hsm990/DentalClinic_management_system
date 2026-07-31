@@ -3,6 +3,9 @@ import cors from "cors";
 import helmet from "helmet";
 import { asyncHandler } from "./common/asyncHandler";
 import prisma from "./config/prisma";
+import cookieParser from "cookie-parser";
+import errorMiddleware from "./middleware/error.middleware";
+
 import authRouter from "./routes/auth.routes";
 import clinicsRouter from "./routes/clinics.route";
 import usersRouter from "./routes/users.route";
@@ -12,12 +15,12 @@ import proceduresRouter from "./routes/procedures.route";
 import procedureCategoriesRouter from "./routes/procedure-categories.route";
 import treatmentPlansRouter from "./routes/treatment-plans.route";
 import invoicesRouter from "./routes/invoices.route";
-import errorMiddleware from "./middleware/error.middleware";
 
 const app = express();
 
 app.use(helmet());
-app.use(cors());
+app.use(cookieParser());
+
 app.use(express.json());
 app.use(
   cors({
