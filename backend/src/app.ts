@@ -12,6 +12,7 @@ import proceduresRouter from "./routes/procedures.route";
 import procedureCategoriesRouter from "./routes/procedure-categories.route";
 import treatmentPlansRouter from "./routes/treatment-plans.route";
 import invoicesRouter from "./routes/invoices.route";
+import errorMiddleware from "./middleware/error.middleware";
 
 const app = express();
 
@@ -42,4 +43,5 @@ app.use("/api/v1/procedure-categories", procedureCategoriesRouter);
 app.use("/api/v1/treatment-plans", treatmentPlansRouter);
 app.use("/api/v1/invoices", invoicesRouter);
 
+app.use(errorMiddleware);
 export default app;
