@@ -68,4 +68,21 @@ function refreshAccessToken(refreshToken: string) {
     );
   }
 }
-export default { logIn, refreshAccessToken };
+
+async function getCurrentUser(userId: string) {
+  const user = await prisma.user.findUnique({
+    where: { id: userId },
+    select: {
+      id: true,
+      email: true,
+      firstName: true,
+      lastName: true,
+      role: true,
+      clinicId: true,
+      isActive: true,
+    },
+  });
+  if (!user) throw new AppError("User not found", 404, httpsStatus.ERROR);
+  return user;
+}
+export default { logIn, refreshAccessToken, getCurrentUser };
