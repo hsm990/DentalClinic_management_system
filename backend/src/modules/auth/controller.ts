@@ -3,6 +3,7 @@ import { asyncHandler } from "../../common/asyncHandler";
 import authService from "./service";
 import AppError from "../../common/AppError";
 import * as httpStatus from "../../common/httpStatus";
+import prisma from "../../config/prisma";
 const REFRESH_COOKIE_OPTIONS = {
   httpOnly: true,
   secure: process.env.NODE_ENV === "production",
@@ -32,4 +33,15 @@ const refresh = asyncHandler(async (req: Request, res: Response) => {
   const accessToken = authService.refreshAccessToken(token);
   res.json({ accessToken });
 });
-export default { login, refresh };
+
+const me = asyncHandler(async (req: Request, res: Response) => {
+  const currentUser = await authService.getCurrentUser(req.user!.id);
+  res.json({ currentUser });
+});
+
+const logout = asyncHandler(async (_req: Request, res: Response) => {
+  res.clearCookie("refreshToken", REFRESH_COOKIE_OPTIONS);
+  res.json({ message: "Logged out successfully" });
+});
+
+export default { login, refresh, me, logout };
