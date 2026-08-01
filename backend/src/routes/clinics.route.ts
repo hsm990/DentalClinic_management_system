@@ -1,9 +1,30 @@
 import { Router } from "express";
-import prisma from "../config/prisma";
-
+import validate from "../middleware/validate.middleware";
+import requireRole from "../middleware/rbac.middleware";
+import {
+  onboardClinicSchema,
+  clinicIdParamSchema,
+} from "../modules/clinics/schema";
+import clinicController from "../modules/clinics/controller";
 const router = Router();
 
-router.route("/").get().post();
-router.route("/:id").get().post().delete().put();
+router
+  .route("/onboard")
+  .post(
+    requireRole("SUPER_ADMIN"),
+    validate(onboardClinicSchema),
+    clinicController.onboard,
+  );
+router.get("/me", clinicController.getMine);
+router
+  .route("/:id")
+  .get(
+    requireRole("SUPER_ADMIN"),
+    validate(clinicIdParamSchema, "params"),
+    clinicController.getById,
+  )
+  .post()
+  .delete()
+  .put();
 
 export default router;

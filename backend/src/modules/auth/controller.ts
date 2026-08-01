@@ -3,7 +3,6 @@ import { asyncHandler } from "../../common/asyncHandler";
 import authService from "./service";
 import AppError from "../../common/AppError";
 import * as httpStatus from "../../common/httpStatus";
-import prisma from "../../config/prisma";
 const REFRESH_COOKIE_OPTIONS = {
   httpOnly: true,
   secure: process.env.NODE_ENV === "production",

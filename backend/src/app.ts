@@ -15,6 +15,7 @@ import proceduresRouter from "./routes/procedures.route";
 import procedureCategoriesRouter from "./routes/procedure-categories.route";
 import treatmentPlansRouter from "./routes/treatment-plans.route";
 import invoicesRouter from "./routes/invoices.route";
+import authMiddleware from "./middleware/auth.middleware";
 
 const app = express();
 
@@ -37,8 +38,8 @@ app.get(
 );
 
 app.use("/api/v1/auth", authRouter);
-app.use("/api/v1/clinics", clinicsRouter);
-app.use("/api/v1/users", usersRouter);
+app.use("/api/v1/clinics", authMiddleware, clinicsRouter);
+app.use("/api/v1/users", authMiddleware, usersRouter);
 app.use("/api/v1/patients", patientsRouter);
 app.use("/api/v1/appointments", appointmentsRouter);
 app.use("/api/v1/procedures", proceduresRouter);
