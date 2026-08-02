@@ -40,7 +40,7 @@ app.get(
 app.use("/api/v1/auth", authRouter);
 app.use("/api/v1/clinics", authMiddleware, clinicsRouter);
 app.use("/api/v1/users", authMiddleware, usersRouter);
-app.use("/api/v1/patients", patientsRouter);
+app.use("/api/v1/patients", authMiddleware, patientsRouter);
 app.use("/api/v1/appointments", appointmentsRouter);
 app.use("/api/v1/procedures", proceduresRouter);
 app.use("/api/v1/procedure-categories", procedureCategoriesRouter);
