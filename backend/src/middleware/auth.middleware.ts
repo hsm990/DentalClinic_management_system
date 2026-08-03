@@ -10,7 +10,7 @@ interface AccessPayload {
 }
 function authMiddleware(req: Request, res: Response, next: NextFunction) {
   const header = req.headers.authorization;
-  if (!header || header.startsWith("Bearer ")) {
+  if (!header || !header.startsWith("Bearer ")) {
     return next(new AppError("Not authenticated", 401, httpsStatus.ERROR));
   }
   const token = header.split(" ")[1];
