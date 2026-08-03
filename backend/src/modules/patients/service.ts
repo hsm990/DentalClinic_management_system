@@ -1,7 +1,6 @@
 import repository from "./repository";
 import AppError from "../../common/AppError";
 import * as httpsStatus from "../../common/httpStatus";
-import da from "zod/v4/locales/da.js";
 
 interface RequestingUser {
   id: string;
