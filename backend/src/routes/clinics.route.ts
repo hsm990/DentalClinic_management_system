@@ -22,9 +22,6 @@ router
     requireRole("SUPER_ADMIN"),
     validate(clinicIdParamSchema, "params"),
     clinicController.getById,
-  )
-  .post()
-  .delete()
-  .put();
+  );
 
 export default router;

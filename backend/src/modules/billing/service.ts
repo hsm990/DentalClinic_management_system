@@ -2,6 +2,7 @@ import prisma from "../../config/prisma";
 import AppError from "../../common/AppError";
 import billingRepository from "./repository";
 import * as httpsStatus from "../../common/httpStatus";
+import emitters from "../../sockets/emitters";
 
 interface RequestingUser {
   id: string;
@@ -88,13 +89,15 @@ async function createInvoice(
     }
   }
 
-  return runInvoiceTransaction(
+  const invoice = await runInvoiceTransaction(
     clinicId,
     patientId,
     user.id,
     data,
     procedureMap,
   );
+  emitters.emitInvoiceCreated(clinicId, invoice);
+  return invoice;
 }
 
 async function runInvoiceTransaction(

@@ -7,12 +7,10 @@ const router = Router();
 
 router
   .route("/")
-  .get()
   .post(
     requireRole("ADMIN"),
     validate(createUserSchema),
     userController.create,
   );
-router.route("/:id").get().put().delete();
 
 export default router;

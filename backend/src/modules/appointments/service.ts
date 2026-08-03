@@ -3,6 +3,7 @@ import AppError from "../../common/AppError";
 import appointmentsRepository from "./repository";
 import { isValidTransition, AppointmentStatus } from "./stateMachine";
 import * as httpsStatus from "../../common/httpStatus";
+import emitters from "../../sockets/emitters";
 
 interface RequestingUser {
   id: string;
@@ -81,6 +82,10 @@ async function updateStatus(
   );
   if (!updated)
     throw new AppError("Appointment not found", 404, httpsStatus.ERROR);
+  emitters.emitAppointmentUpdated(clinicId, updated);
+  if (newStatus === "CHECKED_IN") {
+    emitters.emitAppointmentCheckedIn(clinicId, updated);
+  }
   return updated;
 }
 
