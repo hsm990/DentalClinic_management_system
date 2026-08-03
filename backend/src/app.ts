@@ -42,7 +42,7 @@ app.use("/api/v1/users", authMiddleware, usersRouter);
 app.use("/api/v1/patients", authMiddleware, patientsRouter);
 app.use("/api/v1/appointments", authMiddleware, appointmentsRouter);
 app.use("/api/v1/procedure-categories", authMiddleware, catalogRouter);
-app.use("/api/v1/treatment-plans", treatmentPlansRouter);
+app.use("/api/v1/", authMiddleware, treatmentPlansRouter);
 app.use("/api/v1/invoices", invoicesRouter);
 
 app.use(errorMiddleware);
