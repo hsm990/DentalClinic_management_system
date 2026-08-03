@@ -35,6 +35,5 @@ router
   );
 
 router.use(toothChartRouter);
-router.use("/:patientId/treatment-plans", treatmentPlansRouter);
 
 export default router;
