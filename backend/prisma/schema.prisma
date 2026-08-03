@@ -221,11 +221,11 @@ model TreatmentPlanItem {
 
   treatmentPlanId String
   procedureId     String
-  createdAt       DateTime @default(now())
-  updatedAt       DateTime @updatedAt
-
-  treatmentPlan TreatmentPlan @relation(fields: [treatmentPlanId], references: [id], onDelete: Cascade)
-  procedure     Procedure     @relation(fields: [procedureId], references: [id])
+  createdAt       DateTime      @default(now())
+  updatedAt       DateTime      @updatedAt
+  invoiceItem     InvoiceItem?
+  treatmentPlan   TreatmentPlan @relation(fields: [treatmentPlanId], references: [id], onDelete: Cascade)
+  procedure       Procedure     @relation(fields: [procedureId], references: [id])
 
   @@index([treatmentPlanId])
   @@index([procedureId])
@@ -270,8 +270,10 @@ model InvoiceItem {
   createdAt   DateTime @default(now())
   updatedAt   DateTime @updatedAt
 
-  invoice   Invoice   @relation(fields: [invoiceId], references: [id], onDelete: Cascade)
-  procedure Procedure @relation(fields: [procedureId], references: [id])
+  treatmentPlanItemId String?            @unique // new
+  treatmentPlanItem   TreatmentPlanItem? @relation(fields: [treatmentPlanItemId], references: [id]) // new
+  invoice             Invoice            @relation(fields: [invoiceId], references: [id], onDelete: Cascade)
+  procedure           Procedure          @relation(fields: [procedureId], references: [id])
 
   @@index([invoiceId])
   @@index([procedureId])
