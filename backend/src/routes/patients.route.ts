@@ -7,6 +7,8 @@ import {
   updatePatientSchema,
 } from "../modules/patients/schema";
 import patientsController from "../modules/patients/controller";
+import toothChartRouter from "./tooth-chart.route";
+import treatmentPlansRouter from "./treatment-plans.route";
 const router = Router();
 
 router
@@ -31,5 +33,8 @@ router
     validate(idParamSchema, "params"),
     patientsController.deletePatient,
   );
+
+router.use(toothChartRouter);
+router.use("/:patientId/treatment-plans", treatmentPlansRouter);
 
 export default router;
