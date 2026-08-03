@@ -1,4 +1,3 @@
-import { da } from "zod/locales";
 import AppError from "../../common/AppError";
 import * as httpsStatus from "../../common/httpStatus";
 import { procedureRepository, categoryRepository } from "./repository";
