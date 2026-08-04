@@ -17,10 +17,8 @@ const login = asyncHandler(async (req: Request, res: Response) => {
   );
   res.cookie("refreshToken", refreshToken, REFRESH_COOKIE_OPTIONS);
   res.json({
-    data: {
-      accessToken,
-      user,
-    },
+    accessToken,
+    user,
   });
 });
 

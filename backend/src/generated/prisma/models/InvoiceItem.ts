@@ -9,8 +9,8 @@
  * 🟢 You can import this file directly.
  */
 import type * as runtime from "@prisma/client/runtime/client"
-import type * as $Enums from "../enums.js"
-import type * as Prisma from "../internal/prismaNamespace.js"
+import type * as $Enums from "../enums.ts"
+import type * as Prisma from "../internal/prismaNamespace.ts"
 
 /**
  * Model InvoiceItem
@@ -51,6 +51,7 @@ export type InvoiceItemMinAggregateOutputType = {
   procedureId: string | null
   createdAt: Date | null
   updatedAt: Date | null
+  treatmentPlanItemId: string | null
 }
 
 export type InvoiceItemMaxAggregateOutputType = {
@@ -64,6 +65,7 @@ export type InvoiceItemMaxAggregateOutputType = {
   procedureId: string | null
   createdAt: Date | null
   updatedAt: Date | null
+  treatmentPlanItemId: string | null
 }
 
 export type InvoiceItemCountAggregateOutputType = {
@@ -77,6 +79,7 @@ export type InvoiceItemCountAggregateOutputType = {
   procedureId: number
   createdAt: number
   updatedAt: number
+  treatmentPlanItemId: number
   _all: number
 }
 
@@ -106,6 +109,7 @@ export type InvoiceItemMinAggregateInputType = {
   procedureId?: true
   createdAt?: true
   updatedAt?: true
+  treatmentPlanItemId?: true
 }
 
 export type InvoiceItemMaxAggregateInputType = {
@@ -119,6 +123,7 @@ export type InvoiceItemMaxAggregateInputType = {
   procedureId?: true
   createdAt?: true
   updatedAt?: true
+  treatmentPlanItemId?: true
 }
 
 export type InvoiceItemCountAggregateInputType = {
@@ -132,6 +137,7 @@ export type InvoiceItemCountAggregateInputType = {
   procedureId?: true
   createdAt?: true
   updatedAt?: true
+  treatmentPlanItemId?: true
   _all?: true
 }
 
@@ -232,6 +238,7 @@ export type InvoiceItemGroupByOutputType = {
   procedureId: string
   createdAt: Date
   updatedAt: Date
+  treatmentPlanItemId: string | null
   _count: InvoiceItemCountAggregateOutputType | null
   _avg: InvoiceItemAvgAggregateOutputType | null
   _sum: InvoiceItemSumAggregateOutputType | null
@@ -268,6 +275,8 @@ export type InvoiceItemWhereInput = {
   procedureId?: Prisma.StringFilter<"InvoiceItem"> | string
   createdAt?: Prisma.DateTimeFilter<"InvoiceItem"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"InvoiceItem"> | Date | string
+  treatmentPlanItemId?: Prisma.StringNullableFilter<"InvoiceItem"> | string | null
+  treatmentPlanItem?: Prisma.XOR<Prisma.TreatmentPlanItemNullableScalarRelationFilter, Prisma.TreatmentPlanItemWhereInput> | null
   invoice?: Prisma.XOR<Prisma.InvoiceScalarRelationFilter, Prisma.InvoiceWhereInput>
   procedure?: Prisma.XOR<Prisma.ProcedureScalarRelationFilter, Prisma.ProcedureWhereInput>
 }
@@ -283,12 +292,15 @@ export type InvoiceItemOrderByWithRelationInput = {
   procedureId?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
+  treatmentPlanItemId?: Prisma.SortOrderInput | Prisma.SortOrder
+  treatmentPlanItem?: Prisma.TreatmentPlanItemOrderByWithRelationInput
   invoice?: Prisma.InvoiceOrderByWithRelationInput
   procedure?: Prisma.ProcedureOrderByWithRelationInput
 }
 
 export type InvoiceItemWhereUniqueInput = Prisma.AtLeast<{
   id?: string
+  treatmentPlanItemId?: string
   AND?: Prisma.InvoiceItemWhereInput | Prisma.InvoiceItemWhereInput[]
   OR?: Prisma.InvoiceItemWhereInput[]
   NOT?: Prisma.InvoiceItemWhereInput | Prisma.InvoiceItemWhereInput[]
@@ -301,9 +313,10 @@ export type InvoiceItemWhereUniqueInput = Prisma.AtLeast<{
   procedureId?: Prisma.StringFilter<"InvoiceItem"> | string
   createdAt?: Prisma.DateTimeFilter<"InvoiceItem"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"InvoiceItem"> | Date | string
+  treatmentPlanItem?: Prisma.XOR<Prisma.TreatmentPlanItemNullableScalarRelationFilter, Prisma.TreatmentPlanItemWhereInput> | null
   invoice?: Prisma.XOR<Prisma.InvoiceScalarRelationFilter, Prisma.InvoiceWhereInput>
   procedure?: Prisma.XOR<Prisma.ProcedureScalarRelationFilter, Prisma.ProcedureWhereInput>
-}, "id">
+}, "id" | "treatmentPlanItemId">
 
 export type InvoiceItemOrderByWithAggregationInput = {
   id?: Prisma.SortOrder
@@ -316,6 +329,7 @@ export type InvoiceItemOrderByWithAggregationInput = {
   procedureId?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
+  treatmentPlanItemId?: Prisma.SortOrderInput | Prisma.SortOrder
   _count?: Prisma.InvoiceItemCountOrderByAggregateInput
   _avg?: Prisma.InvoiceItemAvgOrderByAggregateInput
   _max?: Prisma.InvoiceItemMaxOrderByAggregateInput
@@ -337,6 +351,7 @@ export type InvoiceItemScalarWhereWithAggregatesInput = {
   procedureId?: Prisma.StringWithAggregatesFilter<"InvoiceItem"> | string
   createdAt?: Prisma.DateTimeWithAggregatesFilter<"InvoiceItem"> | Date | string
   updatedAt?: Prisma.DateTimeWithAggregatesFilter<"InvoiceItem"> | Date | string
+  treatmentPlanItemId?: Prisma.StringNullableWithAggregatesFilter<"InvoiceItem"> | string | null
 }
 
 export type InvoiceItemCreateInput = {
@@ -348,6 +363,7 @@ export type InvoiceItemCreateInput = {
   notes?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
+  treatmentPlanItem?: Prisma.TreatmentPlanItemCreateNestedOneWithoutInvoiceItemInput
   invoice: Prisma.InvoiceCreateNestedOneWithoutItemsInput
   procedure: Prisma.ProcedureCreateNestedOneWithoutInvoiceItemsInput
 }
@@ -363,6 +379,7 @@ export type InvoiceItemUncheckedCreateInput = {
   procedureId: string
   createdAt?: Date | string
   updatedAt?: Date | string
+  treatmentPlanItemId?: string | null
 }
 
 export type InvoiceItemUpdateInput = {
@@ -374,6 +391,7 @@ export type InvoiceItemUpdateInput = {
   notes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  treatmentPlanItem?: Prisma.TreatmentPlanItemUpdateOneWithoutInvoiceItemNestedInput
   invoice?: Prisma.InvoiceUpdateOneRequiredWithoutItemsNestedInput
   procedure?: Prisma.ProcedureUpdateOneRequiredWithoutInvoiceItemsNestedInput
 }
@@ -389,6 +407,7 @@ export type InvoiceItemUncheckedUpdateInput = {
   procedureId?: Prisma.StringFieldUpdateOperationsInput | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  treatmentPlanItemId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
 }
 
 export type InvoiceItemCreateManyInput = {
@@ -402,6 +421,7 @@ export type InvoiceItemCreateManyInput = {
   procedureId: string
   createdAt?: Date | string
   updatedAt?: Date | string
+  treatmentPlanItemId?: string | null
 }
 
 export type InvoiceItemUpdateManyMutationInput = {
@@ -426,6 +446,7 @@ export type InvoiceItemUncheckedUpdateManyInput = {
   procedureId?: Prisma.StringFieldUpdateOperationsInput | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  treatmentPlanItemId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
 }
 
 export type InvoiceItemListRelationFilter = {
@@ -436,6 +457,11 @@ export type InvoiceItemListRelationFilter = {
 
 export type InvoiceItemOrderByRelationAggregateInput = {
   _count?: Prisma.SortOrder
+}
+
+export type InvoiceItemNullableScalarRelationFilter = {
+  is?: Prisma.InvoiceItemWhereInput | null
+  isNot?: Prisma.InvoiceItemWhereInput | null
 }
 
 export type InvoiceItemCountOrderByAggregateInput = {
@@ -449,6 +475,7 @@ export type InvoiceItemCountOrderByAggregateInput = {
   procedureId?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
+  treatmentPlanItemId?: Prisma.SortOrder
 }
 
 export type InvoiceItemAvgOrderByAggregateInput = {
@@ -469,6 +496,7 @@ export type InvoiceItemMaxOrderByAggregateInput = {
   procedureId?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
+  treatmentPlanItemId?: Prisma.SortOrder
 }
 
 export type InvoiceItemMinOrderByAggregateInput = {
@@ -482,6 +510,7 @@ export type InvoiceItemMinOrderByAggregateInput = {
   procedureId?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
+  treatmentPlanItemId?: Prisma.SortOrder
 }
 
 export type InvoiceItemSumOrderByAggregateInput = {
@@ -531,6 +560,38 @@ export type InvoiceItemUncheckedUpdateManyWithoutProcedureNestedInput = {
   update?: Prisma.InvoiceItemUpdateWithWhereUniqueWithoutProcedureInput | Prisma.InvoiceItemUpdateWithWhereUniqueWithoutProcedureInput[]
   updateMany?: Prisma.InvoiceItemUpdateManyWithWhereWithoutProcedureInput | Prisma.InvoiceItemUpdateManyWithWhereWithoutProcedureInput[]
   deleteMany?: Prisma.InvoiceItemScalarWhereInput | Prisma.InvoiceItemScalarWhereInput[]
+}
+
+export type InvoiceItemCreateNestedOneWithoutTreatmentPlanItemInput = {
+  create?: Prisma.XOR<Prisma.InvoiceItemCreateWithoutTreatmentPlanItemInput, Prisma.InvoiceItemUncheckedCreateWithoutTreatmentPlanItemInput>
+  connectOrCreate?: Prisma.InvoiceItemCreateOrConnectWithoutTreatmentPlanItemInput
+  connect?: Prisma.InvoiceItemWhereUniqueInput
+}
+
+export type InvoiceItemUncheckedCreateNestedOneWithoutTreatmentPlanItemInput = {
+  create?: Prisma.XOR<Prisma.InvoiceItemCreateWithoutTreatmentPlanItemInput, Prisma.InvoiceItemUncheckedCreateWithoutTreatmentPlanItemInput>
+  connectOrCreate?: Prisma.InvoiceItemCreateOrConnectWithoutTreatmentPlanItemInput
+  connect?: Prisma.InvoiceItemWhereUniqueInput
+}
+
+export type InvoiceItemUpdateOneWithoutTreatmentPlanItemNestedInput = {
+  create?: Prisma.XOR<Prisma.InvoiceItemCreateWithoutTreatmentPlanItemInput, Prisma.InvoiceItemUncheckedCreateWithoutTreatmentPlanItemInput>
+  connectOrCreate?: Prisma.InvoiceItemCreateOrConnectWithoutTreatmentPlanItemInput
+  upsert?: Prisma.InvoiceItemUpsertWithoutTreatmentPlanItemInput
+  disconnect?: Prisma.InvoiceItemWhereInput | boolean
+  delete?: Prisma.InvoiceItemWhereInput | boolean
+  connect?: Prisma.InvoiceItemWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.InvoiceItemUpdateToOneWithWhereWithoutTreatmentPlanItemInput, Prisma.InvoiceItemUpdateWithoutTreatmentPlanItemInput>, Prisma.InvoiceItemUncheckedUpdateWithoutTreatmentPlanItemInput>
+}
+
+export type InvoiceItemUncheckedUpdateOneWithoutTreatmentPlanItemNestedInput = {
+  create?: Prisma.XOR<Prisma.InvoiceItemCreateWithoutTreatmentPlanItemInput, Prisma.InvoiceItemUncheckedCreateWithoutTreatmentPlanItemInput>
+  connectOrCreate?: Prisma.InvoiceItemCreateOrConnectWithoutTreatmentPlanItemInput
+  upsert?: Prisma.InvoiceItemUpsertWithoutTreatmentPlanItemInput
+  disconnect?: Prisma.InvoiceItemWhereInput | boolean
+  delete?: Prisma.InvoiceItemWhereInput | boolean
+  connect?: Prisma.InvoiceItemWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.InvoiceItemUpdateToOneWithWhereWithoutTreatmentPlanItemInput, Prisma.InvoiceItemUpdateWithoutTreatmentPlanItemInput>, Prisma.InvoiceItemUncheckedUpdateWithoutTreatmentPlanItemInput>
 }
 
 export type InvoiceItemCreateNestedManyWithoutInvoiceInput = {
@@ -584,6 +645,7 @@ export type InvoiceItemCreateWithoutProcedureInput = {
   notes?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
+  treatmentPlanItem?: Prisma.TreatmentPlanItemCreateNestedOneWithoutInvoiceItemInput
   invoice: Prisma.InvoiceCreateNestedOneWithoutItemsInput
 }
 
@@ -597,6 +659,7 @@ export type InvoiceItemUncheckedCreateWithoutProcedureInput = {
   invoiceId: string
   createdAt?: Date | string
   updatedAt?: Date | string
+  treatmentPlanItemId?: string | null
 }
 
 export type InvoiceItemCreateOrConnectWithoutProcedureInput = {
@@ -639,6 +702,75 @@ export type InvoiceItemScalarWhereInput = {
   procedureId?: Prisma.StringFilter<"InvoiceItem"> | string
   createdAt?: Prisma.DateTimeFilter<"InvoiceItem"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"InvoiceItem"> | Date | string
+  treatmentPlanItemId?: Prisma.StringNullableFilter<"InvoiceItem"> | string | null
+}
+
+export type InvoiceItemCreateWithoutTreatmentPlanItemInput = {
+  id?: string
+  toothNumber?: number | null
+  quantity?: number
+  unitPrice: runtime.Decimal | runtime.DecimalJsLike | number | string
+  totalPrice: runtime.Decimal | runtime.DecimalJsLike | number | string
+  notes?: string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  invoice: Prisma.InvoiceCreateNestedOneWithoutItemsInput
+  procedure: Prisma.ProcedureCreateNestedOneWithoutInvoiceItemsInput
+}
+
+export type InvoiceItemUncheckedCreateWithoutTreatmentPlanItemInput = {
+  id?: string
+  toothNumber?: number | null
+  quantity?: number
+  unitPrice: runtime.Decimal | runtime.DecimalJsLike | number | string
+  totalPrice: runtime.Decimal | runtime.DecimalJsLike | number | string
+  notes?: string | null
+  invoiceId: string
+  procedureId: string
+  createdAt?: Date | string
+  updatedAt?: Date | string
+}
+
+export type InvoiceItemCreateOrConnectWithoutTreatmentPlanItemInput = {
+  where: Prisma.InvoiceItemWhereUniqueInput
+  create: Prisma.XOR<Prisma.InvoiceItemCreateWithoutTreatmentPlanItemInput, Prisma.InvoiceItemUncheckedCreateWithoutTreatmentPlanItemInput>
+}
+
+export type InvoiceItemUpsertWithoutTreatmentPlanItemInput = {
+  update: Prisma.XOR<Prisma.InvoiceItemUpdateWithoutTreatmentPlanItemInput, Prisma.InvoiceItemUncheckedUpdateWithoutTreatmentPlanItemInput>
+  create: Prisma.XOR<Prisma.InvoiceItemCreateWithoutTreatmentPlanItemInput, Prisma.InvoiceItemUncheckedCreateWithoutTreatmentPlanItemInput>
+  where?: Prisma.InvoiceItemWhereInput
+}
+
+export type InvoiceItemUpdateToOneWithWhereWithoutTreatmentPlanItemInput = {
+  where?: Prisma.InvoiceItemWhereInput
+  data: Prisma.XOR<Prisma.InvoiceItemUpdateWithoutTreatmentPlanItemInput, Prisma.InvoiceItemUncheckedUpdateWithoutTreatmentPlanItemInput>
+}
+
+export type InvoiceItemUpdateWithoutTreatmentPlanItemInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  toothNumber?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  quantity?: Prisma.IntFieldUpdateOperationsInput | number
+  unitPrice?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
+  totalPrice?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
+  notes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  invoice?: Prisma.InvoiceUpdateOneRequiredWithoutItemsNestedInput
+  procedure?: Prisma.ProcedureUpdateOneRequiredWithoutInvoiceItemsNestedInput
+}
+
+export type InvoiceItemUncheckedUpdateWithoutTreatmentPlanItemInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  toothNumber?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  quantity?: Prisma.IntFieldUpdateOperationsInput | number
+  unitPrice?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
+  totalPrice?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
+  notes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  invoiceId?: Prisma.StringFieldUpdateOperationsInput | string
+  procedureId?: Prisma.StringFieldUpdateOperationsInput | string
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
 
 export type InvoiceItemCreateWithoutInvoiceInput = {
@@ -650,6 +782,7 @@ export type InvoiceItemCreateWithoutInvoiceInput = {
   notes?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
+  treatmentPlanItem?: Prisma.TreatmentPlanItemCreateNestedOneWithoutInvoiceItemInput
   procedure: Prisma.ProcedureCreateNestedOneWithoutInvoiceItemsInput
 }
 
@@ -663,6 +796,7 @@ export type InvoiceItemUncheckedCreateWithoutInvoiceInput = {
   procedureId: string
   createdAt?: Date | string
   updatedAt?: Date | string
+  treatmentPlanItemId?: string | null
 }
 
 export type InvoiceItemCreateOrConnectWithoutInvoiceInput = {
@@ -701,6 +835,7 @@ export type InvoiceItemCreateManyProcedureInput = {
   invoiceId: string
   createdAt?: Date | string
   updatedAt?: Date | string
+  treatmentPlanItemId?: string | null
 }
 
 export type InvoiceItemUpdateWithoutProcedureInput = {
@@ -712,6 +847,7 @@ export type InvoiceItemUpdateWithoutProcedureInput = {
   notes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  treatmentPlanItem?: Prisma.TreatmentPlanItemUpdateOneWithoutInvoiceItemNestedInput
   invoice?: Prisma.InvoiceUpdateOneRequiredWithoutItemsNestedInput
 }
 
@@ -725,6 +861,7 @@ export type InvoiceItemUncheckedUpdateWithoutProcedureInput = {
   invoiceId?: Prisma.StringFieldUpdateOperationsInput | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  treatmentPlanItemId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
 }
 
 export type InvoiceItemUncheckedUpdateManyWithoutProcedureInput = {
@@ -737,6 +874,7 @@ export type InvoiceItemUncheckedUpdateManyWithoutProcedureInput = {
   invoiceId?: Prisma.StringFieldUpdateOperationsInput | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  treatmentPlanItemId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
 }
 
 export type InvoiceItemCreateManyInvoiceInput = {
@@ -749,6 +887,7 @@ export type InvoiceItemCreateManyInvoiceInput = {
   procedureId: string
   createdAt?: Date | string
   updatedAt?: Date | string
+  treatmentPlanItemId?: string | null
 }
 
 export type InvoiceItemUpdateWithoutInvoiceInput = {
@@ -760,6 +899,7 @@ export type InvoiceItemUpdateWithoutInvoiceInput = {
   notes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  treatmentPlanItem?: Prisma.TreatmentPlanItemUpdateOneWithoutInvoiceItemNestedInput
   procedure?: Prisma.ProcedureUpdateOneRequiredWithoutInvoiceItemsNestedInput
 }
 
@@ -773,6 +913,7 @@ export type InvoiceItemUncheckedUpdateWithoutInvoiceInput = {
   procedureId?: Prisma.StringFieldUpdateOperationsInput | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  treatmentPlanItemId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
 }
 
 export type InvoiceItemUncheckedUpdateManyWithoutInvoiceInput = {
@@ -785,6 +926,7 @@ export type InvoiceItemUncheckedUpdateManyWithoutInvoiceInput = {
   procedureId?: Prisma.StringFieldUpdateOperationsInput | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  treatmentPlanItemId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
 }
 
 
@@ -800,6 +942,8 @@ export type InvoiceItemSelect<ExtArgs extends runtime.Types.Extensions.InternalA
   procedureId?: boolean
   createdAt?: boolean
   updatedAt?: boolean
+  treatmentPlanItemId?: boolean
+  treatmentPlanItem?: boolean | Prisma.InvoiceItem$treatmentPlanItemArgs<ExtArgs>
   invoice?: boolean | Prisma.InvoiceDefaultArgs<ExtArgs>
   procedure?: boolean | Prisma.ProcedureDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["invoiceItem"]>
@@ -815,6 +959,8 @@ export type InvoiceItemSelectCreateManyAndReturn<ExtArgs extends runtime.Types.E
   procedureId?: boolean
   createdAt?: boolean
   updatedAt?: boolean
+  treatmentPlanItemId?: boolean
+  treatmentPlanItem?: boolean | Prisma.InvoiceItem$treatmentPlanItemArgs<ExtArgs>
   invoice?: boolean | Prisma.InvoiceDefaultArgs<ExtArgs>
   procedure?: boolean | Prisma.ProcedureDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["invoiceItem"]>
@@ -830,6 +976,8 @@ export type InvoiceItemSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.E
   procedureId?: boolean
   createdAt?: boolean
   updatedAt?: boolean
+  treatmentPlanItemId?: boolean
+  treatmentPlanItem?: boolean | Prisma.InvoiceItem$treatmentPlanItemArgs<ExtArgs>
   invoice?: boolean | Prisma.InvoiceDefaultArgs<ExtArgs>
   procedure?: boolean | Prisma.ProcedureDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["invoiceItem"]>
@@ -845,18 +993,22 @@ export type InvoiceItemSelectScalar = {
   procedureId?: boolean
   createdAt?: boolean
   updatedAt?: boolean
+  treatmentPlanItemId?: boolean
 }
 
-export type InvoiceItemOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "toothNumber" | "quantity" | "unitPrice" | "totalPrice" | "notes" | "invoiceId" | "procedureId" | "createdAt" | "updatedAt", ExtArgs["result"]["invoiceItem"]>
+export type InvoiceItemOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "toothNumber" | "quantity" | "unitPrice" | "totalPrice" | "notes" | "invoiceId" | "procedureId" | "createdAt" | "updatedAt" | "treatmentPlanItemId", ExtArgs["result"]["invoiceItem"]>
 export type InvoiceItemInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  treatmentPlanItem?: boolean | Prisma.InvoiceItem$treatmentPlanItemArgs<ExtArgs>
   invoice?: boolean | Prisma.InvoiceDefaultArgs<ExtArgs>
   procedure?: boolean | Prisma.ProcedureDefaultArgs<ExtArgs>
 }
 export type InvoiceItemIncludeCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  treatmentPlanItem?: boolean | Prisma.InvoiceItem$treatmentPlanItemArgs<ExtArgs>
   invoice?: boolean | Prisma.InvoiceDefaultArgs<ExtArgs>
   procedure?: boolean | Prisma.ProcedureDefaultArgs<ExtArgs>
 }
 export type InvoiceItemIncludeUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  treatmentPlanItem?: boolean | Prisma.InvoiceItem$treatmentPlanItemArgs<ExtArgs>
   invoice?: boolean | Prisma.InvoiceDefaultArgs<ExtArgs>
   procedure?: boolean | Prisma.ProcedureDefaultArgs<ExtArgs>
 }
@@ -864,6 +1016,7 @@ export type InvoiceItemIncludeUpdateManyAndReturn<ExtArgs extends runtime.Types.
 export type $InvoiceItemPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   name: "InvoiceItem"
   objects: {
+    treatmentPlanItem: Prisma.$TreatmentPlanItemPayload<ExtArgs> | null
     invoice: Prisma.$InvoicePayload<ExtArgs>
     procedure: Prisma.$ProcedurePayload<ExtArgs>
   }
@@ -878,6 +1031,7 @@ export type $InvoiceItemPayload<ExtArgs extends runtime.Types.Extensions.Interna
     procedureId: string
     createdAt: Date
     updatedAt: Date
+    treatmentPlanItemId: string | null
   }, ExtArgs["result"]["invoiceItem"]>
   composites: {}
 }
@@ -1272,6 +1426,7 @@ readonly fields: InvoiceItemFieldRefs;
  */
 export interface Prisma__InvoiceItemClient<T, Null = never, ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
   readonly [Symbol.toStringTag]: "PrismaPromise"
+  treatmentPlanItem<T extends Prisma.InvoiceItem$treatmentPlanItemArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.InvoiceItem$treatmentPlanItemArgs<ExtArgs>>): Prisma.Prisma__TreatmentPlanItemClient<runtime.Types.Result.GetResult<Prisma.$TreatmentPlanItemPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
   invoice<T extends Prisma.InvoiceDefaultArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.InvoiceDefaultArgs<ExtArgs>>): Prisma.Prisma__InvoiceClient<runtime.Types.Result.GetResult<Prisma.$InvoicePayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
   procedure<T extends Prisma.ProcedureDefaultArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.ProcedureDefaultArgs<ExtArgs>>): Prisma.Prisma__ProcedureClient<runtime.Types.Result.GetResult<Prisma.$ProcedurePayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
   /**
@@ -1313,6 +1468,7 @@ export interface InvoiceItemFieldRefs {
   readonly procedureId: Prisma.FieldRef<"InvoiceItem", 'String'>
   readonly createdAt: Prisma.FieldRef<"InvoiceItem", 'DateTime'>
   readonly updatedAt: Prisma.FieldRef<"InvoiceItem", 'DateTime'>
+  readonly treatmentPlanItemId: Prisma.FieldRef<"InvoiceItem", 'String'>
 }
     
 
@@ -1711,6 +1867,25 @@ export type InvoiceItemDeleteManyArgs<ExtArgs extends runtime.Types.Extensions.I
    * Limit how many InvoiceItems to delete.
    */
   limit?: number
+}
+
+/**
+ * InvoiceItem.treatmentPlanItem
+ */
+export type InvoiceItem$treatmentPlanItemArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the TreatmentPlanItem
+   */
+  select?: Prisma.TreatmentPlanItemSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the TreatmentPlanItem
+   */
+  omit?: Prisma.TreatmentPlanItemOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.TreatmentPlanItemInclude<ExtArgs> | null
+  where?: Prisma.TreatmentPlanItemWhereInput
 }
 
 /**
