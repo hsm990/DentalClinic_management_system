@@ -16,10 +16,10 @@
  */
 
 import * as runtime from "@prisma/client/runtime/client"
-import type * as Prisma from "../models.js"
-import { type PrismaClient } from "./class.js"
+import type * as Prisma from "../models.ts"
+import { type PrismaClient } from "./class.ts"
 
-export type * from '../models.js'
+export type * from '../models.ts'
 
 export type DMMF = typeof runtime.DMMF
 
@@ -80,11 +80,11 @@ export type PrismaVersion = {
 }
 
 /**
- * Prisma Client JS version: 7.9.0
+ * Prisma Client JS version: 7.9.1
  * Query Engine version: e922089b7d7502aff4249d5da3420f6fa55fc6ad
  */
 export const prismaVersion: PrismaVersion = {
-  client: "7.9.0",
+  client: "7.9.1",
   engine: "e922089b7d7502aff4249d5da3420f6fa55fc6ad"
 }
 
@@ -1516,7 +1516,8 @@ export const InvoiceItemScalarFieldEnum = {
   invoiceId: 'invoiceId',
   procedureId: 'procedureId',
   createdAt: 'createdAt',
-  updatedAt: 'updatedAt'
+  updatedAt: 'updatedAt',
+  treatmentPlanItemId: 'treatmentPlanItemId'
 } as const
 
 export type InvoiceItemScalarFieldEnum = (typeof InvoiceItemScalarFieldEnum)[keyof typeof InvoiceItemScalarFieldEnum]

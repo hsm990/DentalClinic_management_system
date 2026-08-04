@@ -9,8 +9,8 @@
  * 🟢 You can import this file directly.
  */
 import type * as runtime from "@prisma/client/runtime/client"
-import type * as $Enums from "../enums.js"
-import type * as Prisma from "../internal/prismaNamespace.js"
+import type * as $Enums from "../enums.ts"
+import type * as Prisma from "../internal/prismaNamespace.ts"
 
 /**
  * Model TreatmentPlanItem
@@ -252,6 +252,7 @@ export type TreatmentPlanItemWhereInput = {
   procedureId?: Prisma.StringFilter<"TreatmentPlanItem"> | string
   createdAt?: Prisma.DateTimeFilter<"TreatmentPlanItem"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"TreatmentPlanItem"> | Date | string
+  invoiceItem?: Prisma.XOR<Prisma.InvoiceItemNullableScalarRelationFilter, Prisma.InvoiceItemWhereInput> | null
   treatmentPlan?: Prisma.XOR<Prisma.TreatmentPlanScalarRelationFilter, Prisma.TreatmentPlanWhereInput>
   procedure?: Prisma.XOR<Prisma.ProcedureScalarRelationFilter, Prisma.ProcedureWhereInput>
 }
@@ -266,6 +267,7 @@ export type TreatmentPlanItemOrderByWithRelationInput = {
   procedureId?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
+  invoiceItem?: Prisma.InvoiceItemOrderByWithRelationInput
   treatmentPlan?: Prisma.TreatmentPlanOrderByWithRelationInput
   procedure?: Prisma.ProcedureOrderByWithRelationInput
 }
@@ -283,6 +285,7 @@ export type TreatmentPlanItemWhereUniqueInput = Prisma.AtLeast<{
   procedureId?: Prisma.StringFilter<"TreatmentPlanItem"> | string
   createdAt?: Prisma.DateTimeFilter<"TreatmentPlanItem"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"TreatmentPlanItem"> | Date | string
+  invoiceItem?: Prisma.XOR<Prisma.InvoiceItemNullableScalarRelationFilter, Prisma.InvoiceItemWhereInput> | null
   treatmentPlan?: Prisma.XOR<Prisma.TreatmentPlanScalarRelationFilter, Prisma.TreatmentPlanWhereInput>
   procedure?: Prisma.XOR<Prisma.ProcedureScalarRelationFilter, Prisma.ProcedureWhereInput>
 }, "id">
@@ -327,6 +330,7 @@ export type TreatmentPlanItemCreateInput = {
   notes?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
+  invoiceItem?: Prisma.InvoiceItemCreateNestedOneWithoutTreatmentPlanItemInput
   treatmentPlan: Prisma.TreatmentPlanCreateNestedOneWithoutItemsInput
   procedure: Prisma.ProcedureCreateNestedOneWithoutTreatmentPlanItemsInput
 }
@@ -341,6 +345,7 @@ export type TreatmentPlanItemUncheckedCreateInput = {
   procedureId: string
   createdAt?: Date | string
   updatedAt?: Date | string
+  invoiceItem?: Prisma.InvoiceItemUncheckedCreateNestedOneWithoutTreatmentPlanItemInput
 }
 
 export type TreatmentPlanItemUpdateInput = {
@@ -351,6 +356,7 @@ export type TreatmentPlanItemUpdateInput = {
   notes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  invoiceItem?: Prisma.InvoiceItemUpdateOneWithoutTreatmentPlanItemNestedInput
   treatmentPlan?: Prisma.TreatmentPlanUpdateOneRequiredWithoutItemsNestedInput
   procedure?: Prisma.ProcedureUpdateOneRequiredWithoutTreatmentPlanItemsNestedInput
 }
@@ -365,6 +371,7 @@ export type TreatmentPlanItemUncheckedUpdateInput = {
   procedureId?: Prisma.StringFieldUpdateOperationsInput | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  invoiceItem?: Prisma.InvoiceItemUncheckedUpdateOneWithoutTreatmentPlanItemNestedInput
 }
 
 export type TreatmentPlanItemCreateManyInput = {
@@ -455,6 +462,11 @@ export type TreatmentPlanItemMinOrderByAggregateInput = {
 export type TreatmentPlanItemSumOrderByAggregateInput = {
   toothNumber?: Prisma.SortOrder
   estimatedCost?: Prisma.SortOrder
+}
+
+export type TreatmentPlanItemNullableScalarRelationFilter = {
+  is?: Prisma.TreatmentPlanItemWhereInput | null
+  isNot?: Prisma.TreatmentPlanItemWhereInput | null
 }
 
 export type TreatmentPlanItemCreateNestedManyWithoutProcedureInput = {
@@ -553,6 +565,22 @@ export type EnumTreatmentPlanItemStatusFieldUpdateOperationsInput = {
   set?: $Enums.TreatmentPlanItemStatus
 }
 
+export type TreatmentPlanItemCreateNestedOneWithoutInvoiceItemInput = {
+  create?: Prisma.XOR<Prisma.TreatmentPlanItemCreateWithoutInvoiceItemInput, Prisma.TreatmentPlanItemUncheckedCreateWithoutInvoiceItemInput>
+  connectOrCreate?: Prisma.TreatmentPlanItemCreateOrConnectWithoutInvoiceItemInput
+  connect?: Prisma.TreatmentPlanItemWhereUniqueInput
+}
+
+export type TreatmentPlanItemUpdateOneWithoutInvoiceItemNestedInput = {
+  create?: Prisma.XOR<Prisma.TreatmentPlanItemCreateWithoutInvoiceItemInput, Prisma.TreatmentPlanItemUncheckedCreateWithoutInvoiceItemInput>
+  connectOrCreate?: Prisma.TreatmentPlanItemCreateOrConnectWithoutInvoiceItemInput
+  upsert?: Prisma.TreatmentPlanItemUpsertWithoutInvoiceItemInput
+  disconnect?: Prisma.TreatmentPlanItemWhereInput | boolean
+  delete?: Prisma.TreatmentPlanItemWhereInput | boolean
+  connect?: Prisma.TreatmentPlanItemWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.TreatmentPlanItemUpdateToOneWithWhereWithoutInvoiceItemInput, Prisma.TreatmentPlanItemUpdateWithoutInvoiceItemInput>, Prisma.TreatmentPlanItemUncheckedUpdateWithoutInvoiceItemInput>
+}
+
 export type TreatmentPlanItemCreateWithoutProcedureInput = {
   id?: string
   toothNumber?: number | null
@@ -561,6 +589,7 @@ export type TreatmentPlanItemCreateWithoutProcedureInput = {
   notes?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
+  invoiceItem?: Prisma.InvoiceItemCreateNestedOneWithoutTreatmentPlanItemInput
   treatmentPlan: Prisma.TreatmentPlanCreateNestedOneWithoutItemsInput
 }
 
@@ -573,6 +602,7 @@ export type TreatmentPlanItemUncheckedCreateWithoutProcedureInput = {
   treatmentPlanId: string
   createdAt?: Date | string
   updatedAt?: Date | string
+  invoiceItem?: Prisma.InvoiceItemUncheckedCreateNestedOneWithoutTreatmentPlanItemInput
 }
 
 export type TreatmentPlanItemCreateOrConnectWithoutProcedureInput = {
@@ -624,6 +654,7 @@ export type TreatmentPlanItemCreateWithoutTreatmentPlanInput = {
   notes?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
+  invoiceItem?: Prisma.InvoiceItemCreateNestedOneWithoutTreatmentPlanItemInput
   procedure: Prisma.ProcedureCreateNestedOneWithoutTreatmentPlanItemsInput
 }
 
@@ -636,6 +667,7 @@ export type TreatmentPlanItemUncheckedCreateWithoutTreatmentPlanInput = {
   procedureId: string
   createdAt?: Date | string
   updatedAt?: Date | string
+  invoiceItem?: Prisma.InvoiceItemUncheckedCreateNestedOneWithoutTreatmentPlanItemInput
 }
 
 export type TreatmentPlanItemCreateOrConnectWithoutTreatmentPlanInput = {
@@ -664,6 +696,70 @@ export type TreatmentPlanItemUpdateManyWithWhereWithoutTreatmentPlanInput = {
   data: Prisma.XOR<Prisma.TreatmentPlanItemUpdateManyMutationInput, Prisma.TreatmentPlanItemUncheckedUpdateManyWithoutTreatmentPlanInput>
 }
 
+export type TreatmentPlanItemCreateWithoutInvoiceItemInput = {
+  id?: string
+  toothNumber?: number | null
+  status?: $Enums.TreatmentPlanItemStatus
+  estimatedCost: runtime.Decimal | runtime.DecimalJsLike | number | string
+  notes?: string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  treatmentPlan: Prisma.TreatmentPlanCreateNestedOneWithoutItemsInput
+  procedure: Prisma.ProcedureCreateNestedOneWithoutTreatmentPlanItemsInput
+}
+
+export type TreatmentPlanItemUncheckedCreateWithoutInvoiceItemInput = {
+  id?: string
+  toothNumber?: number | null
+  status?: $Enums.TreatmentPlanItemStatus
+  estimatedCost: runtime.Decimal | runtime.DecimalJsLike | number | string
+  notes?: string | null
+  treatmentPlanId: string
+  procedureId: string
+  createdAt?: Date | string
+  updatedAt?: Date | string
+}
+
+export type TreatmentPlanItemCreateOrConnectWithoutInvoiceItemInput = {
+  where: Prisma.TreatmentPlanItemWhereUniqueInput
+  create: Prisma.XOR<Prisma.TreatmentPlanItemCreateWithoutInvoiceItemInput, Prisma.TreatmentPlanItemUncheckedCreateWithoutInvoiceItemInput>
+}
+
+export type TreatmentPlanItemUpsertWithoutInvoiceItemInput = {
+  update: Prisma.XOR<Prisma.TreatmentPlanItemUpdateWithoutInvoiceItemInput, Prisma.TreatmentPlanItemUncheckedUpdateWithoutInvoiceItemInput>
+  create: Prisma.XOR<Prisma.TreatmentPlanItemCreateWithoutInvoiceItemInput, Prisma.TreatmentPlanItemUncheckedCreateWithoutInvoiceItemInput>
+  where?: Prisma.TreatmentPlanItemWhereInput
+}
+
+export type TreatmentPlanItemUpdateToOneWithWhereWithoutInvoiceItemInput = {
+  where?: Prisma.TreatmentPlanItemWhereInput
+  data: Prisma.XOR<Prisma.TreatmentPlanItemUpdateWithoutInvoiceItemInput, Prisma.TreatmentPlanItemUncheckedUpdateWithoutInvoiceItemInput>
+}
+
+export type TreatmentPlanItemUpdateWithoutInvoiceItemInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  toothNumber?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  status?: Prisma.EnumTreatmentPlanItemStatusFieldUpdateOperationsInput | $Enums.TreatmentPlanItemStatus
+  estimatedCost?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
+  notes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  treatmentPlan?: Prisma.TreatmentPlanUpdateOneRequiredWithoutItemsNestedInput
+  procedure?: Prisma.ProcedureUpdateOneRequiredWithoutTreatmentPlanItemsNestedInput
+}
+
+export type TreatmentPlanItemUncheckedUpdateWithoutInvoiceItemInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  toothNumber?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  status?: Prisma.EnumTreatmentPlanItemStatusFieldUpdateOperationsInput | $Enums.TreatmentPlanItemStatus
+  estimatedCost?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
+  notes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  treatmentPlanId?: Prisma.StringFieldUpdateOperationsInput | string
+  procedureId?: Prisma.StringFieldUpdateOperationsInput | string
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+}
+
 export type TreatmentPlanItemCreateManyProcedureInput = {
   id?: string
   toothNumber?: number | null
@@ -683,6 +779,7 @@ export type TreatmentPlanItemUpdateWithoutProcedureInput = {
   notes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  invoiceItem?: Prisma.InvoiceItemUpdateOneWithoutTreatmentPlanItemNestedInput
   treatmentPlan?: Prisma.TreatmentPlanUpdateOneRequiredWithoutItemsNestedInput
 }
 
@@ -695,6 +792,7 @@ export type TreatmentPlanItemUncheckedUpdateWithoutProcedureInput = {
   treatmentPlanId?: Prisma.StringFieldUpdateOperationsInput | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  invoiceItem?: Prisma.InvoiceItemUncheckedUpdateOneWithoutTreatmentPlanItemNestedInput
 }
 
 export type TreatmentPlanItemUncheckedUpdateManyWithoutProcedureInput = {
@@ -727,6 +825,7 @@ export type TreatmentPlanItemUpdateWithoutTreatmentPlanInput = {
   notes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  invoiceItem?: Prisma.InvoiceItemUpdateOneWithoutTreatmentPlanItemNestedInput
   procedure?: Prisma.ProcedureUpdateOneRequiredWithoutTreatmentPlanItemsNestedInput
 }
 
@@ -739,6 +838,7 @@ export type TreatmentPlanItemUncheckedUpdateWithoutTreatmentPlanInput = {
   procedureId?: Prisma.StringFieldUpdateOperationsInput | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  invoiceItem?: Prisma.InvoiceItemUncheckedUpdateOneWithoutTreatmentPlanItemNestedInput
 }
 
 export type TreatmentPlanItemUncheckedUpdateManyWithoutTreatmentPlanInput = {
@@ -764,6 +864,7 @@ export type TreatmentPlanItemSelect<ExtArgs extends runtime.Types.Extensions.Int
   procedureId?: boolean
   createdAt?: boolean
   updatedAt?: boolean
+  invoiceItem?: boolean | Prisma.TreatmentPlanItem$invoiceItemArgs<ExtArgs>
   treatmentPlan?: boolean | Prisma.TreatmentPlanDefaultArgs<ExtArgs>
   procedure?: boolean | Prisma.ProcedureDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["treatmentPlanItem"]>
@@ -810,6 +911,7 @@ export type TreatmentPlanItemSelectScalar = {
 
 export type TreatmentPlanItemOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "toothNumber" | "status" | "estimatedCost" | "notes" | "treatmentPlanId" | "procedureId" | "createdAt" | "updatedAt", ExtArgs["result"]["treatmentPlanItem"]>
 export type TreatmentPlanItemInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  invoiceItem?: boolean | Prisma.TreatmentPlanItem$invoiceItemArgs<ExtArgs>
   treatmentPlan?: boolean | Prisma.TreatmentPlanDefaultArgs<ExtArgs>
   procedure?: boolean | Prisma.ProcedureDefaultArgs<ExtArgs>
 }
@@ -825,6 +927,7 @@ export type TreatmentPlanItemIncludeUpdateManyAndReturn<ExtArgs extends runtime.
 export type $TreatmentPlanItemPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   name: "TreatmentPlanItem"
   objects: {
+    invoiceItem: Prisma.$InvoiceItemPayload<ExtArgs> | null
     treatmentPlan: Prisma.$TreatmentPlanPayload<ExtArgs>
     procedure: Prisma.$ProcedurePayload<ExtArgs>
   }
@@ -1232,6 +1335,7 @@ readonly fields: TreatmentPlanItemFieldRefs;
  */
 export interface Prisma__TreatmentPlanItemClient<T, Null = never, ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
   readonly [Symbol.toStringTag]: "PrismaPromise"
+  invoiceItem<T extends Prisma.TreatmentPlanItem$invoiceItemArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.TreatmentPlanItem$invoiceItemArgs<ExtArgs>>): Prisma.Prisma__InvoiceItemClient<runtime.Types.Result.GetResult<Prisma.$InvoiceItemPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
   treatmentPlan<T extends Prisma.TreatmentPlanDefaultArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.TreatmentPlanDefaultArgs<ExtArgs>>): Prisma.Prisma__TreatmentPlanClient<runtime.Types.Result.GetResult<Prisma.$TreatmentPlanPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
   procedure<T extends Prisma.ProcedureDefaultArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.ProcedureDefaultArgs<ExtArgs>>): Prisma.Prisma__ProcedureClient<runtime.Types.Result.GetResult<Prisma.$ProcedurePayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
   /**
@@ -1670,6 +1774,25 @@ export type TreatmentPlanItemDeleteManyArgs<ExtArgs extends runtime.Types.Extens
    * Limit how many TreatmentPlanItems to delete.
    */
   limit?: number
+}
+
+/**
+ * TreatmentPlanItem.invoiceItem
+ */
+export type TreatmentPlanItem$invoiceItemArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the InvoiceItem
+   */
+  select?: Prisma.InvoiceItemSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the InvoiceItem
+   */
+  omit?: Prisma.InvoiceItemOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.InvoiceItemInclude<ExtArgs> | null
+  where?: Prisma.InvoiceItemWhereInput
 }
 
 /**

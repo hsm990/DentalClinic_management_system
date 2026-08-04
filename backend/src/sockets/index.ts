@@ -56,9 +56,8 @@ function initSocket(httpServer: HTTPServer) {
   return io;
 }
 
-function getIO(): SocketIOServer {
-  if (!io) throw new Error("Socket.io not initialized — call initSocket first");
-  return io;
+function getIO(): SocketIOServer | null {
+  return io ?? null;
 }
 
 export default { initSocket, getIO };
