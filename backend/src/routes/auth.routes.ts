@@ -17,7 +17,7 @@ router
     authController.login,
   );
 router.route("/logout").post(authMiddleware, authController.logout);
-router.route("/refresh").get(authController.refresh);
+router.route("/refresh").post(authController.refresh);
 router.route("/me").get(authMiddleware, authController.me);
 
 export default router;
