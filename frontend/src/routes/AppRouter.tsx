@@ -3,7 +3,7 @@ import { ProtectedRoute } from "../features/auth/ProtectedRoute";
 import { AppShell } from "../components/layouts/AppShell";
 import { LoginPage } from "@/pages/LoginPage";
 import { DashboardPage } from "@/pages/DashboardPage";
-
+import { PatientsPage } from "@/pages/PatientsPage";
 const router = createBrowserRouter([
   { path: "/login", element: <LoginPage /> },
   {
@@ -13,7 +13,7 @@ const router = createBrowserRouter([
         element: <AppShell />,
         children: [
           { path: "/", element: <DashboardPage /> },
-          // /patients gets added here in Step 4
+          { path: "/patients", element: <PatientsPage /> },
         ],
       },
     ],

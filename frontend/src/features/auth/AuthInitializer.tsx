@@ -14,6 +14,12 @@ export function AuthInitializer({ children }: { children: React.ReactNode }) {
     async function bootstrap() {
       try {
         const refreshResult = await refresh().unwrap();
+        dispatch(
+          credentialsSet({
+            accessToken: refreshResult.accessToken,
+            user: null as any,
+          }),
+        );
         const meResult = await getMe().unwrap();
         dispatch(
           credentialsSet({

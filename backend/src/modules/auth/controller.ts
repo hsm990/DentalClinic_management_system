@@ -6,7 +6,7 @@ import * as httpStatus from "../../common/httpStatus";
 const REFRESH_COOKIE_OPTIONS = {
   httpOnly: true,
   secure: process.env.NODE_ENV === "production",
-  sameSite: "strict" as const,
+  sameSite: "lax" as const,
   maxAge: 7 * 24 * 60 * 60 * 1000, // 7 days
 };
 const login = asyncHandler(async (req: Request, res: Response) => {
@@ -33,7 +33,7 @@ const refresh = asyncHandler(async (req: Request, res: Response) => {
 
 const me = asyncHandler(async (req: Request, res: Response) => {
   const currentUser = await authService.getCurrentUser(req.user!.id);
-  res.json({ currentUser });
+  res.json({ user: currentUser });
 });
 
 const logout = asyncHandler(async (_req: Request, res: Response) => {
