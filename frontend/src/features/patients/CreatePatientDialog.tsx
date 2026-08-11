@@ -49,9 +49,7 @@ export function CreatePatientDialog() {
 
   return (
     <Dialog open={open} onOpenChange={setOpen}>
-      <DialogTrigger render={<Button />}>
-        <Button>Add Patient</Button>
-      </DialogTrigger>
+      <DialogTrigger render={<Button>Add Patient</Button>}></DialogTrigger>
       <DialogContent className="sm:max-w-lg">
         <DialogHeader>
           <DialogTitle>New Patient</DialogTitle>

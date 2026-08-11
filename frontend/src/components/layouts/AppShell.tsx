@@ -8,6 +8,7 @@ import { Separator } from "@/components/ui/separator";
 const navItems = [
   { to: "/", label: "Dashboard" },
   { to: "/patients", label: "Patients" },
+  { to: "/appointments", label: "Appointments" },
 ];
 
 export function AppShell() {
