@@ -12,5 +12,5 @@ router
     validate(createUserSchema),
     userController.create,
   );
-
+router.get("/dentists", userController.listDentists);
 export default router;

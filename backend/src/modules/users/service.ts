@@ -64,5 +64,20 @@ async function createUser(
     clinicId: user.clinicId,
   };
 }
-
-export default { createUser };
+async function listDentists(requestingUser: RequestingUser) {
+  if (!requestingUser.clinicId)
+    throw new AppError(
+      "Your account has no clinic assigned",
+      422,
+      httpsStatus.ERROR,
+    );
+  return prisma.user.findMany({
+    where: {
+      clinicId: requestingUser.clinicId,
+      role: "DENTIST",
+      isActive: true,
+    },
+    select: { id: true, firstName: true, lastName: true },
+  });
+}
+export default { createUser, listDentists };
