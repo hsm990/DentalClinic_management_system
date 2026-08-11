@@ -4,6 +4,8 @@ import { AppShell } from "../components/layouts/AppShell";
 import { LoginPage } from "@/pages/LoginPage";
 import { DashboardPage } from "@/pages/DashboardPage";
 import { PatientsPage } from "@/pages/PatientsPage";
+import { AppointmentsPage } from "@/pages/AppointmentsPage";
+
 const router = createBrowserRouter([
   { path: "/login", element: <LoginPage /> },
   {
@@ -14,6 +16,7 @@ const router = createBrowserRouter([
         children: [
           { path: "/", element: <DashboardPage /> },
           { path: "/patients", element: <PatientsPage /> },
+          { path: "/appointments", element: <AppointmentsPage /> },
         ],
       },
     ],
