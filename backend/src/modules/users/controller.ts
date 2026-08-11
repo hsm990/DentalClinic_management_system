@@ -6,5 +6,8 @@ const create = asyncHandler(async (req: Request, res: Response) => {
   const user = await userService.createUser(req.user!, req.body);
   res.status(201).json({ user });
 });
-
-export default { create };
+const listDentists = asyncHandler(async (req: Request, res: Response) => {
+  const dentists = await userService.listDentists(req.user!);
+  res.json({ dentists });
+});
+export default { create, listDentists };
