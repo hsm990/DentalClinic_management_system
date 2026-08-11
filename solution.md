@@ -1,126 +1,168 @@
-# Solution: Login works but page refresh kicks you back to login page
+# Solution: Cannot fetch appointments and cannot create one
 
 ## Problem
 
-When you log in, everything works. But on page refresh you are redirected to `/login` and the console shows a 401 error.
+On the Appointments page:
+- The table shows `Failed to load appointments.` — the list never loads.
+- Clicking **Book appointment** fails with a `Failed to book appointment` toast — nothing is created.
+
+Both failures were reproduced against the running backend (`tsx watch src/server.ts` on `http://localhost:4000`, database connected):
+
+| Request | Result |
+|---|---|
+| `GET /api/v1/appointments` (with valid Bearer token) | **500** `{"error":{"message":"Something went wrong"}}` |
+| `POST /api/v1/appointments` (with seeded patient `seed-patient-1`) | **422** `{"error":{"message":"patientId: Invalid cuid","status":"fail"}}` |
+| `GET /api/v1/patients` | 200 (works) |
+| `GET /api/v1/users/dentists` | 200 (works) |
+
+These are two independent bugs.
+
+---
+
+## Bug 1: Cannot fetch appointments — 500 from query validation on Express 5
 
 ### Root cause
 
-The frontend stores the access token **only in Redux memory**, so on page reload the token is gone and the app must restore it via the refresh token (which is correctly stored in an httpOnly cookie). This restore path is broken, so the app can never get back its session.
+The GET route validates query params:
 
-## Bug 1: Refresh endpoint method mismatch
-
-The frontend sends a **POST** request to `/api/v1/auth/refresh`, but the backend only registers a **GET** handler for that route. The request never matches a route, the refresh fails, the app logs the user out.
-
-### Wrong backend code
-
-`backend/src/routes/auth.routes.ts` (line 20)
+`backend/src/routes/appointments.route.ts` (lines 14-19)
 
 ```ts
-router.route("/refresh").get(authController.refresh);
+router
+  .route("/")
+  .get(
+    validate(listAppointmentsQuerySchema, "query"),
+    appointmentsController.list,
+  )
 ```
 
-### Wrong frontend code
+The validation middleware then **reassigns** the validated value back onto the request:
 
-`frontend/src/features/auth/authApi.ts` (line 37)
+`backend/src/middleware/validate.middleware.ts` (lines 10-19)
 
 ```ts
-refresh: builder.mutation<{ accessToken: string }, void>({
-  query: () => ({ url: "/auth/refresh", method: "POST" }),
-}),
+function validate(schema: ZodType, target: ValidateTarget = "body") {
+  return (req: Request, _res: Response, next: NextFunction) => {
+    const result = schema.safeParse(req[target]);
+
+    if (!result.success) { ... return next(new AppError(...)); }
+
+    req[target] = result.data;
+    next();
+  };
+}
 ```
 
-And also in `frontend/src/lib/apiBaseQuery.ts` (line 32)
+For a query target this executes `req.query = result.data`.
+
+**Express 5 defines `req.query` as a getter-only property (no setter).** Verified:
+
+```js
+Object.getOwnPropertyDescriptor(express.request, "query")
+// -> { get: function, set: undefined }
+```
+
+Because the backend runs as ESM (tsx in strict mode), assigning to a getter-only property throws:
+
+```
+TypeError: Cannot set property query of #<IncomingMessage> which has only a getter
+```
+
+Reproduced in isolation — CJS silently ignores the assignment, ESM throws:
+
+```
+CJS   (require)     -> 200 "no throw"
+ESM   (import)      -> 500 "THREW: Cannot set property query ... only a getter"
+```
+
+`req.body` and `req.params` are not affected (PATCH `/appointments/seed-appointment-1/status`, which validates `params`, returns 200 — and login/create, which validate `body`, work). Only `query` is broken.
+
+The thrown `TypeError` is not an `AppError`, so `error.middleware.ts` (lines 4-17) falls through to
 
 ```ts
-const refreshResult = await baseQuery(
-  { url: "/auth/refresh", method: "POST" },
-  api,
-  extraOptions,
-);
+return res.status(500).json({ error: { message: "Something went wrong" } });
 ```
 
-### Fix (choose ONE side so both match)
+The frontend gets a non-2xx response, so `useGetAppointmentsQuery` sets `isError` and the page renders `Failed to load appointments.`
 
-Option A — change the backend route to POST (recommended, matches frontend):
+### Why patients/dentists still load
 
-`backend/src/routes/auth.routes.ts` (line 20)
+`GET /patients` (`patients.route.ts` line 15) and `GET /users/dentists` (`users.route.ts` line 15) have **no** query-validation middleware, so they never hit the bug. `GET /appointments` is currently the only route in the app that validates `req.query` on Express 5 — which is why appointments are the only list that fails.
+
+### Fix (code untouched — for reference)
+
+Do not write back to `req.query` in the validate middleware, or parse the query with zod without reassigning, e.g. return `result.data` instead of `req[target] = result.data` (and have the controllers read the parsed value), or drop `validate(listAppointmentsQuerySchema, "query")` from the appointments GET route.
+
+---
+
+## Bug 2: Cannot create an appointment — seeded patient id fails `z.string().cuid()`
+
+### Root cause
+
+The frontend only lets you pick from the loaded patients. In the current database the **only** patient is the seeded one:
+
+`backend/prisma/seed.ts` (lines 110-122)
 
 ```ts
-router.route("/refresh").post(authController.refresh);
+const patient = await prisma.patient.upsert({
+  where: { id: "seed-patient-1" },
+  ...
+  create: { id: "seed-patient-1", ... },
+});
 ```
 
-Option B — change the frontend to use GET:
+So the dialog submits `patientId: "seed-patient-1"`.
 
-`frontend/src/features/auth/authApi.ts` (line 37)
+But the backend validates that field as a CUID:
+
+`backend/src/modules/appointments/schema.ts` (lines 3-10)
 
 ```ts
-refresh: builder.mutation<{ accessToken: string }, void>({
-  query: () => ({ url: "/auth/refresh", method: "GET" }),
-}),
+export const createAppointmentSchema = z.object({
+  patientId: z.string().cuid(),
+  dentistId: z.string().cuid(),
+  scheduledAt: z.coerce.date(),
+  ...
+});
 ```
 
-And in `frontend/src/lib/apiBaseQuery.ts` (line 32)
+`"seed-patient-1"` is a hand-written literal id, not a valid CUID (real Prisma ids look like `cmsj775sk000280vv2ai48sds`). Zod rejects it:
 
-```ts
-const refreshResult = await baseQuery(
-  { url: "/auth/refresh", method: "GET" },
-  api,
-  extraOptions,
-);
+```
+422 {"error":{"message":"patientId: Invalid cuid","status":"fail"}}
 ```
 
-## Bug 2: `/auth/me` response shape mismatch
+which surfaces in the UI as the `Failed to book appointment` toast (the mutation `unwrap()` throws, caught by the `catch` in `CreateAppointmentDialog.tsx` line 54).
 
-Even after fixing Bug 1 you would STILL be redirected to login, because of this second bug.
+### Proof that the create flow itself is fine
 
-The backend returns a response with a property named `currentUser`, but the frontend reads a property named `user`, which does not exist, so `user` is `undefined` and the `ProtectedRoute` redirects to `/login`.
+With a properly-formed CUID patient id, the same endpoint succeeds:
 
-### Wrong backend code (reference only)
-
-`backend/src/modules/auth/controller.ts` (line 36)
-
-```ts
-res.json({ currentUser });
+```
+POST /api/v1/appointments  {patientId: "cmsmhcofn00004svv1ak468ys", dentistId: "cmsj775sk000280vv2ai48sds", scheduledAt: "..."}
+-> 201 {"appointment": {...}}
 ```
 
-### Wrong frontend code
+So: booking works only for patients that were created by the app (real CUID ids). The seeded patient — the one present in every fresh database — can never be booked.
 
-`frontend/src/features/auth/AuthInitializer.tsx` (line 27)
+### Also affected (seed-data vs. CUID validation mismatch)
 
-```ts
-dispatch(
-  credentialsSet({
-    accessToken: refreshResult.accessToken,
-    user: meResult.user as AuthUser,
-  }),
-);
-```
+The same mismatch exists for the other hand-written seed ids:
 
-### Fix
+- `seed-clinic` / `seed-clinic-2` — not validated by zod (clinicId comes from the JWT), so harmless for now.
+- `seed-appointment-1` — passes `idParamSchema` (plain string, `common/schema.ts` line 4), so status updates work (verified: PATCH returned 200). But because the list endpoint 500s (Bug 1), the seeded appointment is unreachable from the UI anyway.
 
-Change the frontend to read `currentUser` instead of `user`:
+### Fix options (code untouched — for reference)
 
-`frontend/src/features/auth/AuthInitializer.tsx` (lines 23-29)
+- Change the seed to use `prisma.patient.create` without a hard-coded id so the patient gets a real CUID, or
+- Relax `createAppointmentSchema` to `z.string().min(1)` (like `idParamSchema`) so hand-written ids are accepted, or
+- Create patients through the UI (/ patients API) and book appointments against those CUID ids.
 
-```ts
-const meResult = await getMe().unwrap();
-dispatch(
-  credentialsSet({
-    accessToken: refreshResult.accessToken,
-    user: meResult.currentUser as AuthUser,
-  }),
-);
-```
-
-Alternatively, change the backend to return `{ user }` instead of `{ currentUser }`.
+---
 
 ## Summary
 
-| # | File | Line | Problem |
-|---|------|------|---------|
-| 1 | `backend/src/routes/auth.routes.ts` | 20 | `/refresh` is registered as GET but frontend calls POST |
-| 2 | `frontend/src/features/auth/authApi.ts` | 37 | refresh mutation uses POST while backend expects GET |
-| 3 | `frontend/src/lib/apiBaseQuery.ts` | 32 | reauth refresh call uses POST |
-| 4 | `frontend/src/features/auth/AuthInitializer.tsx` | 27 | reads `meResult.user` but backend returns `currentUser` |
-| 5 | `backend/src/modules/auth/controller.ts` | 36 | `/auth/me` returns `{ currentUser }` |
+| # | Symptom | Root cause | Files |
+|---|---------|------------|-------|
+| 1 | Appointments list never loads (`Failed to load appointments`) | `validate.middleware.ts` does `req.query = result.data`; Express 5 `req.query` is getter-only → `TypeError` → 500. Only the appointments GET route validates query | `backend/src/routes/appointments.route.ts:17`, `backend/src/middleware/validate.middleware.ts:19`, `backend/src/middleware/error.middleware.ts:15` |
+| 2 | Booking always fails (`Failed to book appointment`) | Seeded patient id `seed-patient-1` is not a CUID; `createAppointmentSchema` requires `z.string().cuid()` → 422 | `backend/prisma/seed.ts:110-122`, `backend/src/modules/appointments/schema.ts:4` |
