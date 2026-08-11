@@ -6,6 +6,7 @@ import { useCreateAppointmentMutation } from "./appointmentsApi";
 import { useGetPatientsQuery } from "@/features/patients/patientsApi";
 import { useGetDentistsQuery } from "@/features/users/usersApi";
 import { appointmentFormSchema, type AppointmentFormValues } from "./schema";
+import { DateTimePicker } from "@/components/DateTimePicker";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
@@ -45,7 +46,7 @@ export function CreateAppointmentDialog() {
     try {
       await createAppointment({
         ...values,
-        scheduledAt: new Date(values.scheduledAt).toISOString(),
+        scheduledAt: values.scheduledAt.toISOString(),
         reason: values.reason || undefined,
       }).unwrap();
       toast.success("Appointment booked");
@@ -58,7 +59,7 @@ export function CreateAppointmentDialog() {
 
   return (
     <Dialog open={open} onOpenChange={setOpen}>
-      <DialogTrigger render={<Button>Book Appointment</Button>}></DialogTrigger>
+      <DialogTrigger render={<Button>Book Appointment</Button>} />
       <DialogContent>
         <DialogHeader>
           <DialogTitle>New Appointment</DialogTitle>
@@ -71,8 +72,17 @@ export function CreateAppointmentDialog() {
               name="patientId"
               control={control}
               render={({ field }) => (
-                <Select onValueChange={field.onChange} value={field.value}>
-                  <SelectTrigger>
+                <Select
+                  items={
+                    patients?.map((p) => ({
+                      value: p.id,
+                      label: `${p.firstName} ${p.lastName}`,
+                    })) ?? []
+                  }
+                  onValueChange={field.onChange}
+                  value={field.value}
+                >
+                  <SelectTrigger className="w-full">
                     <SelectValue placeholder="Select a patient" />
                   </SelectTrigger>
                   <SelectContent>
@@ -98,8 +108,17 @@ export function CreateAppointmentDialog() {
               name="dentistId"
               control={control}
               render={({ field }) => (
-                <Select onValueChange={field.onChange} value={field.value}>
-                  <SelectTrigger>
+                <Select
+                  items={
+                    dentists?.map((d) => ({
+                      value: d.id,
+                      label: `Dr. ${d.firstName} ${d.lastName}`,
+                    })) ?? []
+                  }
+                  onValueChange={field.onChange}
+                  value={field.value}
+                >
+                  <SelectTrigger className="w-full">
                     <SelectValue placeholder="Select a dentist" />
                   </SelectTrigger>
                   <SelectContent>
@@ -120,11 +139,13 @@ export function CreateAppointmentDialog() {
           </div>
 
           <div className="space-y-2">
-            <Label htmlFor="scheduledAt">Date &amp; time</Label>
-            <Input
-              id="scheduledAt"
-              type="datetime-local"
-              {...register("scheduledAt")}
+            <Label>Date &amp; time</Label>
+            <Controller
+              name="scheduledAt"
+              control={control}
+              render={({ field }) => (
+                <DateTimePicker value={field.value} onChange={field.onChange} />
+              )}
             />
             {errors.scheduledAt && (
               <p className="text-sm text-destructive">
