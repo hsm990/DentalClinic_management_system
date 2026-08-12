@@ -6,12 +6,15 @@ import { Skeleton } from "@/components/ui/skeleton";
 import { Button } from "@/components/ui/button";
 import { Tabs, TabsList, TabsTrigger, TabsContent } from "@/components/ui/tabs";
 import { ArrowLeft } from "lucide-react";
-
+import { useState } from "react";
+import { CreateInvoiceDialog } from "@/features/billing/CreateInvoiceDialog";
+import { InvoiceDetail } from "@/features/billing/InvoiceDetail";
 export function PatientDetailPage() {
   const { id } = useParams<{ id: string }>();
   const { data: patient, isLoading } = useGetPatientByIdQuery(id!, {
     skip: !id,
   });
+  const [activeInvoiceId, setActiveInvoiceId] = useState<string | null>(null);
 
   if (isLoading) return <Skeleton className="h-96 w-full" />;
   if (!patient)
@@ -38,6 +41,7 @@ export function PatientDetailPage() {
           <TabsTrigger value="overview">Overview</TabsTrigger>
           <TabsTrigger value="tooth-chart">Tooth Chart</TabsTrigger>
           <TabsTrigger value="treatment-plans">Treatment Plans</TabsTrigger>
+          <TabsTrigger value="billing">Billing</TabsTrigger>
         </TabsList>
 
         <TabsContent value="overview" className="space-y-2 pt-4">
@@ -64,6 +68,22 @@ export function PatientDetailPage() {
 
         <TabsContent value="treatment-plans" className="pt-4">
           <TreatmentPlansPanel patientId={patient.id} />
+        </TabsContent>
+        <TabsContent value="billing" className="space-y-4 pt-4">
+          <div className="flex justify-end">
+            <CreateInvoiceDialog
+              patientId={patient.id}
+              onCreated={setActiveInvoiceId}
+            />
+          </div>
+          {activeInvoiceId ? (
+            <InvoiceDetail invoiceId={activeInvoiceId} />
+          ) : (
+            <p className="text-center text-sm text-muted-foreground">
+              Create an invoice from completed treatment items, or none selected
+              yet.
+            </p>
+          )}
         </TabsContent>
       </Tabs>
     </div>
