@@ -13,4 +13,5 @@ router
     userController.create,
   );
 router.get("/dentists", userController.listDentists);
+router.get("/", requireRole("ADMIN"), userController.listStaff);
 export default router;

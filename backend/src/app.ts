@@ -41,7 +41,7 @@ app.use("/api/v1/clinics", authMiddleware, clinicsRouter);
 app.use("/api/v1/users", authMiddleware, usersRouter);
 app.use("/api/v1/patients", authMiddleware, patientsRouter);
 app.use("/api/v1/appointments", authMiddleware, appointmentsRouter);
-app.use("/api/v1/procedure-categories", authMiddleware, catalogRouter);
+app.use("/api/v1/catalog", authMiddleware, catalogRouter);
 app.use("/api/v1", authMiddleware, treatmentPlansRouter);
 app.use("/api/v1", authMiddleware, billingRouter);
 
