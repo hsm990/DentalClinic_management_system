@@ -10,4 +10,8 @@ const listDentists = asyncHandler(async (req: Request, res: Response) => {
   const dentists = await userService.listDentists(req.user!);
   res.json({ dentists });
 });
-export default { create, listDentists };
+const listStaff = asyncHandler(async (req: Request, res: Response) => {
+  const staff = await userService.listStaff(req.user!);
+  res.json({ staff });
+});
+export default { create, listDentists, listStaff };
