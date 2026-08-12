@@ -11,6 +11,7 @@ import {
   TableHead,
   TableCell,
 } from "@/components/ui/table";
+import { useNavigate } from "react-router-dom";
 
 export function PatientsPage() {
   const [search, setSearch] = useState("");
@@ -19,6 +20,7 @@ export function PatientsPage() {
     isLoading,
     isError,
   } = useGetPatientsQuery(search || undefined);
+  const navigate = useNavigate();
 
   return (
     <div className="space-y-6">
@@ -79,7 +81,11 @@ export function PatientsPage() {
             )}
 
             {patients?.map((patient) => (
-              <TableRow key={patient.id}>
+              <TableRow
+                key={patient.id}
+                className="cursor-pointer hover:bg-muted/50"
+                onClick={() => navigate(`/patients/${patient.id}`)}
+              >
                 <TableCell className="font-medium">
                   {patient.firstName} {patient.lastName}
                 </TableCell>

@@ -5,6 +5,8 @@ import { LoginPage } from "@/pages/LoginPage";
 import { DashboardPage } from "@/pages/DashboardPage";
 import { PatientsPage } from "@/pages/PatientsPage";
 import { AppointmentsPage } from "@/pages/AppointmentsPage";
+import { PatientDetailPage } from "@/pages/PatientDetailPage";
+import { AdminPage } from "@/pages/AdminPage";
 
 const router = createBrowserRouter([
   { path: "/login", element: <LoginPage /> },
@@ -17,6 +19,8 @@ const router = createBrowserRouter([
           { path: "/", element: <DashboardPage /> },
           { path: "/patients", element: <PatientsPage /> },
           { path: "/appointments", element: <AppointmentsPage /> },
+          { path: "/patients/:id", element: <PatientDetailPage /> },
+          { path: "/admin", element: <AdminPage /> },
         ],
       },
     ],

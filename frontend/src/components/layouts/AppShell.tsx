@@ -5,17 +5,22 @@ import { loggedOut } from "@/features/auth/authSlice";
 import { Button } from "@/components/ui/button";
 import { Separator } from "@/components/ui/separator";
 
-const navItems = [
-  { to: "/", label: "Dashboard" },
-  { to: "/patients", label: "Patients" },
-  { to: "/appointments", label: "Appointments" },
-];
-
 export function AppShell() {
   const user = useAppSelector((state) => state.auth.user);
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
   const [logout] = useLogoutMutation();
+
+  const baseNavItems = [
+    { to: "/", label: "Dashboard" },
+    { to: "/patients", label: "Patients" },
+    { to: "/appointments", label: "Appointments" },
+  ]; // Admin removed from here — added conditionally below
+
+  const navItems =
+    user?.role === "ADMIN"
+      ? [...baseNavItems, { to: "/admin", label: "Admin" }]
+      : baseNavItems;
 
   async function handleLogout() {
     try {

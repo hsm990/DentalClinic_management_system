@@ -61,6 +61,11 @@ export const patientsApi = apiSlice.injectEndpoints({
         { type: "Patient", id: "LIST" },
       ],
     }),
+    getPatientById: builder.query<Patient, string>({
+      query: (id) => `/patients/${id}`,
+      transformResponse: (r: PatientResponse) => r.patient,
+      providesTags: (_r, _e, id) => [{ type: "Patient", id }],
+    }),
   }),
 });
 
@@ -68,4 +73,5 @@ export const {
   useGetPatientsQuery,
   useCreatePatientMutation,
   useUpdatePatientMutation,
+  useGetPatientByIdQuery,
 } = patientsApi;
