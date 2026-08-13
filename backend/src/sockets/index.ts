@@ -15,7 +15,7 @@ let io: SocketIOServer;
 function initSocket(httpServer: HTTPServer) {
   io = new SocketIOServer(httpServer, {
     cors: {
-      origin: (process.env.CORS_ORIGINS ?? "").split(",").filter(Boolean),
+      origin: "http://localhost:3000",
       credentials: true,
     },
   });
