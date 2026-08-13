@@ -4,8 +4,10 @@ import { useLogoutMutation } from "@/features/auth/authApi";
 import { loggedOut } from "@/features/auth/authSlice";
 import { Button } from "@/components/ui/button";
 import { Separator } from "@/components/ui/separator";
+import { useRealtimeConnection } from "@/features/realtime/useRealtimeConnection";
 
 export function AppShell() {
+  useRealtimeConnection();
   const user = useAppSelector((state) => state.auth.user);
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
