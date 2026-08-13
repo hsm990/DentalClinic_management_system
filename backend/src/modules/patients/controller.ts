@@ -30,8 +30,8 @@ const update = asyncHandler(async (req: Request, res: Response) => {
   res.json({ patient });
 });
 
-const deletePatient = asyncHandler(async (req: Request, res: Response) => {
+const remove = asyncHandler(async (req: Request, res: Response) => {
   await patientsService.deletePatient(req.user!, req.params.id as string);
   res.status(200).json({ message: "Patient deleted" });
 });
-export default { list, getById, create, update, deletePatient };
+export default { list, getById, create, update, remove };

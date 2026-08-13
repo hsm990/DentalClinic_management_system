@@ -30,7 +30,7 @@ router
   .delete(
     requireRole("ADMIN", "RECEPTIONIST", "DENTIST"),
     validate(idParamSchema, "params"),
-    patientsController.deletePatient,
+    patientsController.remove,
   );
 router.use("/", toothChartRoutes);
 
