@@ -1,7 +1,7 @@
 import repository from "./repository";
 import AppError from "../../common/AppError";
 import * as httpsStatus from "../../common/httpStatus";
-
+import prisma from "../../config/prisma";
 interface RequestingUser {
   id: string;
   role: string;
@@ -41,8 +41,20 @@ async function updatePatient(user: RequestingUser, id: string, data: any) {
 }
 
 async function deletePatient(user: RequestingUser, id: string) {
-  await getPatient(user, id);
-  return repository.deletePatient(requireClinicId(user), id);
+  const clinicId = requireClinicId(user);
+  const patient = await repository.findById(clinicId, id);
+  if (!patient) throw new AppError("Patient not found", 404, httpsStatus.ERROR);
+
+  const invoiceCount = await prisma.invoice.count({ where: { patientId: id } });
+  if (invoiceCount > 0) {
+    throw new AppError(
+      "Cannot delete a patient with billing history. Deactivate instead if needed.",
+      409,
+      httpsStatus.ERROR,
+    );
+  }
+
+  await prisma.patient.delete({ where: { id } });
 }
 
 export default {
