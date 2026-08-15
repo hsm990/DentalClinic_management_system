@@ -45,16 +45,25 @@ async function deletePatient(user: RequestingUser, id: string) {
   const patient = await repository.findById(clinicId, id);
   if (!patient) throw new AppError("Patient not found", 404, httpsStatus.ERROR);
 
-  const invoiceCount = await prisma.invoice.count({ where: { patientId: id } });
-  if (invoiceCount > 0) {
+  const [invoiceCount, appointmentCount, treatmentPlanCount] =
+    await Promise.all([
+      prisma.invoice.count({ where: { patientId: id } }),
+      prisma.appointment.count({ where: { patientId: id } }),
+      prisma.treatmentPlan.count({ where: { patientId: id } }),
+    ]);
+
+  if (invoiceCount > 0 || appointmentCount > 0 || treatmentPlanCount > 0) {
     throw new AppError(
-      "Cannot delete a patient with billing history. Deactivate instead if needed.",
+      "Cannot delete a patient with appointments, treatment plans, or billing history.",
       409,
       httpsStatus.ERROR,
     );
   }
 
-  await prisma.patient.delete({ where: { id } });
+  await prisma.$transaction([
+    prisma.toothChartEntry.deleteMany({ where: { patientId: id } }), // no FK risk here since tooth chart has no dependents
+    prisma.patient.delete({ where: { id } }),
+  ]);
 }
 
 export default {

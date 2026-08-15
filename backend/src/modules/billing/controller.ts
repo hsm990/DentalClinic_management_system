@@ -33,5 +33,19 @@ const getRevenue = asyncHandler(async (req: Request, res: Response) => {
   const revenue = await billingService.getRevenue(req.user!, from, to);
   res.json({ revenue });
 });
-
-export default { createInvoice, getInvoice, recordPayment, getRevenue };
+const listPatientInvoices = asyncHandler(
+  async (req: Request, res: Response) => {
+    const invoices = await billingService.listPatientInvoices(
+      req.user!,
+      req.params.patientId as string,
+    );
+    res.json({ invoices });
+  },
+);
+export default {
+  createInvoice,
+  getInvoice,
+  recordPayment,
+  getRevenue,
+  listPatientInvoices,
+};

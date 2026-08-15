@@ -23,6 +23,7 @@ export const updateStatusSchema = z.object({
 
 export const listAppointmentsQuerySchema = z.object({
   dentistId: z.string().cuid().optional(),
+  patientId: z.string().optional(),
   status: z
     .enum([
       "SCHEDULED",

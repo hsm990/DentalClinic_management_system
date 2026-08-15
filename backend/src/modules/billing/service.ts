@@ -233,5 +233,14 @@ async function getRevenue(user: RequestingUser, from: Date, to: Date) {
     to,
   };
 }
-
-export default { createInvoice, recordPayment, getInvoice, getRevenue };
+async function listPatientInvoices(user: RequestingUser, patientId: string) {
+  const clinicId = requireClinicId(user);
+  return billingRepository.findInvoicesByPatient(clinicId, patientId);
+}
+export default {
+  createInvoice,
+  recordPayment,
+  getInvoice,
+  getRevenue,
+  listPatientInvoices,
+};
