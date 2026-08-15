@@ -46,7 +46,17 @@ export const billingApi = apiSlice.injectEndpoints({
       transformResponse: (r: InvoiceResponse) => r.invoice,
       providesTags: (_r, _e, id) => [{ type: "Invoice", id }],
     }),
-
+    getPatientInvoices: builder.query<Invoice[], string>({
+      query: (patientId) => `/patients/${patientId}/invoices`,
+      transformResponse: (r: { invoices: Invoice[] }) => r.invoices,
+      providesTags: (result, _e, patientId) =>
+        result
+          ? [
+              ...result.map((i) => ({ type: "Invoice" as const, id: i.id })),
+              { type: "Invoice", id: `PATIENT-${patientId}` },
+            ]
+          : [{ type: "Invoice", id: `PATIENT-${patientId}` }],
+    }),
     createInvoice: builder.mutation<
       Invoice,
       {
@@ -100,4 +110,5 @@ export const {
   useGetInvoiceQuery,
   useCreateInvoiceMutation,
   useRecordPaymentMutation,
+  useGetPatientInvoicesQuery,
 } = billingApi;

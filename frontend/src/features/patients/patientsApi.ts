@@ -66,6 +66,13 @@ export const patientsApi = apiSlice.injectEndpoints({
       transformResponse: (r: PatientResponse) => r.patient,
       providesTags: (_r, _e, id) => [{ type: "Patient", id }],
     }),
+    deletePatient: builder.mutation<void, string>({
+      query: (id) => ({ url: `/patients/${id}`, method: "DELETE" }),
+      invalidatesTags: (_r, _e, id) => [
+        { type: "Patient", id },
+        { type: "Patient", id: "LIST" },
+      ],
+    }),
   }),
 });
 
@@ -74,4 +81,5 @@ export const {
   useCreatePatientMutation,
   useUpdatePatientMutation,
   useGetPatientByIdQuery,
+  useDeletePatientMutation,
 } = patientsApi;

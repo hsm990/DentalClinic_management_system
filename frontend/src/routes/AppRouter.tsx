@@ -1,5 +1,6 @@
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import { ProtectedRoute } from "../features/auth/ProtectedRoute";
+import { PublicOnlyRoute } from "./PublicOnlyRoute";
 import { AppShell } from "../components/layouts/AppShell";
 import { LoginPage } from "@/pages/LoginPage";
 import { DashboardPage } from "@/pages/DashboardPage";
@@ -9,7 +10,10 @@ import { PatientDetailPage } from "@/pages/PatientDetailPage";
 import { AdminPage } from "@/pages/AdminPage";
 
 const router = createBrowserRouter([
-  { path: "/login", element: <LoginPage /> },
+  {
+    element: <PublicOnlyRoute />,
+    children: [{ path: "/login", element: <LoginPage /> }],
+  },
   {
     element: <ProtectedRoute />,
     children: [

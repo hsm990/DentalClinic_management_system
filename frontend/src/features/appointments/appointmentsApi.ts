@@ -31,8 +31,14 @@ interface AppointmentResponse {
 
 export const appointmentsApi = apiSlice.injectEndpoints({
   endpoints: (builder) => ({
-    getAppointments: builder.query<Appointment[], void>({
-      query: () => "/appointments",
+    getAppointments: builder.query<
+      Appointment[],
+      { patientId?: string } | void
+    >({
+      query: (filters) => ({
+        url: "/appointments",
+        params: filters ?? undefined,
+      }),
       transformResponse: (r: AppointmentsListResponse) => r.appointments,
       providesTags: (result) =>
         result
