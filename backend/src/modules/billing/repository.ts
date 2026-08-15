@@ -14,5 +14,16 @@ function findLastInvoiceNumber(clinicId: string) {
     select: { invoiceNumber: true },
   });
 }
+function findInvoicesByPatient(clinicId: string, patientId: string) {
+  return prisma.invoice.findMany({
+    where: { patientId, clinicId },
+    include: { payments: true },
+    orderBy: { createdAt: "desc" },
+  });
+}
 
-export default { findInvoiceById, findLastInvoiceNumber };
+export default {
+  findInvoiceById,
+  findLastInvoiceNumber,
+  findInvoicesByPatient,
+};

@@ -5,6 +5,7 @@ interface ListFilters {
   status?: string;
   from?: Date;
   to?: Date;
+  patientId?: string;
 }
 
 function findAll(clinicId: string, filters: ListFilters = {}) {
@@ -12,6 +13,7 @@ function findAll(clinicId: string, filters: ListFilters = {}) {
     where: {
       clinicId,
       ...(filters.dentistId ? { dentistId: filters.dentistId } : {}),
+      ...(filters.patientId ? { patientId: filters.patientId } : {}),
       ...(filters.status ? { status: filters.status as any } : {}),
       ...(filters.from || filters.to
         ? {

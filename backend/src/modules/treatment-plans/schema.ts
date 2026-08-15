@@ -6,8 +6,8 @@ export const createTreatmentPlanSchema = z.object({
 });
 
 export const addPlanItemSchema = z.object({
-  procedureId: z.string().cuid(),
-  toothNumber: z.number().int().optional(),
+  procedureId: z.string().min(1),
+  toothNumber: z.number().int().min(11).max(48),
   estimatedCost: z.number().positive(),
   notes: z.string().optional(),
 });

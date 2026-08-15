@@ -38,5 +38,8 @@ router.get(
   validate(revenueQuerySchema, "query"),
   billingController.getRevenue,
 );
-
+router.get(
+  "/patients/:patientId/invoices",
+  billingController.listPatientInvoices,
+);
 export default router;
