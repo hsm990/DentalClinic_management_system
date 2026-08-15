@@ -45,8 +45,15 @@ export function AddPlanItemDialog({
     });
 
   async function onSubmit(values: FormValues) {
-    if (!values.procedureId || !values.estimatedCost) {
-      toast.error("Select a procedure and enter a cost");
+    if (!values.procedureId || !values.estimatedCost || !values.toothNumber) {
+      toast.error("Select a procedure, tooth, and cost");
+      return;
+    }
+    const toothNum = Number(values.toothNumber);
+    const quadrant = Math.floor(toothNum / 10);
+    const position = toothNum % 10;
+    if (quadrant < 1 || quadrant > 4 || position < 1 || position > 8) {
+      toast.error("Invalid tooth number (expected 11-18, 21-28, 31-38, 41-48)");
       return;
     }
     try {
@@ -54,9 +61,7 @@ export function AddPlanItemDialog({
         planId,
         patientId,
         procedureId: values.procedureId,
-        toothNumber: values.toothNumber
-          ? Number(values.toothNumber)
-          : undefined,
+        toothNumber: Number(values.toothNumber),
         estimatedCost: Number(values.estimatedCost),
       }).unwrap();
       toast.success("Item added");
