@@ -30,9 +30,11 @@ interface FormValues {
 
 export function RecordPaymentDialog({
   invoiceId,
+  patientId,
   remaining,
 }: {
   invoiceId: string;
+  patientId: string;
   remaining: number;
 }) {
   const [open, setOpen] = useState(false);
@@ -49,6 +51,7 @@ export function RecordPaymentDialog({
     try {
       await recordPayment({
         invoiceId,
+        patientId,
         amount: Number(values.amount),
         method: values.method as PaymentMethod,
       }).unwrap();

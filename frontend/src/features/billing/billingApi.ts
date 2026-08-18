@@ -81,6 +81,7 @@ export const billingApi = apiSlice.injectEndpoints({
       // invalidate that patient's plans too, not just the invoice itself
       invalidatesTags: (_r, _e, { patientId }) => [
         { type: "TreatmentPlan", id: patientId },
+        { type: "Invoice", id: `PATIENT-${patientId}` },
       ],
     }),
 
@@ -88,19 +89,21 @@ export const billingApi = apiSlice.injectEndpoints({
       Payment,
       {
         invoiceId: string;
+        patientId: string;
         amount: number;
         method: PaymentMethod;
         notes?: string;
       }
     >({
-      query: ({ invoiceId, ...body }) => ({
+      query: ({ invoiceId, patientId, ...body }) => ({
         url: `/invoices/${invoiceId}/payments`,
         method: "POST",
         body,
       }),
       transformResponse: (r: PaymentResponse) => r.payment,
-      invalidatesTags: (_r, _e, { invoiceId }) => [
+      invalidatesTags: (_r, _e, { invoiceId, patientId }) => [
         { type: "Invoice", id: invoiceId },
+        { type: "Invoice", id: `PATIENT-${patientId}` }, // new
       ],
     }),
   }),

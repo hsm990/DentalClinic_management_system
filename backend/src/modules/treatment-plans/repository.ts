@@ -3,7 +3,7 @@ import prisma from "../../config/prisma";
 function findPlansByPatient(patientId: string) {
   return prisma.treatmentPlan.findMany({
     where: { patientId },
-    include: { items: { include: { procedure: true } } },
+    include: { items: { include: { procedure: true, invoiceItem: true } } },
     orderBy: { createdAt: "desc" },
   });
 }

@@ -21,7 +21,7 @@ router
 router
   .route("/:id")
   .get(validate(idParamSchema, "params"), patientsController.getById)
-  .put(
+  .patch(
     requireRole("ADMIN", "RECEPTIONIST", "DENTIST"),
     validate(idParamSchema, "params"),
     validate(updatePatientSchema),

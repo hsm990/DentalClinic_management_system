@@ -14,6 +14,7 @@ export interface TreatmentPlanItem {
   notes?: string | null;
   procedureId: string;
   procedure: { id: string; name: string; price: string };
+  invoiceItem?: { id: string } | null;
 }
 
 export interface TreatmentPlan {

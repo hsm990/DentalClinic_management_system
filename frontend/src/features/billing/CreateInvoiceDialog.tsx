@@ -4,6 +4,7 @@ import { useCreateInvoiceMutation } from "./billingApi";
 import { useGetTreatmentPlansQuery } from "@/features/treatmentPlans/treatmentPlansApi";
 import { Button } from "@/components/ui/button";
 import { Checkbox } from "@/components/ui/checkbox";
+import { Badge } from "@/components/ui/badge";
 import {
   Dialog,
   DialogContent,
@@ -27,16 +28,21 @@ export function CreateInvoiceDialog({
   const { data: plans } = useGetTreatmentPlansQuery(patientId, { skip: !open });
   const [createInvoice, { isLoading }] = useCreateInvoiceMutation();
 
-  // only COMPLETED items with no linked invoice item yet are billable —
-  // mirrors the exact rule your backend service enforces
-  const billableItems =
+  // show every COMPLETED item, but tag which ones are already billed —
+  // don't filter them out, just make them unselectable
+  const completedItems =
     plans?.flatMap((plan) =>
       plan.items
         .filter((item) => item.status === "COMPLETED")
-        .map((item) => ({ ...item, planTitle: plan.title })),
+        .map((item) => ({
+          ...item,
+          planTitle: plan.title,
+          alreadyBilled: !!item.invoiceItem,
+        })),
     ) ?? [];
 
-  function toggle(itemId: string) {
+  function toggle(itemId: string, alreadyBilled: boolean) {
+    if (alreadyBilled) return; // guard at the source too, not just visually
     setSelected((prev) => {
       const next = new Set(prev);
       next.has(itemId) ? next.delete(itemId) : next.add(itemId);
@@ -50,7 +56,7 @@ export function CreateInvoiceDialog({
       return;
     }
 
-    const items = billableItems
+    const items = completedItems
       .filter((item) => selected.has(item.id))
       .map((item) => ({
         procedureId: item.procedureId,
@@ -66,8 +72,6 @@ export function CreateInvoiceDialog({
       setOpen(false);
       onCreated?.(invoice.id);
     } catch (err: any) {
-      // your backend returns 409 specifically for an already-billed item —
-      // surface that distinction rather than a generic failure message
       if (err?.status === 409) {
         toast.error(
           "One of these items was already billed — refresh and try again",
@@ -86,22 +90,27 @@ export function CreateInvoiceDialog({
           <DialogTitle>New invoice</DialogTitle>
         </DialogHeader>
 
-        {billableItems.length === 0 ? (
+        {completedItems.length === 0 ? (
           <p className="text-sm text-muted-foreground">
-            No completed treatment items are ready to bill. Mark items as
-            Completed on a treatment plan first.
+            No completed treatment items yet. Mark items as Completed on a
+            treatment plan first.
           </p>
         ) : (
           <div className="space-y-2">
-            {billableItems.map((item) => (
+            {completedItems.map((item) => (
               <label
                 key={item.id}
-                className="flex cursor-pointer items-center justify-between rounded-md border p-3 text-sm hover:bg-muted/50"
+                className={`flex items-center justify-between rounded-md border p-3 text-sm ${
+                  item.alreadyBilled
+                    ? "cursor-not-allowed bg-muted/40 opacity-60"
+                    : "cursor-pointer hover:bg-muted/50"
+                }`}
               >
                 <div className="flex items-center gap-3">
                   <Checkbox
                     checked={selected.has(item.id)}
-                    onCheckedChange={() => toggle(item.id)}
+                    disabled={item.alreadyBilled}
+                    onCheckedChange={() => toggle(item.id, item.alreadyBilled)}
                   />
                   <div>
                     <p className="font-medium">{item.procedure.name}</p>
@@ -111,7 +120,12 @@ export function CreateInvoiceDialog({
                     </p>
                   </div>
                 </div>
-                <span>${item.procedure.price}</span>
+                <div className="flex items-center gap-2">
+                  <span>${item.procedure.price}</span>
+                  {item.alreadyBilled && (
+                    <Badge variant="secondary">Billed</Badge>
+                  )}
+                </div>
               </label>
             ))}
           </div>
@@ -120,7 +134,7 @@ export function CreateInvoiceDialog({
         <DialogFooter>
           <Button
             onClick={handleCreate}
-            disabled={isLoading || billableItems.length === 0}
+            disabled={isLoading || selected.size === 0}
           >
             {isLoading
               ? "Creating..."
