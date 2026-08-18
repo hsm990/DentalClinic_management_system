@@ -14,7 +14,13 @@ import {
   TableCell,
 } from "@/components/ui/table";
 
-export function InvoiceDetail({ invoiceId }: { invoiceId: string }) {
+export function InvoiceDetail({
+  invoiceId,
+  patientId,
+}: {
+  invoiceId: string;
+  patientId: string;
+}) {
   const { data: invoice, isLoading } = useGetInvoiceQuery(invoiceId);
 
   if (isLoading) return <Skeleton className="h-64 w-full" />;
@@ -110,7 +116,11 @@ export function InvoiceDetail({ invoiceId }: { invoiceId: string }) {
 
         {remaining > 0 && (
           <div className="pt-2">
-            <RecordPaymentDialog invoiceId={invoice.id} remaining={remaining} />
+            <RecordPaymentDialog
+              invoiceId={invoice.id}
+              patientId={patientId}
+              remaining={remaining}
+            />
           </div>
         )}
       </CardContent>

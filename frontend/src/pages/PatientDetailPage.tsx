@@ -195,7 +195,10 @@ export function PatientDetailPage() {
           </div>
 
           {displayedInvoiceId ? (
-            <InvoiceDetail invoiceId={displayedInvoiceId} />
+            <InvoiceDetail
+              invoiceId={displayedInvoiceId}
+              patientId={patient.id}
+            />
           ) : (
             <p className="text-center text-sm text-muted-foreground">
               No invoices yet. Create one from completed treatment items.
