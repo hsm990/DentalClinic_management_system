@@ -11,38 +11,67 @@ export interface Patient {
   address?: string | null;
   allergies?: string | null;
   medicalNotes?: string | null;
+  isActive: boolean; // new
   clinicId: string;
   createdAt: string;
   updatedAt: string;
 }
 
+export interface PaginationInfo {
+  page: number;
+  limit: number;
+  total: number;
+  totalPages: number;
+}
+
 interface PatientsListResponse {
   patients: Patient[];
+  pagination: PaginationInfo;
 }
 interface PatientResponse {
   patient: Patient;
 }
 
+interface GetPatientsArgs {
+  search?: string;
+  includeArchived?: boolean;
+  page?: number;
+  limit?: number;
+}
+
 export const patientsApi = apiSlice.injectEndpoints({
   endpoints: (builder) => ({
-    getPatients: builder.query<Patient[], string | void>({
-      query: (search) => ({
+    getPatients: builder.query<PatientsListResponse, GetPatientsArgs | void>({
+      query: (args) => ({
         url: "/patients",
-        params: search ? { search } : undefined,
+        params: {
+          search: args?.search || undefined,
+          includeArchived: args?.includeArchived ? "true" : undefined,
+          page: args?.page,
+          limit: args?.limit,
+        },
       }),
-      transformResponse: (response: PatientsListResponse) => response.patients,
       providesTags: (result) =>
         result
           ? [
-              ...result.map((p) => ({ type: "Patient" as const, id: p.id })),
+              ...result.patients.map((p) => ({
+                type: "Patient" as const,
+                id: p.id,
+              })),
               { type: "Patient" as const, id: "LIST" },
             ]
           : [{ type: "Patient" as const, id: "LIST" }],
     }),
 
+    getPatientById: builder.query<Patient, string>({
+      query: (id) => `/patients/${id}`,
+      transformResponse: (r: PatientResponse) => r.patient,
+      providesTags: (_r, _e, id) => [{ type: "Patient", id }],
+    }),
+
     createPatient: builder.mutation<Patient, Record<string, unknown>>({
       query: (body) => ({ url: "/patients", method: "POST", body }),
-      transformResponse: (response: PatientResponse) => response.patient,
+      transformResponse: (r: PatientResponse) => r.patient,
       invalidatesTags: [{ type: "Patient", id: "LIST" }],
     }),
 
@@ -55,19 +84,33 @@ export const patientsApi = apiSlice.injectEndpoints({
         method: "PATCH",
         body: data,
       }),
-      transformResponse: (response: PatientResponse) => response.patient,
-      invalidatesTags: (_result, _error, { id }) => [
+      transformResponse: (r: PatientResponse) => r.patient,
+      invalidatesTags: (_r, _e, { id }) => [
         { type: "Patient", id },
         { type: "Patient", id: "LIST" },
       ],
     }),
-    getPatientById: builder.query<Patient, string>({
-      query: (id) => `/patients/${id}`,
-      transformResponse: (r: PatientResponse) => r.patient,
-      providesTags: (_r, _e, id) => [{ type: "Patient", id }],
-    }),
+
     deletePatient: builder.mutation<void, string>({
       query: (id) => ({ url: `/patients/${id}`, method: "DELETE" }),
+      invalidatesTags: (_r, _e, id) => [
+        { type: "Patient", id },
+        { type: "Patient", id: "LIST" },
+      ],
+    }),
+
+    archivePatient: builder.mutation<Patient, string>({
+      query: (id) => ({ url: `/patients/${id}/archive`, method: "PATCH" }),
+      transformResponse: (r: PatientResponse) => r.patient,
+      invalidatesTags: (_r, _e, id) => [
+        { type: "Patient", id },
+        { type: "Patient", id: "LIST" },
+      ],
+    }),
+
+    restorePatient: builder.mutation<Patient, string>({
+      query: (id) => ({ url: `/patients/${id}/restore`, method: "PATCH" }),
+      transformResponse: (r: PatientResponse) => r.patient,
       invalidatesTags: (_r, _e, id) => [
         { type: "Patient", id },
         { type: "Patient", id: "LIST" },
@@ -78,8 +121,10 @@ export const patientsApi = apiSlice.injectEndpoints({
 
 export const {
   useGetPatientsQuery,
+  useGetPatientByIdQuery,
   useCreatePatientMutation,
   useUpdatePatientMutation,
-  useGetPatientByIdQuery,
   useDeletePatientMutation,
+  useArchivePatientMutation,
+  useRestorePatientMutation,
 } = patientsApi;

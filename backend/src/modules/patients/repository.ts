@@ -1,26 +1,60 @@
 import prisma from "../../config/prisma";
+
 interface PatientFilters {
   search?: string;
+  includeArchived?: boolean;
+  page?: number;
+  limit?: number;
 }
+async function findAll(clinicId: string, filters: PatientFilters = {}) {
+  const page = filters.page ?? 1;
+  const limit = filters.limit ?? 20;
+  const skip = (page - 1) * limit;
 
-function findAll(clinicId: string, filters: PatientFilters = {}) {
-  return prisma.patient.findMany({
-    where: {
-      clinicId,
-      ...(filters.search
-        ? {
-            OR: [
-              { firstName: { contains: filters.search, mode: "insensitive" } },
-              { lastName: { contains: filters.search, mode: "insensitive" } },
-              { phone: { contains: filters.search } },
-            ],
-          }
-        : {}),
+  const where = {
+    clinicId,
+    ...(filters.includeArchived ? {} : { isActive: true }),
+    ...(filters.search
+      ? {
+          OR: [
+            {
+              firstName: {
+                contains: filters.search,
+                mode: "insensitive" as const,
+              },
+            },
+            {
+              lastName: {
+                contains: filters.search,
+                mode: "insensitive" as const,
+              },
+            },
+            { phone: { contains: filters.search } },
+          ],
+        }
+      : {}),
+  };
+
+  const [patients, total] = await Promise.all([
+    prisma.patient.findMany({
+      where,
+      orderBy: { createdAt: "desc" },
+      skip,
+      take: limit,
+    }),
+    prisma.patient.count({ where }),
+  ]);
+
+  return {
+    patients,
+    pagination: {
+      page,
+      limit,
+      total,
+      totalPages: Math.max(1, Math.ceil(total / limit)),
     },
-    orderBy: { createdAt: "desc" },
-  });
+  };
 }
-
 function findById(clinicId: string, id: string) {
   return prisma.patient.findUnique({
     where: { clinicId, id },
@@ -44,4 +78,12 @@ function deletePatient(clinicId: string, id: string) {
     where: { clinicId, id },
   });
 }
-export default { findAll, findById, create, update, deletePatient };
+async function setActive(clinicId: string, id: string, isActive: boolean) {
+  const result = await prisma.patient.updateMany({
+    where: { id, clinicId },
+    data: { isActive },
+  });
+  if (result.count === 0) return null;
+  return findById(clinicId, id);
+}
+export default { findAll, findById, create, update, deletePatient, setActive };
