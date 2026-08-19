@@ -15,6 +15,7 @@ import { STATUS_LABELS } from "@/features/appointments/stateMachine";
 import { Badge } from "@/components/ui/badge";
 import { EditPatientDialog } from "@/features/patients/EditPatientDialog";
 import { DeletePatientButton } from "@/features/patients/DeletePatientButton";
+import { ArchiveRestoreButtons } from "@/features/patients/ArchiveRestoreButtons";
 
 export function PatientDetailPage() {
   const { id } = useParams<{ id: string }>();
@@ -69,9 +70,15 @@ export function PatientDetailPage() {
         </div>
         <div className="flex gap-2">
           <EditPatientDialog patient={patient} />
+          <ArchiveRestoreButtons
+            patientId={patient.id}
+            patientName={`${patient.firstName} ${patient.lastName}`}
+            isActive={patient.isActive}
+          />
           <DeletePatientButton
             patientId={patient.id}
             patientName={`${patient.firstName} ${patient.lastName}`}
+            redirectOnDelete
           />
         </div>
       </div>

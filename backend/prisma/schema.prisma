@@ -114,6 +114,7 @@ model Patient {
   address      String?
   allergies    String?
   medicalNotes String?
+  isActive     Boolean   @default(true)
   clinicId     String
   createdAt    DateTime  @default(now())
   updatedAt    DateTime  @updatedAt

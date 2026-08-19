@@ -74,7 +74,7 @@ export function CreateAppointmentDialog() {
               render={({ field }) => (
                 <Select
                   items={
-                    patients?.map((p) => ({
+                    patients?.patients.map((p) => ({
                       value: p.id,
                       label: `${p.firstName} ${p.lastName}`,
                     })) ?? []
@@ -86,7 +86,7 @@ export function CreateAppointmentDialog() {
                     <SelectValue placeholder="Select a patient" />
                   </SelectTrigger>
                   <SelectContent>
-                    {patients?.map((p) => (
+                    {patients?.patients.map((p) => (
                       <SelectItem key={p.id} value={p.id}>
                         {p.firstName} {p.lastName}
                       </SelectItem>

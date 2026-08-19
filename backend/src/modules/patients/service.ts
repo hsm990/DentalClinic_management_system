@@ -17,9 +17,16 @@ function requireClinicId(user: RequestingUser) {
     );
   return user.clinicId;
 }
-async function listPatients(user: RequestingUser, search?: string) {
-  const result = repository.findAll(requireClinicId(user), { search });
-  return result;
+async function listPatients(
+  user: RequestingUser,
+  filters: {
+    search?: string;
+    includeArchived?: boolean;
+    page?: number;
+    limit?: number;
+  },
+) {
+  return repository.findAll(requireClinicId(user), filters);
 }
 
 async function getPatient(user: RequestingUser, id: string) {
@@ -65,11 +72,23 @@ async function deletePatient(user: RequestingUser, id: string) {
     prisma.patient.delete({ where: { id } }),
   ]);
 }
+async function archivePatient(user: RequestingUser, id: string) {
+  const updated = await repository.setActive(requireClinicId(user), id, false);
+  if (!updated) throw new AppError("Patient not found", 404, httpsStatus.ERROR);
+  return updated;
+}
 
+async function restorePatient(user: RequestingUser, id: string) {
+  const updated = await repository.setActive(requireClinicId(user), id, true);
+  if (!updated) throw new AppError("Patient not found", 404, httpsStatus.ERROR);
+  return updated;
+}
 export default {
   listPatients,
   getPatient,
   createPatient,
   updatePatient,
   deletePatient,
+  archivePatient,
+  restorePatient,
 };

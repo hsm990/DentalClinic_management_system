@@ -1,126 +1,105 @@
-# Solution: Login works but page refresh kicks you back to login page
+# Solution: Billing uses catalog price (10) instead of the treatment-plan price (20)
 
 ## Problem
 
-When you log in, everything works. But on page refresh you are redirected to `/login` and the console shows a 401 error.
+- Admin adds a procedure to the catalog with a default price of **10** (`Procedure.price`).
+- Dentist creates a treatment plan and adds that procedure as an item, but overrides the price to **20** (the plan item's `estimatedCost` — e.g. because the case is complicated).
+- When the item is completed and the staff creates an invoice from the plan item, the invoice shows **10** instead of **20**.
 
-### Root cause
+## Root cause
 
-The frontend stores the access token **only in Redux memory**, so on page reload the token is gone and the app must restore it via the refresh token (which is correctly stored in an httpOnly cookie). This restore path is broken, so the app can never get back its session.
+The invoice price is always taken from the **procedure catalog price**, never from the **treatment plan item's `estimatedCost`**.
 
-## Bug 1: Refresh endpoint method mismatch
+1. The frontend never sends a price.
 
-The frontend sends a **POST** request to `/api/v1/auth/refresh`, but the backend only registers a **GET** handler for that route. The request never matches a route, the refresh fails, the app logs the user out.
-
-### Wrong backend code
-
-`backend/src/routes/auth.routes.ts` (line 20)
+`frontend/src/features/billing/CreateInvoiceDialog.tsx` (lines 59-66) sends only `procedureId`, `toothNumber`, `quantity`, `treatmentPlanItemId` — no price:
 
 ```ts
-router.route("/refresh").get(authController.refresh);
+const items = completedItems
+  .filter((item) => selected.has(item.id))
+  .map((item) => ({
+    procedureId: item.procedureId,
+    toothNumber: item.toothNumber ?? undefined,
+    quantity: 1,
+    treatmentPlanItemId: item.id,
+  }));
 ```
 
-### Wrong frontend code
+2. The API schema does not even accept a price field.
 
-`frontend/src/features/auth/authApi.ts` (line 37)
+`backend/src/modules/billing/schema.ts` (lines 6-16) only accepts `procedureId`, `toothNumber`, `quantity`, `treatmentPlanItemId`.
+
+3. The backend hard-codes the price from the procedure.
+
+`backend/src/modules/billing/service.ts` (lines 123-136), inside `runInvoiceTransaction`:
 
 ```ts
-refresh: builder.mutation<{ accessToken: string }, void>({
-  query: () => ({ url: "/auth/refresh", method: "POST" }),
-}),
+const itemsData = data.items.map((item) => {
+  const procedure = procedureMap.get(item.procedureId);
+  const unitPrice = Number(procedure.price);   // <-- always the catalog price (10)
+  const totalPrice = unitPrice * item.quantity;
+  subtotal += totalPrice;
+  ...
+});
 ```
 
-And also in `frontend/src/lib/apiBaseQuery.ts` (line 32)
+The dentist's override (20) lives in `TreatmentPlanItem.estimatedCost` (see `backend/prisma/schema.prisma` line 222 and `backend/src/modules/treatment-plans/schema.ts` line 11), but billing never reads it.
+
+## Fix (recommended — server-side)
+
+Make the backend use the linked plan item's `estimatedCost` as the unit price when a `treatmentPlanItemId` is present, falling back to the procedure price otherwise.
+
+### Step 1 — include `estimatedCost` when validating plan items
+
+`backend/src/modules/billing/service.ts` (lines 61-65), add `estimatedCost` to the include/select of the plan-item query:
 
 ```ts
-const refreshResult = await baseQuery(
-  { url: "/auth/refresh", method: "POST" },
-  api,
-  extraOptions,
-);
+const planItems = await prisma.treatmentPlanItem.findMany({
+  where: { id: { in: planItemIds } },
+  include: {
+    treatmentPlan: true,
+    invoiceItem: true,
+    select: undefined,
+  },
+});
 ```
 
-### Fix (choose ONE side so both match)
+Better: build a `planItemMap` (id -> estimatedCost) and pass it into `runInvoiceTransaction`, the same way `procedureMap` is passed.
 
-Option A — change the backend route to POST (recommended, matches frontend):
+### Step 2 — use the plan item price when building invoice items
 
-`backend/src/routes/auth.routes.ts` (line 20)
+`backend/src/modules/billing/service.ts` (lines 123-136), change:
 
 ```ts
-router.route("/refresh").post(authController.refresh);
+const itemsData = data.items.map((item) => {
+  const procedure = procedureMap.get(item.procedureId);
+  const planItemPrice = item.treatmentPlanItemId
+    ? planItemMap.get(item.treatmentPlanItemId)
+    : undefined;
+  const unitPrice =
+    planItemPrice !== undefined
+      ? Number(planItemPrice)
+      : Number(procedure.price);
+  const totalPrice = unitPrice * item.quantity;
+  subtotal += totalPrice;
+  return { ... };
+});
 ```
 
-Option B — change the frontend to use GET:
+Notes:
+- `estimatedCost` is a `Decimal` in Prisma, so use `Number(...)` to convert, matching how `procedure.price` is already handled.
+- This also keeps the invoice accurate when the catalog price is later changed — the invoice always snapshots the price that was agreed at plan time.
 
-`frontend/src/features/auth/authApi.ts` (line 37)
+## Alternative fix (client-side only)
 
-```ts
-refresh: builder.mutation<{ accessToken: string }, void>({
-  query: () => ({ url: "/auth/refresh", method: "GET" }),
-}),
-```
-
-And in `frontend/src/lib/apiBaseQuery.ts` (line 32)
-
-```ts
-const refreshResult = await baseQuery(
-  { url: "/auth/refresh", method: "GET" },
-  api,
-  extraOptions,
-);
-```
-
-## Bug 2: `/auth/me` response shape mismatch
-
-Even after fixing Bug 1 you would STILL be redirected to login, because of this second bug.
-
-The backend returns a response with a property named `currentUser`, but the frontend reads a property named `user`, which does not exist, so `user` is `undefined` and the `ProtectedRoute` redirects to `/login`.
-
-### Wrong backend code (reference only)
-
-`backend/src/modules/auth/controller.ts` (line 36)
-
-```ts
-res.json({ currentUser });
-```
-
-### Wrong frontend code
-
-`frontend/src/features/auth/AuthInitializer.tsx` (line 27)
-
-```ts
-dispatch(
-  credentialsSet({
-    accessToken: refreshResult.accessToken,
-    user: meResult.user as AuthUser,
-  }),
-);
-```
-
-### Fix
-
-Change the frontend to read `currentUser` instead of `user`:
-
-`frontend/src/features/auth/AuthInitializer.tsx` (lines 23-29)
-
-```ts
-const meResult = await getMe().unwrap();
-dispatch(
-  credentialsSet({
-    accessToken: refreshResult.accessToken,
-    user: meResult.currentUser as AuthUser,
-  }),
-);
-```
-
-Alternatively, change the backend to return `{ user }` instead of `{ currentUser }`.
+`frontend/src/features/billing/CreateInvoiceDialog.tsx` (lines 59-66) sends `unitPrice: item.estimatedCost`, and `backend/src/modules/billing/schema.ts` accepts an optional `unitPrice` that the backend uses when provided. Less secure (client can send any price), so the server-side fix above is preferred.
 
 ## Summary
 
 | # | File | Line | Problem |
 |---|------|------|---------|
-| 1 | `backend/src/routes/auth.routes.ts` | 20 | `/refresh` is registered as GET but frontend calls POST |
-| 2 | `frontend/src/features/auth/authApi.ts` | 37 | refresh mutation uses POST while backend expects GET |
-| 3 | `frontend/src/lib/apiBaseQuery.ts` | 32 | reauth refresh call uses POST |
-| 4 | `frontend/src/features/auth/AuthInitializer.tsx` | 27 | reads `meResult.user` but backend returns `currentUser` |
-| 5 | `backend/src/modules/auth/controller.ts` | 36 | `/auth/me` returns `{ currentUser }` |
+| 1 | `backend/src/modules/billing/service.ts` | 125 | `unitPrice` always comes from `procedure.price`, ignores `TreatmentPlanItem.estimatedCost` |
+| 2 | `backend/src/modules/billing/schema.ts` | 8-13 | invoice item schema has no price field at all |
+| 3 | `frontend/src/features/billing/CreateInvoiceDialog.tsx` | 59-66 | frontend doesn't send the plan item's price |
+
+Fix #1 (service layer) alone resolves the bug; #2/#3 are only needed if you also want the client to be able to override the price per invoice item.

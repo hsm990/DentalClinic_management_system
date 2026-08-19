@@ -27,7 +27,7 @@ export function CreateInvoiceDialog({
   const [selected, setSelected] = useState<Set<string>>(new Set());
   const { data: plans } = useGetTreatmentPlansQuery(patientId, { skip: !open });
   const [createInvoice, { isLoading }] = useCreateInvoiceMutation();
-
+  console.log(plans);
   // show every COMPLETED item, but tag which ones are already billed —
   // don't filter them out, just make them unselectable
   const completedItems =
@@ -121,7 +121,7 @@ export function CreateInvoiceDialog({
                   </div>
                 </div>
                 <div className="flex items-center gap-2">
-                  <span>${item.procedure.price}</span>
+                  <span>${item.estimatedCost}</span>
                   {item.alreadyBilled && (
                     <Badge variant="secondary">Billed</Badge>
                   )}

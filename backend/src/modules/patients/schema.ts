@@ -12,3 +12,9 @@ export const createPatientSchema = z.object({
   medicalNotes: z.string().optional(),
 });
 export const updatePatientSchema = createPatientSchema.partial();
+export const listPatientsQuerySchema = z.object({
+  search: z.string().optional(),
+  includeArchived: z.string().optional(), // "true"/"false" from query string
+  page: z.coerce.number().int().positive().optional(),
+  limit: z.coerce.number().int().positive().max(100).optional(),
+});

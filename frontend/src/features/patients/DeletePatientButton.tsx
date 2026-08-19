@@ -17,9 +17,13 @@ import {
 export function DeletePatientButton({
   patientId,
   patientName,
+  size = "default",
+  redirectOnDelete = false,
 }: {
   patientId: string;
   patientName: string;
+  size?: "default" | "sm";
+  redirectOnDelete?: boolean;
 }) {
   const [deletePatient, { isLoading }] = useDeletePatientMutation();
   const navigate = useNavigate();
@@ -28,10 +32,12 @@ export function DeletePatientButton({
     try {
       await deletePatient(patientId).unwrap();
       toast.success("Patient deleted");
-      navigate("/patients");
+      if (redirectOnDelete) navigate("/patients");
     } catch (err: any) {
       if (err?.status === 409) {
-        toast.error("Cannot delete: this patient has billing history");
+        toast.error(
+          "Cannot delete: this patient has clinical or billing history. Archive instead.",
+        );
       } else {
         toast.error("Failed to delete patient");
       }
@@ -41,14 +47,23 @@ export function DeletePatientButton({
   return (
     <AlertDialog>
       <AlertDialogTrigger
-        render={<Button variant="destructive">Delete</Button>}
+        render={
+          <Button
+            variant="destructive"
+            size={size}
+            onClick={(e) => e.stopPropagation()}
+          >
+            Delete
+          </Button>
+        }
       />
-      <AlertDialogContent>
+      <AlertDialogContent onClick={(e) => e.stopPropagation()}>
         <AlertDialogHeader>
           <AlertDialogTitle>Delete {patientName}?</AlertDialogTitle>
           <AlertDialogDescription>
-            This permanently removes the patient record, tooth chart, and
-            treatment plans. This cannot be undone.
+            This permanently removes the patient record. Only possible if they
+            have no appointments, treatment plans, or invoices — otherwise,
+            archive them instead.
           </AlertDialogDescription>
         </AlertDialogHeader>
         <AlertDialogFooter>

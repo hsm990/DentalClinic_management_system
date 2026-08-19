@@ -58,11 +58,15 @@ async function createInvoice(
   const planItemIds = data.items
     .map((i) => i.treatmentPlanItemId)
     .filter(Boolean) as string[];
+  const planItemMap = new Map<string, any>();
   if (planItemIds.length > 0) {
     const planItems = await prisma.treatmentPlanItem.findMany({
       where: { id: { in: planItemIds } },
       include: { treatmentPlan: true, invoiceItem: true },
     });
+    for (const planItem of planItems) {
+      planItemMap.set(planItem.id, planItem.estimatedCost);
+    }
 
     for (const planItem of planItems) {
       if (planItem.treatmentPlan.patientId !== patientId) {
@@ -95,6 +99,7 @@ async function createInvoice(
     user.id,
     data,
     procedureMap,
+    planItemMap,
   );
   emitters.emitInvoiceCreated(clinicId, invoice);
   return invoice;
@@ -106,6 +111,7 @@ async function runInvoiceTransaction(
   createdById: string,
   data: { items: InvoiceItemInput[]; discount?: number; notes?: string },
   procedureMap: Map<string, any>,
+  planItemMap: Map<string, any>,
   attempt = 1,
 ): Promise<any> {
   try {
@@ -122,7 +128,13 @@ async function runInvoiceTransaction(
       let subtotal = 0;
       const itemsData = data.items.map((item) => {
         const procedure = procedureMap.get(item.procedureId);
-        const unitPrice = Number(procedure.price);
+        const planItemPrice = item.treatmentPlanItemId
+          ? planItemMap.get(item.treatmentPlanItemId)
+          : undefined;
+        const unitPrice =
+          planItemPrice !== undefined
+            ? Number(planItemPrice)
+            : Number(procedure.price);
         const totalPrice = unitPrice * item.quantity;
         subtotal += totalPrice;
         return {
@@ -166,6 +178,7 @@ async function runInvoiceTransaction(
         createdById,
         data,
         procedureMap,
+        planItemMap,
         attempt + 1,
       );
     }
