@@ -29,6 +29,7 @@ export type TreatmentPlanMinAggregateOutputType = {
   title: string | null
   notes: string | null
   patientId: string | null
+  createdById: string | null
   createdAt: Date | null
   updatedAt: Date | null
 }
@@ -38,6 +39,7 @@ export type TreatmentPlanMaxAggregateOutputType = {
   title: string | null
   notes: string | null
   patientId: string | null
+  createdById: string | null
   createdAt: Date | null
   updatedAt: Date | null
 }
@@ -47,6 +49,7 @@ export type TreatmentPlanCountAggregateOutputType = {
   title: number
   notes: number
   patientId: number
+  createdById: number
   createdAt: number
   updatedAt: number
   _all: number
@@ -58,6 +61,7 @@ export type TreatmentPlanMinAggregateInputType = {
   title?: true
   notes?: true
   patientId?: true
+  createdById?: true
   createdAt?: true
   updatedAt?: true
 }
@@ -67,6 +71,7 @@ export type TreatmentPlanMaxAggregateInputType = {
   title?: true
   notes?: true
   patientId?: true
+  createdById?: true
   createdAt?: true
   updatedAt?: true
 }
@@ -76,6 +81,7 @@ export type TreatmentPlanCountAggregateInputType = {
   title?: true
   notes?: true
   patientId?: true
+  createdById?: true
   createdAt?: true
   updatedAt?: true
   _all?: true
@@ -158,6 +164,7 @@ export type TreatmentPlanGroupByOutputType = {
   title: string
   notes: string | null
   patientId: string
+  createdById: string | null
   createdAt: Date
   updatedAt: Date
   _count: TreatmentPlanCountAggregateOutputType | null
@@ -188,9 +195,11 @@ export type TreatmentPlanWhereInput = {
   title?: Prisma.StringFilter<"TreatmentPlan"> | string
   notes?: Prisma.StringNullableFilter<"TreatmentPlan"> | string | null
   patientId?: Prisma.StringFilter<"TreatmentPlan"> | string
+  createdById?: Prisma.StringNullableFilter<"TreatmentPlan"> | string | null
   createdAt?: Prisma.DateTimeFilter<"TreatmentPlan"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"TreatmentPlan"> | Date | string
   patient?: Prisma.XOR<Prisma.PatientScalarRelationFilter, Prisma.PatientWhereInput>
+  createdBy?: Prisma.XOR<Prisma.UserNullableScalarRelationFilter, Prisma.UserWhereInput> | null
   items?: Prisma.TreatmentPlanItemListRelationFilter
 }
 
@@ -199,9 +208,11 @@ export type TreatmentPlanOrderByWithRelationInput = {
   title?: Prisma.SortOrder
   notes?: Prisma.SortOrderInput | Prisma.SortOrder
   patientId?: Prisma.SortOrder
+  createdById?: Prisma.SortOrderInput | Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
   patient?: Prisma.PatientOrderByWithRelationInput
+  createdBy?: Prisma.UserOrderByWithRelationInput
   items?: Prisma.TreatmentPlanItemOrderByRelationAggregateInput
 }
 
@@ -213,9 +224,11 @@ export type TreatmentPlanWhereUniqueInput = Prisma.AtLeast<{
   title?: Prisma.StringFilter<"TreatmentPlan"> | string
   notes?: Prisma.StringNullableFilter<"TreatmentPlan"> | string | null
   patientId?: Prisma.StringFilter<"TreatmentPlan"> | string
+  createdById?: Prisma.StringNullableFilter<"TreatmentPlan"> | string | null
   createdAt?: Prisma.DateTimeFilter<"TreatmentPlan"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"TreatmentPlan"> | Date | string
   patient?: Prisma.XOR<Prisma.PatientScalarRelationFilter, Prisma.PatientWhereInput>
+  createdBy?: Prisma.XOR<Prisma.UserNullableScalarRelationFilter, Prisma.UserWhereInput> | null
   items?: Prisma.TreatmentPlanItemListRelationFilter
 }, "id">
 
@@ -224,6 +237,7 @@ export type TreatmentPlanOrderByWithAggregationInput = {
   title?: Prisma.SortOrder
   notes?: Prisma.SortOrderInput | Prisma.SortOrder
   patientId?: Prisma.SortOrder
+  createdById?: Prisma.SortOrderInput | Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
   _count?: Prisma.TreatmentPlanCountOrderByAggregateInput
@@ -239,6 +253,7 @@ export type TreatmentPlanScalarWhereWithAggregatesInput = {
   title?: Prisma.StringWithAggregatesFilter<"TreatmentPlan"> | string
   notes?: Prisma.StringNullableWithAggregatesFilter<"TreatmentPlan"> | string | null
   patientId?: Prisma.StringWithAggregatesFilter<"TreatmentPlan"> | string
+  createdById?: Prisma.StringNullableWithAggregatesFilter<"TreatmentPlan"> | string | null
   createdAt?: Prisma.DateTimeWithAggregatesFilter<"TreatmentPlan"> | Date | string
   updatedAt?: Prisma.DateTimeWithAggregatesFilter<"TreatmentPlan"> | Date | string
 }
@@ -250,6 +265,7 @@ export type TreatmentPlanCreateInput = {
   createdAt?: Date | string
   updatedAt?: Date | string
   patient: Prisma.PatientCreateNestedOneWithoutTreatmentPlansInput
+  createdBy?: Prisma.UserCreateNestedOneWithoutTreatmentPlansCreatedInput
   items?: Prisma.TreatmentPlanItemCreateNestedManyWithoutTreatmentPlanInput
 }
 
@@ -258,6 +274,7 @@ export type TreatmentPlanUncheckedCreateInput = {
   title: string
   notes?: string | null
   patientId: string
+  createdById?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
   items?: Prisma.TreatmentPlanItemUncheckedCreateNestedManyWithoutTreatmentPlanInput
@@ -270,6 +287,7 @@ export type TreatmentPlanUpdateInput = {
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   patient?: Prisma.PatientUpdateOneRequiredWithoutTreatmentPlansNestedInput
+  createdBy?: Prisma.UserUpdateOneWithoutTreatmentPlansCreatedNestedInput
   items?: Prisma.TreatmentPlanItemUpdateManyWithoutTreatmentPlanNestedInput
 }
 
@@ -278,6 +296,7 @@ export type TreatmentPlanUncheckedUpdateInput = {
   title?: Prisma.StringFieldUpdateOperationsInput | string
   notes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   patientId?: Prisma.StringFieldUpdateOperationsInput | string
+  createdById?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   items?: Prisma.TreatmentPlanItemUncheckedUpdateManyWithoutTreatmentPlanNestedInput
@@ -288,6 +307,7 @@ export type TreatmentPlanCreateManyInput = {
   title: string
   notes?: string | null
   patientId: string
+  createdById?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
 }
@@ -305,6 +325,7 @@ export type TreatmentPlanUncheckedUpdateManyInput = {
   title?: Prisma.StringFieldUpdateOperationsInput | string
   notes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   patientId?: Prisma.StringFieldUpdateOperationsInput | string
+  createdById?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
@@ -324,6 +345,7 @@ export type TreatmentPlanCountOrderByAggregateInput = {
   title?: Prisma.SortOrder
   notes?: Prisma.SortOrder
   patientId?: Prisma.SortOrder
+  createdById?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
 }
@@ -333,6 +355,7 @@ export type TreatmentPlanMaxOrderByAggregateInput = {
   title?: Prisma.SortOrder
   notes?: Prisma.SortOrder
   patientId?: Prisma.SortOrder
+  createdById?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
 }
@@ -342,6 +365,7 @@ export type TreatmentPlanMinOrderByAggregateInput = {
   title?: Prisma.SortOrder
   notes?: Prisma.SortOrder
   patientId?: Prisma.SortOrder
+  createdById?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
 }
@@ -349,6 +373,48 @@ export type TreatmentPlanMinOrderByAggregateInput = {
 export type TreatmentPlanScalarRelationFilter = {
   is?: Prisma.TreatmentPlanWhereInput
   isNot?: Prisma.TreatmentPlanWhereInput
+}
+
+export type TreatmentPlanCreateNestedManyWithoutCreatedByInput = {
+  create?: Prisma.XOR<Prisma.TreatmentPlanCreateWithoutCreatedByInput, Prisma.TreatmentPlanUncheckedCreateWithoutCreatedByInput> | Prisma.TreatmentPlanCreateWithoutCreatedByInput[] | Prisma.TreatmentPlanUncheckedCreateWithoutCreatedByInput[]
+  connectOrCreate?: Prisma.TreatmentPlanCreateOrConnectWithoutCreatedByInput | Prisma.TreatmentPlanCreateOrConnectWithoutCreatedByInput[]
+  createMany?: Prisma.TreatmentPlanCreateManyCreatedByInputEnvelope
+  connect?: Prisma.TreatmentPlanWhereUniqueInput | Prisma.TreatmentPlanWhereUniqueInput[]
+}
+
+export type TreatmentPlanUncheckedCreateNestedManyWithoutCreatedByInput = {
+  create?: Prisma.XOR<Prisma.TreatmentPlanCreateWithoutCreatedByInput, Prisma.TreatmentPlanUncheckedCreateWithoutCreatedByInput> | Prisma.TreatmentPlanCreateWithoutCreatedByInput[] | Prisma.TreatmentPlanUncheckedCreateWithoutCreatedByInput[]
+  connectOrCreate?: Prisma.TreatmentPlanCreateOrConnectWithoutCreatedByInput | Prisma.TreatmentPlanCreateOrConnectWithoutCreatedByInput[]
+  createMany?: Prisma.TreatmentPlanCreateManyCreatedByInputEnvelope
+  connect?: Prisma.TreatmentPlanWhereUniqueInput | Prisma.TreatmentPlanWhereUniqueInput[]
+}
+
+export type TreatmentPlanUpdateManyWithoutCreatedByNestedInput = {
+  create?: Prisma.XOR<Prisma.TreatmentPlanCreateWithoutCreatedByInput, Prisma.TreatmentPlanUncheckedCreateWithoutCreatedByInput> | Prisma.TreatmentPlanCreateWithoutCreatedByInput[] | Prisma.TreatmentPlanUncheckedCreateWithoutCreatedByInput[]
+  connectOrCreate?: Prisma.TreatmentPlanCreateOrConnectWithoutCreatedByInput | Prisma.TreatmentPlanCreateOrConnectWithoutCreatedByInput[]
+  upsert?: Prisma.TreatmentPlanUpsertWithWhereUniqueWithoutCreatedByInput | Prisma.TreatmentPlanUpsertWithWhereUniqueWithoutCreatedByInput[]
+  createMany?: Prisma.TreatmentPlanCreateManyCreatedByInputEnvelope
+  set?: Prisma.TreatmentPlanWhereUniqueInput | Prisma.TreatmentPlanWhereUniqueInput[]
+  disconnect?: Prisma.TreatmentPlanWhereUniqueInput | Prisma.TreatmentPlanWhereUniqueInput[]
+  delete?: Prisma.TreatmentPlanWhereUniqueInput | Prisma.TreatmentPlanWhereUniqueInput[]
+  connect?: Prisma.TreatmentPlanWhereUniqueInput | Prisma.TreatmentPlanWhereUniqueInput[]
+  update?: Prisma.TreatmentPlanUpdateWithWhereUniqueWithoutCreatedByInput | Prisma.TreatmentPlanUpdateWithWhereUniqueWithoutCreatedByInput[]
+  updateMany?: Prisma.TreatmentPlanUpdateManyWithWhereWithoutCreatedByInput | Prisma.TreatmentPlanUpdateManyWithWhereWithoutCreatedByInput[]
+  deleteMany?: Prisma.TreatmentPlanScalarWhereInput | Prisma.TreatmentPlanScalarWhereInput[]
+}
+
+export type TreatmentPlanUncheckedUpdateManyWithoutCreatedByNestedInput = {
+  create?: Prisma.XOR<Prisma.TreatmentPlanCreateWithoutCreatedByInput, Prisma.TreatmentPlanUncheckedCreateWithoutCreatedByInput> | Prisma.TreatmentPlanCreateWithoutCreatedByInput[] | Prisma.TreatmentPlanUncheckedCreateWithoutCreatedByInput[]
+  connectOrCreate?: Prisma.TreatmentPlanCreateOrConnectWithoutCreatedByInput | Prisma.TreatmentPlanCreateOrConnectWithoutCreatedByInput[]
+  upsert?: Prisma.TreatmentPlanUpsertWithWhereUniqueWithoutCreatedByInput | Prisma.TreatmentPlanUpsertWithWhereUniqueWithoutCreatedByInput[]
+  createMany?: Prisma.TreatmentPlanCreateManyCreatedByInputEnvelope
+  set?: Prisma.TreatmentPlanWhereUniqueInput | Prisma.TreatmentPlanWhereUniqueInput[]
+  disconnect?: Prisma.TreatmentPlanWhereUniqueInput | Prisma.TreatmentPlanWhereUniqueInput[]
+  delete?: Prisma.TreatmentPlanWhereUniqueInput | Prisma.TreatmentPlanWhereUniqueInput[]
+  connect?: Prisma.TreatmentPlanWhereUniqueInput | Prisma.TreatmentPlanWhereUniqueInput[]
+  update?: Prisma.TreatmentPlanUpdateWithWhereUniqueWithoutCreatedByInput | Prisma.TreatmentPlanUpdateWithWhereUniqueWithoutCreatedByInput[]
+  updateMany?: Prisma.TreatmentPlanUpdateManyWithWhereWithoutCreatedByInput | Prisma.TreatmentPlanUpdateManyWithWhereWithoutCreatedByInput[]
+  deleteMany?: Prisma.TreatmentPlanScalarWhereInput | Prisma.TreatmentPlanScalarWhereInput[]
 }
 
 export type TreatmentPlanCreateNestedManyWithoutPatientInput = {
@@ -407,12 +473,72 @@ export type TreatmentPlanUpdateOneRequiredWithoutItemsNestedInput = {
   update?: Prisma.XOR<Prisma.XOR<Prisma.TreatmentPlanUpdateToOneWithWhereWithoutItemsInput, Prisma.TreatmentPlanUpdateWithoutItemsInput>, Prisma.TreatmentPlanUncheckedUpdateWithoutItemsInput>
 }
 
+export type TreatmentPlanCreateWithoutCreatedByInput = {
+  id?: string
+  title: string
+  notes?: string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  patient: Prisma.PatientCreateNestedOneWithoutTreatmentPlansInput
+  items?: Prisma.TreatmentPlanItemCreateNestedManyWithoutTreatmentPlanInput
+}
+
+export type TreatmentPlanUncheckedCreateWithoutCreatedByInput = {
+  id?: string
+  title: string
+  notes?: string | null
+  patientId: string
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  items?: Prisma.TreatmentPlanItemUncheckedCreateNestedManyWithoutTreatmentPlanInput
+}
+
+export type TreatmentPlanCreateOrConnectWithoutCreatedByInput = {
+  where: Prisma.TreatmentPlanWhereUniqueInput
+  create: Prisma.XOR<Prisma.TreatmentPlanCreateWithoutCreatedByInput, Prisma.TreatmentPlanUncheckedCreateWithoutCreatedByInput>
+}
+
+export type TreatmentPlanCreateManyCreatedByInputEnvelope = {
+  data: Prisma.TreatmentPlanCreateManyCreatedByInput | Prisma.TreatmentPlanCreateManyCreatedByInput[]
+  skipDuplicates?: boolean
+}
+
+export type TreatmentPlanUpsertWithWhereUniqueWithoutCreatedByInput = {
+  where: Prisma.TreatmentPlanWhereUniqueInput
+  update: Prisma.XOR<Prisma.TreatmentPlanUpdateWithoutCreatedByInput, Prisma.TreatmentPlanUncheckedUpdateWithoutCreatedByInput>
+  create: Prisma.XOR<Prisma.TreatmentPlanCreateWithoutCreatedByInput, Prisma.TreatmentPlanUncheckedCreateWithoutCreatedByInput>
+}
+
+export type TreatmentPlanUpdateWithWhereUniqueWithoutCreatedByInput = {
+  where: Prisma.TreatmentPlanWhereUniqueInput
+  data: Prisma.XOR<Prisma.TreatmentPlanUpdateWithoutCreatedByInput, Prisma.TreatmentPlanUncheckedUpdateWithoutCreatedByInput>
+}
+
+export type TreatmentPlanUpdateManyWithWhereWithoutCreatedByInput = {
+  where: Prisma.TreatmentPlanScalarWhereInput
+  data: Prisma.XOR<Prisma.TreatmentPlanUpdateManyMutationInput, Prisma.TreatmentPlanUncheckedUpdateManyWithoutCreatedByInput>
+}
+
+export type TreatmentPlanScalarWhereInput = {
+  AND?: Prisma.TreatmentPlanScalarWhereInput | Prisma.TreatmentPlanScalarWhereInput[]
+  OR?: Prisma.TreatmentPlanScalarWhereInput[]
+  NOT?: Prisma.TreatmentPlanScalarWhereInput | Prisma.TreatmentPlanScalarWhereInput[]
+  id?: Prisma.StringFilter<"TreatmentPlan"> | string
+  title?: Prisma.StringFilter<"TreatmentPlan"> | string
+  notes?: Prisma.StringNullableFilter<"TreatmentPlan"> | string | null
+  patientId?: Prisma.StringFilter<"TreatmentPlan"> | string
+  createdById?: Prisma.StringNullableFilter<"TreatmentPlan"> | string | null
+  createdAt?: Prisma.DateTimeFilter<"TreatmentPlan"> | Date | string
+  updatedAt?: Prisma.DateTimeFilter<"TreatmentPlan"> | Date | string
+}
+
 export type TreatmentPlanCreateWithoutPatientInput = {
   id?: string
   title: string
   notes?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
+  createdBy?: Prisma.UserCreateNestedOneWithoutTreatmentPlansCreatedInput
   items?: Prisma.TreatmentPlanItemCreateNestedManyWithoutTreatmentPlanInput
 }
 
@@ -420,6 +546,7 @@ export type TreatmentPlanUncheckedCreateWithoutPatientInput = {
   id?: string
   title: string
   notes?: string | null
+  createdById?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
   items?: Prisma.TreatmentPlanItemUncheckedCreateNestedManyWithoutTreatmentPlanInput
@@ -451,18 +578,6 @@ export type TreatmentPlanUpdateManyWithWhereWithoutPatientInput = {
   data: Prisma.XOR<Prisma.TreatmentPlanUpdateManyMutationInput, Prisma.TreatmentPlanUncheckedUpdateManyWithoutPatientInput>
 }
 
-export type TreatmentPlanScalarWhereInput = {
-  AND?: Prisma.TreatmentPlanScalarWhereInput | Prisma.TreatmentPlanScalarWhereInput[]
-  OR?: Prisma.TreatmentPlanScalarWhereInput[]
-  NOT?: Prisma.TreatmentPlanScalarWhereInput | Prisma.TreatmentPlanScalarWhereInput[]
-  id?: Prisma.StringFilter<"TreatmentPlan"> | string
-  title?: Prisma.StringFilter<"TreatmentPlan"> | string
-  notes?: Prisma.StringNullableFilter<"TreatmentPlan"> | string | null
-  patientId?: Prisma.StringFilter<"TreatmentPlan"> | string
-  createdAt?: Prisma.DateTimeFilter<"TreatmentPlan"> | Date | string
-  updatedAt?: Prisma.DateTimeFilter<"TreatmentPlan"> | Date | string
-}
-
 export type TreatmentPlanCreateWithoutItemsInput = {
   id?: string
   title: string
@@ -470,6 +585,7 @@ export type TreatmentPlanCreateWithoutItemsInput = {
   createdAt?: Date | string
   updatedAt?: Date | string
   patient: Prisma.PatientCreateNestedOneWithoutTreatmentPlansInput
+  createdBy?: Prisma.UserCreateNestedOneWithoutTreatmentPlansCreatedInput
 }
 
 export type TreatmentPlanUncheckedCreateWithoutItemsInput = {
@@ -477,6 +593,7 @@ export type TreatmentPlanUncheckedCreateWithoutItemsInput = {
   title: string
   notes?: string | null
   patientId: string
+  createdById?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
 }
@@ -504,9 +621,49 @@ export type TreatmentPlanUpdateWithoutItemsInput = {
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   patient?: Prisma.PatientUpdateOneRequiredWithoutTreatmentPlansNestedInput
+  createdBy?: Prisma.UserUpdateOneWithoutTreatmentPlansCreatedNestedInput
 }
 
 export type TreatmentPlanUncheckedUpdateWithoutItemsInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  title?: Prisma.StringFieldUpdateOperationsInput | string
+  notes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  patientId?: Prisma.StringFieldUpdateOperationsInput | string
+  createdById?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+}
+
+export type TreatmentPlanCreateManyCreatedByInput = {
+  id?: string
+  title: string
+  notes?: string | null
+  patientId: string
+  createdAt?: Date | string
+  updatedAt?: Date | string
+}
+
+export type TreatmentPlanUpdateWithoutCreatedByInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  title?: Prisma.StringFieldUpdateOperationsInput | string
+  notes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  patient?: Prisma.PatientUpdateOneRequiredWithoutTreatmentPlansNestedInput
+  items?: Prisma.TreatmentPlanItemUpdateManyWithoutTreatmentPlanNestedInput
+}
+
+export type TreatmentPlanUncheckedUpdateWithoutCreatedByInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  title?: Prisma.StringFieldUpdateOperationsInput | string
+  notes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  patientId?: Prisma.StringFieldUpdateOperationsInput | string
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  items?: Prisma.TreatmentPlanItemUncheckedUpdateManyWithoutTreatmentPlanNestedInput
+}
+
+export type TreatmentPlanUncheckedUpdateManyWithoutCreatedByInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   title?: Prisma.StringFieldUpdateOperationsInput | string
   notes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -519,6 +676,7 @@ export type TreatmentPlanCreateManyPatientInput = {
   id?: string
   title: string
   notes?: string | null
+  createdById?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
 }
@@ -529,6 +687,7 @@ export type TreatmentPlanUpdateWithoutPatientInput = {
   notes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  createdBy?: Prisma.UserUpdateOneWithoutTreatmentPlansCreatedNestedInput
   items?: Prisma.TreatmentPlanItemUpdateManyWithoutTreatmentPlanNestedInput
 }
 
@@ -536,6 +695,7 @@ export type TreatmentPlanUncheckedUpdateWithoutPatientInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   title?: Prisma.StringFieldUpdateOperationsInput | string
   notes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  createdById?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   items?: Prisma.TreatmentPlanItemUncheckedUpdateManyWithoutTreatmentPlanNestedInput
@@ -545,6 +705,7 @@ export type TreatmentPlanUncheckedUpdateManyWithoutPatientInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   title?: Prisma.StringFieldUpdateOperationsInput | string
   notes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  createdById?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
@@ -585,9 +746,11 @@ export type TreatmentPlanSelect<ExtArgs extends runtime.Types.Extensions.Interna
   title?: boolean
   notes?: boolean
   patientId?: boolean
+  createdById?: boolean
   createdAt?: boolean
   updatedAt?: boolean
   patient?: boolean | Prisma.PatientDefaultArgs<ExtArgs>
+  createdBy?: boolean | Prisma.TreatmentPlan$createdByArgs<ExtArgs>
   items?: boolean | Prisma.TreatmentPlan$itemsArgs<ExtArgs>
   _count?: boolean | Prisma.TreatmentPlanCountOutputTypeDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["treatmentPlan"]>
@@ -597,9 +760,11 @@ export type TreatmentPlanSelectCreateManyAndReturn<ExtArgs extends runtime.Types
   title?: boolean
   notes?: boolean
   patientId?: boolean
+  createdById?: boolean
   createdAt?: boolean
   updatedAt?: boolean
   patient?: boolean | Prisma.PatientDefaultArgs<ExtArgs>
+  createdBy?: boolean | Prisma.TreatmentPlan$createdByArgs<ExtArgs>
 }, ExtArgs["result"]["treatmentPlan"]>
 
 export type TreatmentPlanSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
@@ -607,9 +772,11 @@ export type TreatmentPlanSelectUpdateManyAndReturn<ExtArgs extends runtime.Types
   title?: boolean
   notes?: boolean
   patientId?: boolean
+  createdById?: boolean
   createdAt?: boolean
   updatedAt?: boolean
   patient?: boolean | Prisma.PatientDefaultArgs<ExtArgs>
+  createdBy?: boolean | Prisma.TreatmentPlan$createdByArgs<ExtArgs>
 }, ExtArgs["result"]["treatmentPlan"]>
 
 export type TreatmentPlanSelectScalar = {
@@ -617,27 +784,32 @@ export type TreatmentPlanSelectScalar = {
   title?: boolean
   notes?: boolean
   patientId?: boolean
+  createdById?: boolean
   createdAt?: boolean
   updatedAt?: boolean
 }
 
-export type TreatmentPlanOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "title" | "notes" | "patientId" | "createdAt" | "updatedAt", ExtArgs["result"]["treatmentPlan"]>
+export type TreatmentPlanOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "title" | "notes" | "patientId" | "createdById" | "createdAt" | "updatedAt", ExtArgs["result"]["treatmentPlan"]>
 export type TreatmentPlanInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   patient?: boolean | Prisma.PatientDefaultArgs<ExtArgs>
+  createdBy?: boolean | Prisma.TreatmentPlan$createdByArgs<ExtArgs>
   items?: boolean | Prisma.TreatmentPlan$itemsArgs<ExtArgs>
   _count?: boolean | Prisma.TreatmentPlanCountOutputTypeDefaultArgs<ExtArgs>
 }
 export type TreatmentPlanIncludeCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   patient?: boolean | Prisma.PatientDefaultArgs<ExtArgs>
+  createdBy?: boolean | Prisma.TreatmentPlan$createdByArgs<ExtArgs>
 }
 export type TreatmentPlanIncludeUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   patient?: boolean | Prisma.PatientDefaultArgs<ExtArgs>
+  createdBy?: boolean | Prisma.TreatmentPlan$createdByArgs<ExtArgs>
 }
 
 export type $TreatmentPlanPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   name: "TreatmentPlan"
   objects: {
     patient: Prisma.$PatientPayload<ExtArgs>
+    createdBy: Prisma.$UserPayload<ExtArgs> | null
     items: Prisma.$TreatmentPlanItemPayload<ExtArgs>[]
   }
   scalars: runtime.Types.Extensions.GetPayloadResult<{
@@ -645,6 +817,7 @@ export type $TreatmentPlanPayload<ExtArgs extends runtime.Types.Extensions.Inter
     title: string
     notes: string | null
     patientId: string
+    createdById: string | null
     createdAt: Date
     updatedAt: Date
   }, ExtArgs["result"]["treatmentPlan"]>
@@ -1042,6 +1215,7 @@ readonly fields: TreatmentPlanFieldRefs;
 export interface Prisma__TreatmentPlanClient<T, Null = never, ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
   readonly [Symbol.toStringTag]: "PrismaPromise"
   patient<T extends Prisma.PatientDefaultArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.PatientDefaultArgs<ExtArgs>>): Prisma.Prisma__PatientClient<runtime.Types.Result.GetResult<Prisma.$PatientPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+  createdBy<T extends Prisma.TreatmentPlan$createdByArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.TreatmentPlan$createdByArgs<ExtArgs>>): Prisma.Prisma__UserClient<runtime.Types.Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
   items<T extends Prisma.TreatmentPlan$itemsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.TreatmentPlan$itemsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$TreatmentPlanItemPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   /**
    * Attaches callbacks for the resolution and/or rejection of the Promise.
@@ -1076,6 +1250,7 @@ export interface TreatmentPlanFieldRefs {
   readonly title: Prisma.FieldRef<"TreatmentPlan", 'String'>
   readonly notes: Prisma.FieldRef<"TreatmentPlan", 'String'>
   readonly patientId: Prisma.FieldRef<"TreatmentPlan", 'String'>
+  readonly createdById: Prisma.FieldRef<"TreatmentPlan", 'String'>
   readonly createdAt: Prisma.FieldRef<"TreatmentPlan", 'DateTime'>
   readonly updatedAt: Prisma.FieldRef<"TreatmentPlan", 'DateTime'>
 }
@@ -1476,6 +1651,25 @@ export type TreatmentPlanDeleteManyArgs<ExtArgs extends runtime.Types.Extensions
    * Limit how many TreatmentPlans to delete.
    */
   limit?: number
+}
+
+/**
+ * TreatmentPlan.createdBy
+ */
+export type TreatmentPlan$createdByArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the User
+   */
+  select?: Prisma.UserSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the User
+   */
+  omit?: Prisma.UserOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.UserInclude<ExtArgs> | null
+  where?: Prisma.UserWhereInput
 }
 
 /**

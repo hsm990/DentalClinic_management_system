@@ -42,10 +42,17 @@ const listPatientInvoices = asyncHandler(
     res.json({ invoices });
   },
 );
+const getOutstandingSummary = asyncHandler(
+  async (req: Request, res: Response) => {
+    const summary = await billingService.getOutstandingSummary(req.user!);
+    res.json(summary);
+  },
+);
 export default {
   createInvoice,
   getInvoice,
   recordPayment,
   getRevenue,
   listPatientInvoices,
+  getOutstandingSummary,
 };

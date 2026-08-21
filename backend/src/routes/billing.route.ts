@@ -42,4 +42,9 @@ router.get(
   "/patients/:patientId/invoices",
   billingController.listPatientInvoices,
 );
+router.get(
+  "/reports/outstanding",
+  requireRole("ADMIN", "RECEPTIONIST"),
+  billingController.getOutstandingSummary,
+);
 export default router;

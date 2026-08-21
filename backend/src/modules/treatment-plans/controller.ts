@@ -36,5 +36,11 @@ const updateItemStatus = asyncHandler(async (req: Request, res: Response) => {
   );
   res.json({ item });
 });
-
-export default { list, create, addItem, updateItemStatus };
+const remove = asyncHandler(async (req: Request, res: Response) => {
+  await treatmentPlansService.deletePlan(
+    req.user!,
+    req.params.planId as string,
+  );
+  res.status(200).json({ message: "Treatment plan deleted" });
+});
+export default { list, create, addItem, updateItemStatus, remove };

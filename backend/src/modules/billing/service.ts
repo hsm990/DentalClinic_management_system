@@ -250,10 +250,24 @@ async function listPatientInvoices(user: RequestingUser, patientId: string) {
   const clinicId = requireClinicId(user);
   return billingRepository.findInvoicesByPatient(clinicId, patientId);
 }
+
+async function getOutstandingSummary(user: RequestingUser) {
+  const clinicId = requireClinicId(user);
+  const invoices = await billingRepository.findOutstandingInvoices(clinicId);
+
+  let totalOutstanding = 0;
+  for (const inv of invoices) {
+    const paid = inv.payments.reduce((sum, p) => sum + Number(p.amount), 0);
+    totalOutstanding += Math.max(0, Number(inv.total) - paid);
+  }
+
+  return { totalOutstanding, invoiceCount: invoices.length };
+}
 export default {
   createInvoice,
   recordPayment,
   getInvoice,
   getRevenue,
   listPatientInvoices,
+  getOutstandingSummary,
 };

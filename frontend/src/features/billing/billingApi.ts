@@ -11,7 +11,17 @@ export interface InvoiceItem {
   totalPrice: string;
   procedureId: string;
 }
+export interface OutstandingSummary {
+  totalOutstanding: number;
+  invoiceCount: number;
+}
 
+export interface RevenueSummary {
+  totalRevenue: number;
+  paymentCount: number;
+  from: string;
+  to: string;
+}
 export interface Payment {
   id: string;
   amount: string;
@@ -84,7 +94,22 @@ export const billingApi = apiSlice.injectEndpoints({
         { type: "Invoice", id: `PATIENT-${patientId}` },
       ],
     }),
+    getOutstandingSummary: builder.query<OutstandingSummary, void>({
+      query: () => "/reports/outstanding",
+    }),
 
+    getRevenue: builder.query<RevenueSummary, { from: string; to: string }>({
+      query: ({ from, to }) => ({
+        url: "/reports/revenue",
+        params: { from, to },
+      }),
+      transformResponse: (r: { revenue: any }) => ({
+        totalRevenue: Number(r.revenue.totalRevenue) || 0,
+        paymentCount: r.revenue.paymentCount,
+        from: r.revenue.from,
+        to: r.revenue.to,
+      }),
+    }),
     recordPayment: builder.mutation<
       Payment,
       {
@@ -114,4 +139,6 @@ export const {
   useCreateInvoiceMutation,
   useRecordPaymentMutation,
   useGetPatientInvoicesQuery,
+  useGetOutstandingSummaryQuery,
+  useGetRevenueQuery,
 } = billingApi;

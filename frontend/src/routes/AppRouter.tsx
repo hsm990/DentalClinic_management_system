@@ -8,6 +8,7 @@ import { PatientsPage } from "@/pages/PatientsPage";
 import { AppointmentsPage } from "@/pages/AppointmentsPage";
 import { PatientDetailPage } from "@/pages/PatientDetailPage";
 import { AdminPage } from "@/pages/AdminPage";
+import { CalendarPage } from "@/pages/CalendarPage";
 
 const router = createBrowserRouter([
   {
@@ -25,6 +26,7 @@ const router = createBrowserRouter([
           { path: "/appointments", element: <AppointmentsPage /> },
           { path: "/patients/:id", element: <PatientDetailPage /> },
           { path: "/admin", element: <AdminPage /> },
+          { path: "/calendar", element: <CalendarPage /> },
         ],
       },
     ],

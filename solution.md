@@ -103,3 +103,84 @@ Notes:
 | 3 | `frontend/src/features/billing/CreateInvoiceDialog.tsx` | 59-66 | frontend doesn't send the plan item's price |
 
 Fix #1 (service layer) alone resolves the bug; #2/#3 are only needed if you also want the client to be able to override the price per invoice item.
+
+---
+
+# Problem: Cannot fetch treatment plans (GET returns 500 "Something went wrong")
+
+## Problem
+
+- Opening the Treatment Plans tab on a patient page shows an error / empty state — the plans are never fetched.
+- `GET /api/v1/patients/:patientId/treatment-plans` returns **500 `{"error":{"message":"Something went wrong"}}`** (confirmed by hitting the endpoint directly).
+- Creating plans / adding items may appear to work, but every request that touches the `createdBy` / `createdById` columns fails server-side.
+
+## Root cause
+
+The schema was changed to add `createdById` + `createdBy` relation to `TreatmentPlan` and `TreatmentPlanItem` (see `backend/prisma/schema.prisma` and migration `20260819181003_treatment_plan_created_by`), and the code was updated to use it, but **`prisma generate` was never re-run**, so the generated Prisma client in `backend/src/generated/prisma` is stale and doesn't know these fields exist.
+
+1. The fetch query includes the new relation.
+
+`backend/src/modules/treatment-plans/repository.ts` (lines 3-18), `findPlansByPatient` includes `createdBy` on the plan and on each item:
+
+```ts
+return prisma.treatmentPlan.findMany({
+  where: { patientId },
+  include: {
+    createdBy: { select: { id: true, firstName: true, lastName: true } },
+    items: {
+      include: {
+        procedure: true,
+        invoiceItem: true,
+        createdBy: { select: { id: true, firstName: true, lastName: true } },
+      },
+    },
+  },
+  ...
+});
+```
+
+2. The generated client has no `createdBy` / `createdById` on either model.
+
+`backend/src/generated/prisma/models/TreatmentPlan.ts` and `models/TreatmentPlanItem.ts` contain **zero** `createdBy` references (aggregate/select types only list `id, title, notes, patientId, createdAt, updatedAt`, etc.). The embedded schema in `backend/src/generated/prisma/internal/class.ts` also lacks the fields.
+
+3. Prisma throws at runtime.
+
+Running the repository query directly produces:
+
+```
+PrismaClientValidationError:
+Unknown field `createdBy` for include statement on model `TreatmentPlan`.
+Available options are marked with ?.
+```
+
+Because the error is not an `AppError`, `backend/src/middleware/error.middleware.ts` swallows it into the generic 500 `"Something went wrong"`.
+
+4. Same problem affects create/add-item.
+
+`backend/src/modules/treatment-plans/repository.ts` passes `createdById` in the `create`/`createItem` data (lines 20-41), which the stale client also rejects — POST `/patients/:patientId/treatment-plans` and POST `/treatment-plans/:planId/items` also return 500.
+
+## Fix (no code change needed — regenerate the client)
+
+Run the Prisma generator in the backend so the generated client matches the schema:
+
+```bash
+cd backend
+npm run db:generate    # = prisma generate
+```
+
+Then restart the dev server (`npm run dev`). The generated files under `backend/src/generated/prisma` will be updated with `createdById` / `createdBy` on `TreatmentPlan` and `TreatmentPlanItem` (plus the `User` back-relations), and the fetch (list), create, and add-item endpoints will work again.
+
+Notes:
+- The migration `20260819181003_treatment_plan_created_by` was already created and the schema already has the fields — the DB is fine; only the client is stale.
+- If the columns are missing in the DB, run `npm run db:migrate` first, then regenerate.
+
+## Summary
+
+| # | File | Line | Problem |
+|---|------|------|---------|
+| 1 | `backend/src/generated/prisma/models/TreatmentPlan.ts` | — | generated client missing `createdById`/`createdBy` (stale) |
+| 2 | `backend/src/generated/prisma/models/TreatmentPlanItem.ts` | — | generated client missing `createdById`/`createdBy` (stale) |
+| 3 | `backend/src/modules/treatment-plans/repository.ts` | 3-18 | includes `createdBy` that the stale client rejects → 500 on fetch |
+| 4 | `backend/src/modules/treatment-plans/repository.ts` | 20-41 | writes `createdById` that the stale client rejects → 500 on create/add |
+
+The fix is a single command (`prisma generate`) — no application code needs to change.

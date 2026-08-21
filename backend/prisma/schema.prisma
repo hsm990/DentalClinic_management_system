@@ -100,6 +100,9 @@ model User {
   appointments    Appointment[] @relation("DentistAppointments")
   createdInvoices Invoice[]
 
+  treatmentPlansCreated     TreatmentPlan[]     @relation("TreatmentPlanCreatedBy")
+  treatmentPlanItemsCreated TreatmentPlanItem[] @relation("TreatmentPlanItemCreatedBy")
+
   @@index([clinicId])
 }
 
@@ -202,33 +205,37 @@ model ToothChartEntry {
 }
 
 model TreatmentPlan {
-  id        String   @id @default(cuid())
-  title     String
-  notes     String?
-  patientId String
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
+  id          String   @id @default(cuid())
+  title       String
+  notes       String?
+  patientId   String
+  createdById String?
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
 
-  patient Patient             @relation(fields: [patientId], references: [id])
-  items   TreatmentPlanItem[]
+  patient   Patient @relation(fields: [patientId], references: [id])
+  createdBy User?   @relation("TreatmentPlanCreatedBy", fields: [createdById], references: [id])
+
+  items TreatmentPlanItem[]
 
   @@index([patientId])
 }
 
 model TreatmentPlanItem {
-  id            String                  @id @default(cuid())
-  toothNumber   Int?
-  status        TreatmentPlanItemStatus @default(PLANNED)
-  estimatedCost Decimal                 @db.Decimal(10, 2)
-  notes         String?
-
+  id              String                  @id @default(cuid())
+  toothNumber     Int?
+  status          TreatmentPlanItemStatus @default(PLANNED)
+  estimatedCost   Decimal                 @db.Decimal(10, 2)
+  notes           String?
+  createdById     String?
   treatmentPlanId String
   procedureId     String
-  createdAt       DateTime      @default(now())
-  updatedAt       DateTime      @updatedAt
+  createdAt       DateTime                @default(now())
+  updatedAt       DateTime                @updatedAt
   invoiceItem     InvoiceItem?
-  treatmentPlan   TreatmentPlan @relation(fields: [treatmentPlanId], references: [id], onDelete: Cascade)
-  procedure       Procedure     @relation(fields: [procedureId], references: [id])
+  treatmentPlan   TreatmentPlan           @relation(fields: [treatmentPlanId], references: [id], onDelete: Cascade)
+  procedure       Procedure               @relation(fields: [procedureId], references: [id])
+  createdBy       User?                   @relation("TreatmentPlanItemCreatedBy", fields: [createdById], references: [id])
 
   @@index([treatmentPlanId])
   @@index([procedureId])
