@@ -62,7 +62,8 @@ export const ModelName = {
   TreatmentPlanItem: 'TreatmentPlanItem',
   Invoice: 'Invoice',
   InvoiceItem: 'InvoiceItem',
-  Payment: 'Payment'
+  Payment: 'Payment',
+  Task: 'Task'
 } as const
 
 export type ModelName = (typeof ModelName)[keyof typeof ModelName]
@@ -263,6 +264,24 @@ export const PaymentScalarFieldEnum = {
 } as const
 
 export type PaymentScalarFieldEnum = (typeof PaymentScalarFieldEnum)[keyof typeof PaymentScalarFieldEnum]
+
+
+export const TaskScalarFieldEnum = {
+  id: 'id',
+  title: 'title',
+  description: 'description',
+  dueDate: 'dueDate',
+  status: 'status',
+  targetType: 'targetType',
+  targetUserId: 'targetUserId',
+  targetRole: 'targetRole',
+  clinicId: 'clinicId',
+  createdById: 'createdById',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+} as const
+
+export type TaskScalarFieldEnum = (typeof TaskScalarFieldEnum)[keyof typeof TaskScalarFieldEnum]
 
 
 export const SortOrder = {

@@ -99,3 +99,8 @@ export type InvoiceItem = Prisma.InvoiceItemModel
  * 
  */
 export type Payment = Prisma.PaymentModel
+/**
+ * Model Task
+ * 
+ */
+export type Task = Prisma.TaskModel

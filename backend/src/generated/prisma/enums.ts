@@ -9,6 +9,24 @@
 * 🟢 You can import this file directly.
 */
 
+export const TaskStatus = {
+  PENDING: 'PENDING',
+  IN_PROGRESS: 'IN_PROGRESS',
+  DONE: 'DONE'
+} as const
+
+export type TaskStatus = (typeof TaskStatus)[keyof typeof TaskStatus]
+
+
+export const TaskTargetType = {
+  USER: 'USER',
+  ROLE: 'ROLE',
+  CLINIC: 'CLINIC'
+} as const
+
+export type TaskTargetType = (typeof TaskTargetType)[keyof typeof TaskTargetType]
+
+
 export const UserRole = {
   SUPER_ADMIN: 'SUPER_ADMIN',
   ADMIN: 'ADMIN',

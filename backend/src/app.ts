@@ -14,6 +14,8 @@ import appointmentsRouter from "./routes/appointments.route";
 import catalogRouter from "./routes/catalog.route";
 import treatmentPlansRouter from "./routes/treatment-plans.route";
 import billingRouter from "./routes/billing.route";
+import tasksRoutes from "./routes/tasks.route";
+
 import authMiddleware from "./middleware/auth.middleware";
 
 const app = express();
@@ -44,6 +46,6 @@ app.use("/api/v1/appointments", authMiddleware, appointmentsRouter);
 app.use("/api/v1/catalog", authMiddleware, catalogRouter);
 app.use("/api/v1", authMiddleware, treatmentPlansRouter);
 app.use("/api/v1", authMiddleware, billingRouter);
-
+app.use("/api/v1/tasks", authMiddleware, tasksRoutes);
 app.use(errorMiddleware);
 export default app;

@@ -348,6 +348,57 @@ export type EnumPaymentMethodWithAggregatesFilter<$PrismaModel = never> = {
   _max?: Prisma.NestedEnumPaymentMethodFilter<$PrismaModel>
 }
 
+export type EnumTaskStatusFilter<$PrismaModel = never> = {
+  equals?: $Enums.TaskStatus | Prisma.EnumTaskStatusFieldRefInput<$PrismaModel>
+  in?: $Enums.TaskStatus[] | Prisma.ListEnumTaskStatusFieldRefInput<$PrismaModel>
+  notIn?: $Enums.TaskStatus[] | Prisma.ListEnumTaskStatusFieldRefInput<$PrismaModel>
+  not?: Prisma.NestedEnumTaskStatusFilter<$PrismaModel> | $Enums.TaskStatus
+}
+
+export type EnumTaskTargetTypeFilter<$PrismaModel = never> = {
+  equals?: $Enums.TaskTargetType | Prisma.EnumTaskTargetTypeFieldRefInput<$PrismaModel>
+  in?: $Enums.TaskTargetType[] | Prisma.ListEnumTaskTargetTypeFieldRefInput<$PrismaModel>
+  notIn?: $Enums.TaskTargetType[] | Prisma.ListEnumTaskTargetTypeFieldRefInput<$PrismaModel>
+  not?: Prisma.NestedEnumTaskTargetTypeFilter<$PrismaModel> | $Enums.TaskTargetType
+}
+
+export type EnumUserRoleNullableFilter<$PrismaModel = never> = {
+  equals?: $Enums.UserRole | Prisma.EnumUserRoleFieldRefInput<$PrismaModel> | null
+  in?: $Enums.UserRole[] | Prisma.ListEnumUserRoleFieldRefInput<$PrismaModel> | null
+  notIn?: $Enums.UserRole[] | Prisma.ListEnumUserRoleFieldRefInput<$PrismaModel> | null
+  not?: Prisma.NestedEnumUserRoleNullableFilter<$PrismaModel> | $Enums.UserRole | null
+}
+
+export type EnumTaskStatusWithAggregatesFilter<$PrismaModel = never> = {
+  equals?: $Enums.TaskStatus | Prisma.EnumTaskStatusFieldRefInput<$PrismaModel>
+  in?: $Enums.TaskStatus[] | Prisma.ListEnumTaskStatusFieldRefInput<$PrismaModel>
+  notIn?: $Enums.TaskStatus[] | Prisma.ListEnumTaskStatusFieldRefInput<$PrismaModel>
+  not?: Prisma.NestedEnumTaskStatusWithAggregatesFilter<$PrismaModel> | $Enums.TaskStatus
+  _count?: Prisma.NestedIntFilter<$PrismaModel>
+  _min?: Prisma.NestedEnumTaskStatusFilter<$PrismaModel>
+  _max?: Prisma.NestedEnumTaskStatusFilter<$PrismaModel>
+}
+
+export type EnumTaskTargetTypeWithAggregatesFilter<$PrismaModel = never> = {
+  equals?: $Enums.TaskTargetType | Prisma.EnumTaskTargetTypeFieldRefInput<$PrismaModel>
+  in?: $Enums.TaskTargetType[] | Prisma.ListEnumTaskTargetTypeFieldRefInput<$PrismaModel>
+  notIn?: $Enums.TaskTargetType[] | Prisma.ListEnumTaskTargetTypeFieldRefInput<$PrismaModel>
+  not?: Prisma.NestedEnumTaskTargetTypeWithAggregatesFilter<$PrismaModel> | $Enums.TaskTargetType
+  _count?: Prisma.NestedIntFilter<$PrismaModel>
+  _min?: Prisma.NestedEnumTaskTargetTypeFilter<$PrismaModel>
+  _max?: Prisma.NestedEnumTaskTargetTypeFilter<$PrismaModel>
+}
+
+export type EnumUserRoleNullableWithAggregatesFilter<$PrismaModel = never> = {
+  equals?: $Enums.UserRole | Prisma.EnumUserRoleFieldRefInput<$PrismaModel> | null
+  in?: $Enums.UserRole[] | Prisma.ListEnumUserRoleFieldRefInput<$PrismaModel> | null
+  notIn?: $Enums.UserRole[] | Prisma.ListEnumUserRoleFieldRefInput<$PrismaModel> | null
+  not?: Prisma.NestedEnumUserRoleNullableWithAggregatesFilter<$PrismaModel> | $Enums.UserRole | null
+  _count?: Prisma.NestedIntNullableFilter<$PrismaModel>
+  _min?: Prisma.NestedEnumUserRoleNullableFilter<$PrismaModel>
+  _max?: Prisma.NestedEnumUserRoleNullableFilter<$PrismaModel>
+}
+
 export type NestedStringFilter<$PrismaModel = never> = {
   equals?: string | Prisma.StringFieldRefInput<$PrismaModel>
   in?: string[] | Prisma.ListStringFieldRefInput<$PrismaModel>
@@ -693,6 +744,57 @@ export type NestedEnumPaymentMethodWithAggregatesFilter<$PrismaModel = never> = 
   _count?: Prisma.NestedIntFilter<$PrismaModel>
   _min?: Prisma.NestedEnumPaymentMethodFilter<$PrismaModel>
   _max?: Prisma.NestedEnumPaymentMethodFilter<$PrismaModel>
+}
+
+export type NestedEnumTaskStatusFilter<$PrismaModel = never> = {
+  equals?: $Enums.TaskStatus | Prisma.EnumTaskStatusFieldRefInput<$PrismaModel>
+  in?: $Enums.TaskStatus[] | Prisma.ListEnumTaskStatusFieldRefInput<$PrismaModel>
+  notIn?: $Enums.TaskStatus[] | Prisma.ListEnumTaskStatusFieldRefInput<$PrismaModel>
+  not?: Prisma.NestedEnumTaskStatusFilter<$PrismaModel> | $Enums.TaskStatus
+}
+
+export type NestedEnumTaskTargetTypeFilter<$PrismaModel = never> = {
+  equals?: $Enums.TaskTargetType | Prisma.EnumTaskTargetTypeFieldRefInput<$PrismaModel>
+  in?: $Enums.TaskTargetType[] | Prisma.ListEnumTaskTargetTypeFieldRefInput<$PrismaModel>
+  notIn?: $Enums.TaskTargetType[] | Prisma.ListEnumTaskTargetTypeFieldRefInput<$PrismaModel>
+  not?: Prisma.NestedEnumTaskTargetTypeFilter<$PrismaModel> | $Enums.TaskTargetType
+}
+
+export type NestedEnumUserRoleNullableFilter<$PrismaModel = never> = {
+  equals?: $Enums.UserRole | Prisma.EnumUserRoleFieldRefInput<$PrismaModel> | null
+  in?: $Enums.UserRole[] | Prisma.ListEnumUserRoleFieldRefInput<$PrismaModel> | null
+  notIn?: $Enums.UserRole[] | Prisma.ListEnumUserRoleFieldRefInput<$PrismaModel> | null
+  not?: Prisma.NestedEnumUserRoleNullableFilter<$PrismaModel> | $Enums.UserRole | null
+}
+
+export type NestedEnumTaskStatusWithAggregatesFilter<$PrismaModel = never> = {
+  equals?: $Enums.TaskStatus | Prisma.EnumTaskStatusFieldRefInput<$PrismaModel>
+  in?: $Enums.TaskStatus[] | Prisma.ListEnumTaskStatusFieldRefInput<$PrismaModel>
+  notIn?: $Enums.TaskStatus[] | Prisma.ListEnumTaskStatusFieldRefInput<$PrismaModel>
+  not?: Prisma.NestedEnumTaskStatusWithAggregatesFilter<$PrismaModel> | $Enums.TaskStatus
+  _count?: Prisma.NestedIntFilter<$PrismaModel>
+  _min?: Prisma.NestedEnumTaskStatusFilter<$PrismaModel>
+  _max?: Prisma.NestedEnumTaskStatusFilter<$PrismaModel>
+}
+
+export type NestedEnumTaskTargetTypeWithAggregatesFilter<$PrismaModel = never> = {
+  equals?: $Enums.TaskTargetType | Prisma.EnumTaskTargetTypeFieldRefInput<$PrismaModel>
+  in?: $Enums.TaskTargetType[] | Prisma.ListEnumTaskTargetTypeFieldRefInput<$PrismaModel>
+  notIn?: $Enums.TaskTargetType[] | Prisma.ListEnumTaskTargetTypeFieldRefInput<$PrismaModel>
+  not?: Prisma.NestedEnumTaskTargetTypeWithAggregatesFilter<$PrismaModel> | $Enums.TaskTargetType
+  _count?: Prisma.NestedIntFilter<$PrismaModel>
+  _min?: Prisma.NestedEnumTaskTargetTypeFilter<$PrismaModel>
+  _max?: Prisma.NestedEnumTaskTargetTypeFilter<$PrismaModel>
+}
+
+export type NestedEnumUserRoleNullableWithAggregatesFilter<$PrismaModel = never> = {
+  equals?: $Enums.UserRole | Prisma.EnumUserRoleFieldRefInput<$PrismaModel> | null
+  in?: $Enums.UserRole[] | Prisma.ListEnumUserRoleFieldRefInput<$PrismaModel> | null
+  notIn?: $Enums.UserRole[] | Prisma.ListEnumUserRoleFieldRefInput<$PrismaModel> | null
+  not?: Prisma.NestedEnumUserRoleNullableWithAggregatesFilter<$PrismaModel> | $Enums.UserRole | null
+  _count?: Prisma.NestedIntNullableFilter<$PrismaModel>
+  _min?: Prisma.NestedEnumUserRoleNullableFilter<$PrismaModel>
+  _max?: Prisma.NestedEnumUserRoleNullableFilter<$PrismaModel>
 }
 
 

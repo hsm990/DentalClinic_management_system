@@ -9,6 +9,18 @@ generator client {
   importFileExtension = "ts"
 }
 
+enum TaskStatus {
+  PENDING
+  IN_PROGRESS
+  DONE
+}
+
+enum TaskTargetType {
+  USER
+  ROLE
+  CLINIC
+}
+
 enum UserRole {
   SUPER_ADMIN
   ADMIN
@@ -82,6 +94,7 @@ model Clinic {
   procedures          Procedure[]
   appointments        Appointment[]
   invoices            Invoice[]
+  tasks               Task[]
 }
 
 model User {
@@ -102,6 +115,9 @@ model User {
 
   treatmentPlansCreated     TreatmentPlan[]     @relation("TreatmentPlanCreatedBy")
   treatmentPlanItemsCreated TreatmentPlanItem[] @relation("TreatmentPlanItemCreatedBy")
+
+  tasksCreated  Task[] @relation("TaskCreatedBy")
+  tasksAssigned Task[] @relation("TaskAssignedToUser")
 
   @@index([clinicId])
 }
@@ -302,4 +318,26 @@ model Payment {
   invoice Invoice @relation(fields: [invoiceId], references: [id])
 
   @@index([invoiceId])
+}
+
+model Task {
+  id           String         @id @default(cuid())
+  title        String
+  description  String?
+  dueDate      DateTime?
+  status       TaskStatus     @default(PENDING)
+  targetType   TaskTargetType
+  targetUserId String?
+  targetRole   UserRole?
+  clinicId     String
+  createdById  String
+  createdAt    DateTime       @default(now())
+  updatedAt    DateTime       @updatedAt
+
+  clinic     Clinic @relation(fields: [clinicId], references: [id])
+  createdBy  User   @relation("TaskCreatedBy", fields: [createdById], references: [id])
+  targetUser User?  @relation("TaskAssignedToUser", fields: [targetUserId], references: [id])
+
+  @@index([clinicId])
+  @@index([targetUserId])
 }
