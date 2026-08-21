@@ -193,6 +193,7 @@ export const TreatmentPlanScalarFieldEnum = {
   title: 'title',
   notes: 'notes',
   patientId: 'patientId',
+  createdById: 'createdById',
   createdAt: 'createdAt',
   updatedAt: 'updatedAt'
 } as const
@@ -206,6 +207,7 @@ export const TreatmentPlanItemScalarFieldEnum = {
   status: 'status',
   estimatedCost: 'estimatedCost',
   notes: 'notes',
+  createdById: 'createdById',
   treatmentPlanId: 'treatmentPlanId',
   procedureId: 'procedureId',
   createdAt: 'createdAt',

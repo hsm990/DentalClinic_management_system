@@ -17,6 +17,7 @@ export function AppShell() {
     { to: "/", label: "Dashboard" },
     { to: "/patients", label: "Patients" },
     { to: "/appointments", label: "Appointments" },
+    { to: "/calendar", label: "Calendar" },
   ]; // Admin removed from here — added conditionally below
 
   const navItems =

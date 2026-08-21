@@ -15,6 +15,7 @@ export interface TreatmentPlanItem {
   procedureId: string;
   procedure: { id: string; name: string; price: string };
   invoiceItem?: { id: string } | null;
+  createdBy?: { id: string; firstName: string; lastName: string } | null;
 }
 
 export interface TreatmentPlan {
@@ -23,6 +24,7 @@ export interface TreatmentPlan {
   notes?: string | null;
   patientId: string;
   items: TreatmentPlanItem[];
+  createdBy?: { id: string; firstName: string; lastName: string } | null;
 }
 
 interface PlansResponse {
@@ -44,7 +46,18 @@ export const treatmentPlansApi = apiSlice.injectEndpoints({
         { type: "TreatmentPlan", id: patientId },
       ],
     }),
-
+    deleteTreatmentPlan: builder.mutation<
+      void,
+      { planId: string; patientId: string }
+    >({
+      query: ({ planId }) => ({
+        url: `/treatment-plans/${planId}`,
+        method: "DELETE",
+      }),
+      invalidatesTags: (_r, _e, { patientId }) => [
+        { type: "TreatmentPlan", id: patientId },
+      ],
+    }),
     createTreatmentPlan: builder.mutation<
       TreatmentPlan,
       { patientId: string; title: string; notes?: string }
@@ -104,4 +117,5 @@ export const {
   useCreateTreatmentPlanMutation,
   useAddPlanItemMutation,
   useUpdatePlanItemStatusMutation,
+  useDeleteTreatmentPlanMutation,
 } = treatmentPlansApi;

@@ -37,5 +37,9 @@ router.patch(
   validate(updateItemStatusSchema),
   treatmentPlansController.updateItemStatus,
 );
-
+router.delete(
+  "/treatment-plans/:planId",
+  requireRole("ADMIN", "DENTIST"),
+  treatmentPlansController.remove,
+);
 export default router;

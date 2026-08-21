@@ -21,9 +21,15 @@ function findInvoicesByPatient(clinicId: string, patientId: string) {
     orderBy: { createdAt: "desc" },
   });
 }
-
+function findOutstandingInvoices(clinicId: string) {
+  return prisma.invoice.findMany({
+    where: { clinicId, status: { in: ["PENDING", "PARTIALLY_PAID"] } },
+    include: { payments: true },
+  });
+}
 export default {
   findInvoiceById,
   findLastInvoiceNumber,
   findInvoicesByPatient,
+  findOutstandingInvoices,
 };

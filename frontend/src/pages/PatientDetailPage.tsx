@@ -16,13 +16,24 @@ import { Badge } from "@/components/ui/badge";
 import { EditPatientDialog } from "@/features/patients/EditPatientDialog";
 import { DeletePatientButton } from "@/features/patients/DeletePatientButton";
 import { ArchiveRestoreButtons } from "@/features/patients/ArchiveRestoreButtons";
+import { useGetTreatmentPlansQuery } from "@/features/treatmentPlans/treatmentPlansApi";
+import { useGetMyClinicQuery } from "@/features/clinic/clinicApi";
 
 export function PatientDetailPage() {
+  const { data: clinic } = useGetMyClinicQuery();
   const { id } = useParams<{ id: string }>();
   const { data: patient, isLoading } = useGetPatientByIdQuery(id!, {
     skip: !id,
   });
-
+  const { data: treatmentPlans } = useGetTreatmentPlansQuery(id!, {
+    skip: !id,
+  });
+  const unbilledCompletedItems =
+    treatmentPlans?.flatMap((plan) =>
+      plan.items.filter(
+        (item) => item.status === "COMPLETED" && !item.invoiceItem,
+      ),
+    ) ?? [];
   const { data: appointments } = useGetAppointmentsQuery(
     { patientId: id },
     { skip: !id },
@@ -205,6 +216,8 @@ export function PatientDetailPage() {
             <InvoiceDetail
               invoiceId={displayedInvoiceId}
               patientId={patient.id}
+              patientName={`${patient.firstName} ${patient.lastName}`}
+              clinicName={clinic?.name ?? "Clinic"}
             />
           ) : (
             <p className="text-center text-sm text-muted-foreground">
@@ -213,6 +226,15 @@ export function PatientDetailPage() {
           )}
         </TabsContent>
       </Tabs>
+      {unbilledCompletedItems.length > 0 && (
+        <div className="flex items-center gap-2 rounded-lg border border-amber-300 bg-amber-50 p-4 text-sm text-amber-800">
+          <span className="font-medium">
+            {unbilledCompletedItems.length} completed item
+            {unbilledCompletedItems.length === 1 ? "" : "s"} not yet billed:
+          </span>
+          {unbilledCompletedItems.map((i) => i.procedure.name).join(", ")}
+        </div>
+      )}
     </div>
   );
 }
