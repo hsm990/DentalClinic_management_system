@@ -19,7 +19,8 @@ export function AppShell() {
     { to: "/appointments", label: "Appointments" },
     { to: "/calendar", label: "Calendar" },
     { to: "/tasks", label: "Tasks" },
-  ]; // Admin removed from here — added conditionally below
+    { to: "/inventory", label: "Inventory" },
+  ];
 
   const navItems =
     user?.role === "ADMIN"
