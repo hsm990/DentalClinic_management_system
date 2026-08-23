@@ -205,6 +205,7 @@ export type ClinicWhereInput = {
   appointments?: Prisma.AppointmentListRelationFilter
   invoices?: Prisma.InvoiceListRelationFilter
   tasks?: Prisma.TaskListRelationFilter
+  inventoryItems?: Prisma.InventoryItemListRelationFilter
 }
 
 export type ClinicOrderByWithRelationInput = {
@@ -222,6 +223,7 @@ export type ClinicOrderByWithRelationInput = {
   appointments?: Prisma.AppointmentOrderByRelationAggregateInput
   invoices?: Prisma.InvoiceOrderByRelationAggregateInput
   tasks?: Prisma.TaskOrderByRelationAggregateInput
+  inventoryItems?: Prisma.InventoryItemOrderByRelationAggregateInput
 }
 
 export type ClinicWhereUniqueInput = Prisma.AtLeast<{
@@ -242,6 +244,7 @@ export type ClinicWhereUniqueInput = Prisma.AtLeast<{
   appointments?: Prisma.AppointmentListRelationFilter
   invoices?: Prisma.InvoiceListRelationFilter
   tasks?: Prisma.TaskListRelationFilter
+  inventoryItems?: Prisma.InventoryItemListRelationFilter
 }, "id">
 
 export type ClinicOrderByWithAggregationInput = {
@@ -285,6 +288,7 @@ export type ClinicCreateInput = {
   appointments?: Prisma.AppointmentCreateNestedManyWithoutClinicInput
   invoices?: Prisma.InvoiceCreateNestedManyWithoutClinicInput
   tasks?: Prisma.TaskCreateNestedManyWithoutClinicInput
+  inventoryItems?: Prisma.InventoryItemCreateNestedManyWithoutClinicInput
 }
 
 export type ClinicUncheckedCreateInput = {
@@ -302,6 +306,7 @@ export type ClinicUncheckedCreateInput = {
   appointments?: Prisma.AppointmentUncheckedCreateNestedManyWithoutClinicInput
   invoices?: Prisma.InvoiceUncheckedCreateNestedManyWithoutClinicInput
   tasks?: Prisma.TaskUncheckedCreateNestedManyWithoutClinicInput
+  inventoryItems?: Prisma.InventoryItemUncheckedCreateNestedManyWithoutClinicInput
 }
 
 export type ClinicUpdateInput = {
@@ -319,6 +324,7 @@ export type ClinicUpdateInput = {
   appointments?: Prisma.AppointmentUpdateManyWithoutClinicNestedInput
   invoices?: Prisma.InvoiceUpdateManyWithoutClinicNestedInput
   tasks?: Prisma.TaskUpdateManyWithoutClinicNestedInput
+  inventoryItems?: Prisma.InventoryItemUpdateManyWithoutClinicNestedInput
 }
 
 export type ClinicUncheckedUpdateInput = {
@@ -336,6 +342,7 @@ export type ClinicUncheckedUpdateInput = {
   appointments?: Prisma.AppointmentUncheckedUpdateManyWithoutClinicNestedInput
   invoices?: Prisma.InvoiceUncheckedUpdateManyWithoutClinicNestedInput
   tasks?: Prisma.TaskUncheckedUpdateManyWithoutClinicNestedInput
+  inventoryItems?: Prisma.InventoryItemUncheckedUpdateManyWithoutClinicNestedInput
 }
 
 export type ClinicCreateManyInput = {
@@ -440,6 +447,20 @@ export type ClinicUpdateOneWithoutUsersNestedInput = {
   update?: Prisma.XOR<Prisma.XOR<Prisma.ClinicUpdateToOneWithWhereWithoutUsersInput, Prisma.ClinicUpdateWithoutUsersInput>, Prisma.ClinicUncheckedUpdateWithoutUsersInput>
 }
 
+export type ClinicCreateNestedOneWithoutInventoryItemsInput = {
+  create?: Prisma.XOR<Prisma.ClinicCreateWithoutInventoryItemsInput, Prisma.ClinicUncheckedCreateWithoutInventoryItemsInput>
+  connectOrCreate?: Prisma.ClinicCreateOrConnectWithoutInventoryItemsInput
+  connect?: Prisma.ClinicWhereUniqueInput
+}
+
+export type ClinicUpdateOneRequiredWithoutInventoryItemsNestedInput = {
+  create?: Prisma.XOR<Prisma.ClinicCreateWithoutInventoryItemsInput, Prisma.ClinicUncheckedCreateWithoutInventoryItemsInput>
+  connectOrCreate?: Prisma.ClinicCreateOrConnectWithoutInventoryItemsInput
+  upsert?: Prisma.ClinicUpsertWithoutInventoryItemsInput
+  connect?: Prisma.ClinicWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.ClinicUpdateToOneWithWhereWithoutInventoryItemsInput, Prisma.ClinicUpdateWithoutInventoryItemsInput>, Prisma.ClinicUncheckedUpdateWithoutInventoryItemsInput>
+}
+
 export type ClinicCreateNestedOneWithoutPatientsInput = {
   create?: Prisma.XOR<Prisma.ClinicCreateWithoutPatientsInput, Prisma.ClinicUncheckedCreateWithoutPatientsInput>
   connectOrCreate?: Prisma.ClinicCreateOrConnectWithoutPatientsInput
@@ -538,6 +559,7 @@ export type ClinicCreateWithoutUsersInput = {
   appointments?: Prisma.AppointmentCreateNestedManyWithoutClinicInput
   invoices?: Prisma.InvoiceCreateNestedManyWithoutClinicInput
   tasks?: Prisma.TaskCreateNestedManyWithoutClinicInput
+  inventoryItems?: Prisma.InventoryItemCreateNestedManyWithoutClinicInput
 }
 
 export type ClinicUncheckedCreateWithoutUsersInput = {
@@ -554,6 +576,7 @@ export type ClinicUncheckedCreateWithoutUsersInput = {
   appointments?: Prisma.AppointmentUncheckedCreateNestedManyWithoutClinicInput
   invoices?: Prisma.InvoiceUncheckedCreateNestedManyWithoutClinicInput
   tasks?: Prisma.TaskUncheckedCreateNestedManyWithoutClinicInput
+  inventoryItems?: Prisma.InventoryItemUncheckedCreateNestedManyWithoutClinicInput
 }
 
 export type ClinicCreateOrConnectWithoutUsersInput = {
@@ -586,6 +609,7 @@ export type ClinicUpdateWithoutUsersInput = {
   appointments?: Prisma.AppointmentUpdateManyWithoutClinicNestedInput
   invoices?: Prisma.InvoiceUpdateManyWithoutClinicNestedInput
   tasks?: Prisma.TaskUpdateManyWithoutClinicNestedInput
+  inventoryItems?: Prisma.InventoryItemUpdateManyWithoutClinicNestedInput
 }
 
 export type ClinicUncheckedUpdateWithoutUsersInput = {
@@ -596,6 +620,91 @@ export type ClinicUncheckedUpdateWithoutUsersInput = {
   isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  patients?: Prisma.PatientUncheckedUpdateManyWithoutClinicNestedInput
+  procedureCategories?: Prisma.ProcedureCategoryUncheckedUpdateManyWithoutClinicNestedInput
+  procedures?: Prisma.ProcedureUncheckedUpdateManyWithoutClinicNestedInput
+  appointments?: Prisma.AppointmentUncheckedUpdateManyWithoutClinicNestedInput
+  invoices?: Prisma.InvoiceUncheckedUpdateManyWithoutClinicNestedInput
+  tasks?: Prisma.TaskUncheckedUpdateManyWithoutClinicNestedInput
+  inventoryItems?: Prisma.InventoryItemUncheckedUpdateManyWithoutClinicNestedInput
+}
+
+export type ClinicCreateWithoutInventoryItemsInput = {
+  id?: string
+  name: string
+  address?: string | null
+  phone?: string | null
+  isActive?: boolean
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  users?: Prisma.UserCreateNestedManyWithoutClinicInput
+  patients?: Prisma.PatientCreateNestedManyWithoutClinicInput
+  procedureCategories?: Prisma.ProcedureCategoryCreateNestedManyWithoutClinicInput
+  procedures?: Prisma.ProcedureCreateNestedManyWithoutClinicInput
+  appointments?: Prisma.AppointmentCreateNestedManyWithoutClinicInput
+  invoices?: Prisma.InvoiceCreateNestedManyWithoutClinicInput
+  tasks?: Prisma.TaskCreateNestedManyWithoutClinicInput
+}
+
+export type ClinicUncheckedCreateWithoutInventoryItemsInput = {
+  id?: string
+  name: string
+  address?: string | null
+  phone?: string | null
+  isActive?: boolean
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  users?: Prisma.UserUncheckedCreateNestedManyWithoutClinicInput
+  patients?: Prisma.PatientUncheckedCreateNestedManyWithoutClinicInput
+  procedureCategories?: Prisma.ProcedureCategoryUncheckedCreateNestedManyWithoutClinicInput
+  procedures?: Prisma.ProcedureUncheckedCreateNestedManyWithoutClinicInput
+  appointments?: Prisma.AppointmentUncheckedCreateNestedManyWithoutClinicInput
+  invoices?: Prisma.InvoiceUncheckedCreateNestedManyWithoutClinicInput
+  tasks?: Prisma.TaskUncheckedCreateNestedManyWithoutClinicInput
+}
+
+export type ClinicCreateOrConnectWithoutInventoryItemsInput = {
+  where: Prisma.ClinicWhereUniqueInput
+  create: Prisma.XOR<Prisma.ClinicCreateWithoutInventoryItemsInput, Prisma.ClinicUncheckedCreateWithoutInventoryItemsInput>
+}
+
+export type ClinicUpsertWithoutInventoryItemsInput = {
+  update: Prisma.XOR<Prisma.ClinicUpdateWithoutInventoryItemsInput, Prisma.ClinicUncheckedUpdateWithoutInventoryItemsInput>
+  create: Prisma.XOR<Prisma.ClinicCreateWithoutInventoryItemsInput, Prisma.ClinicUncheckedCreateWithoutInventoryItemsInput>
+  where?: Prisma.ClinicWhereInput
+}
+
+export type ClinicUpdateToOneWithWhereWithoutInventoryItemsInput = {
+  where?: Prisma.ClinicWhereInput
+  data: Prisma.XOR<Prisma.ClinicUpdateWithoutInventoryItemsInput, Prisma.ClinicUncheckedUpdateWithoutInventoryItemsInput>
+}
+
+export type ClinicUpdateWithoutInventoryItemsInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  address?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  phone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  users?: Prisma.UserUpdateManyWithoutClinicNestedInput
+  patients?: Prisma.PatientUpdateManyWithoutClinicNestedInput
+  procedureCategories?: Prisma.ProcedureCategoryUpdateManyWithoutClinicNestedInput
+  procedures?: Prisma.ProcedureUpdateManyWithoutClinicNestedInput
+  appointments?: Prisma.AppointmentUpdateManyWithoutClinicNestedInput
+  invoices?: Prisma.InvoiceUpdateManyWithoutClinicNestedInput
+  tasks?: Prisma.TaskUpdateManyWithoutClinicNestedInput
+}
+
+export type ClinicUncheckedUpdateWithoutInventoryItemsInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  address?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  phone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  users?: Prisma.UserUncheckedUpdateManyWithoutClinicNestedInput
   patients?: Prisma.PatientUncheckedUpdateManyWithoutClinicNestedInput
   procedureCategories?: Prisma.ProcedureCategoryUncheckedUpdateManyWithoutClinicNestedInput
   procedures?: Prisma.ProcedureUncheckedUpdateManyWithoutClinicNestedInput
@@ -618,6 +727,7 @@ export type ClinicCreateWithoutPatientsInput = {
   appointments?: Prisma.AppointmentCreateNestedManyWithoutClinicInput
   invoices?: Prisma.InvoiceCreateNestedManyWithoutClinicInput
   tasks?: Prisma.TaskCreateNestedManyWithoutClinicInput
+  inventoryItems?: Prisma.InventoryItemCreateNestedManyWithoutClinicInput
 }
 
 export type ClinicUncheckedCreateWithoutPatientsInput = {
@@ -634,6 +744,7 @@ export type ClinicUncheckedCreateWithoutPatientsInput = {
   appointments?: Prisma.AppointmentUncheckedCreateNestedManyWithoutClinicInput
   invoices?: Prisma.InvoiceUncheckedCreateNestedManyWithoutClinicInput
   tasks?: Prisma.TaskUncheckedCreateNestedManyWithoutClinicInput
+  inventoryItems?: Prisma.InventoryItemUncheckedCreateNestedManyWithoutClinicInput
 }
 
 export type ClinicCreateOrConnectWithoutPatientsInput = {
@@ -666,6 +777,7 @@ export type ClinicUpdateWithoutPatientsInput = {
   appointments?: Prisma.AppointmentUpdateManyWithoutClinicNestedInput
   invoices?: Prisma.InvoiceUpdateManyWithoutClinicNestedInput
   tasks?: Prisma.TaskUpdateManyWithoutClinicNestedInput
+  inventoryItems?: Prisma.InventoryItemUpdateManyWithoutClinicNestedInput
 }
 
 export type ClinicUncheckedUpdateWithoutPatientsInput = {
@@ -682,6 +794,7 @@ export type ClinicUncheckedUpdateWithoutPatientsInput = {
   appointments?: Prisma.AppointmentUncheckedUpdateManyWithoutClinicNestedInput
   invoices?: Prisma.InvoiceUncheckedUpdateManyWithoutClinicNestedInput
   tasks?: Prisma.TaskUncheckedUpdateManyWithoutClinicNestedInput
+  inventoryItems?: Prisma.InventoryItemUncheckedUpdateManyWithoutClinicNestedInput
 }
 
 export type ClinicCreateWithoutProcedureCategoriesInput = {
@@ -698,6 +811,7 @@ export type ClinicCreateWithoutProcedureCategoriesInput = {
   appointments?: Prisma.AppointmentCreateNestedManyWithoutClinicInput
   invoices?: Prisma.InvoiceCreateNestedManyWithoutClinicInput
   tasks?: Prisma.TaskCreateNestedManyWithoutClinicInput
+  inventoryItems?: Prisma.InventoryItemCreateNestedManyWithoutClinicInput
 }
 
 export type ClinicUncheckedCreateWithoutProcedureCategoriesInput = {
@@ -714,6 +828,7 @@ export type ClinicUncheckedCreateWithoutProcedureCategoriesInput = {
   appointments?: Prisma.AppointmentUncheckedCreateNestedManyWithoutClinicInput
   invoices?: Prisma.InvoiceUncheckedCreateNestedManyWithoutClinicInput
   tasks?: Prisma.TaskUncheckedCreateNestedManyWithoutClinicInput
+  inventoryItems?: Prisma.InventoryItemUncheckedCreateNestedManyWithoutClinicInput
 }
 
 export type ClinicCreateOrConnectWithoutProcedureCategoriesInput = {
@@ -746,6 +861,7 @@ export type ClinicUpdateWithoutProcedureCategoriesInput = {
   appointments?: Prisma.AppointmentUpdateManyWithoutClinicNestedInput
   invoices?: Prisma.InvoiceUpdateManyWithoutClinicNestedInput
   tasks?: Prisma.TaskUpdateManyWithoutClinicNestedInput
+  inventoryItems?: Prisma.InventoryItemUpdateManyWithoutClinicNestedInput
 }
 
 export type ClinicUncheckedUpdateWithoutProcedureCategoriesInput = {
@@ -762,6 +878,7 @@ export type ClinicUncheckedUpdateWithoutProcedureCategoriesInput = {
   appointments?: Prisma.AppointmentUncheckedUpdateManyWithoutClinicNestedInput
   invoices?: Prisma.InvoiceUncheckedUpdateManyWithoutClinicNestedInput
   tasks?: Prisma.TaskUncheckedUpdateManyWithoutClinicNestedInput
+  inventoryItems?: Prisma.InventoryItemUncheckedUpdateManyWithoutClinicNestedInput
 }
 
 export type ClinicCreateWithoutProceduresInput = {
@@ -778,6 +895,7 @@ export type ClinicCreateWithoutProceduresInput = {
   appointments?: Prisma.AppointmentCreateNestedManyWithoutClinicInput
   invoices?: Prisma.InvoiceCreateNestedManyWithoutClinicInput
   tasks?: Prisma.TaskCreateNestedManyWithoutClinicInput
+  inventoryItems?: Prisma.InventoryItemCreateNestedManyWithoutClinicInput
 }
 
 export type ClinicUncheckedCreateWithoutProceduresInput = {
@@ -794,6 +912,7 @@ export type ClinicUncheckedCreateWithoutProceduresInput = {
   appointments?: Prisma.AppointmentUncheckedCreateNestedManyWithoutClinicInput
   invoices?: Prisma.InvoiceUncheckedCreateNestedManyWithoutClinicInput
   tasks?: Prisma.TaskUncheckedCreateNestedManyWithoutClinicInput
+  inventoryItems?: Prisma.InventoryItemUncheckedCreateNestedManyWithoutClinicInput
 }
 
 export type ClinicCreateOrConnectWithoutProceduresInput = {
@@ -826,6 +945,7 @@ export type ClinicUpdateWithoutProceduresInput = {
   appointments?: Prisma.AppointmentUpdateManyWithoutClinicNestedInput
   invoices?: Prisma.InvoiceUpdateManyWithoutClinicNestedInput
   tasks?: Prisma.TaskUpdateManyWithoutClinicNestedInput
+  inventoryItems?: Prisma.InventoryItemUpdateManyWithoutClinicNestedInput
 }
 
 export type ClinicUncheckedUpdateWithoutProceduresInput = {
@@ -842,6 +962,7 @@ export type ClinicUncheckedUpdateWithoutProceduresInput = {
   appointments?: Prisma.AppointmentUncheckedUpdateManyWithoutClinicNestedInput
   invoices?: Prisma.InvoiceUncheckedUpdateManyWithoutClinicNestedInput
   tasks?: Prisma.TaskUncheckedUpdateManyWithoutClinicNestedInput
+  inventoryItems?: Prisma.InventoryItemUncheckedUpdateManyWithoutClinicNestedInput
 }
 
 export type ClinicCreateWithoutAppointmentsInput = {
@@ -858,6 +979,7 @@ export type ClinicCreateWithoutAppointmentsInput = {
   procedures?: Prisma.ProcedureCreateNestedManyWithoutClinicInput
   invoices?: Prisma.InvoiceCreateNestedManyWithoutClinicInput
   tasks?: Prisma.TaskCreateNestedManyWithoutClinicInput
+  inventoryItems?: Prisma.InventoryItemCreateNestedManyWithoutClinicInput
 }
 
 export type ClinicUncheckedCreateWithoutAppointmentsInput = {
@@ -874,6 +996,7 @@ export type ClinicUncheckedCreateWithoutAppointmentsInput = {
   procedures?: Prisma.ProcedureUncheckedCreateNestedManyWithoutClinicInput
   invoices?: Prisma.InvoiceUncheckedCreateNestedManyWithoutClinicInput
   tasks?: Prisma.TaskUncheckedCreateNestedManyWithoutClinicInput
+  inventoryItems?: Prisma.InventoryItemUncheckedCreateNestedManyWithoutClinicInput
 }
 
 export type ClinicCreateOrConnectWithoutAppointmentsInput = {
@@ -906,6 +1029,7 @@ export type ClinicUpdateWithoutAppointmentsInput = {
   procedures?: Prisma.ProcedureUpdateManyWithoutClinicNestedInput
   invoices?: Prisma.InvoiceUpdateManyWithoutClinicNestedInput
   tasks?: Prisma.TaskUpdateManyWithoutClinicNestedInput
+  inventoryItems?: Prisma.InventoryItemUpdateManyWithoutClinicNestedInput
 }
 
 export type ClinicUncheckedUpdateWithoutAppointmentsInput = {
@@ -922,6 +1046,7 @@ export type ClinicUncheckedUpdateWithoutAppointmentsInput = {
   procedures?: Prisma.ProcedureUncheckedUpdateManyWithoutClinicNestedInput
   invoices?: Prisma.InvoiceUncheckedUpdateManyWithoutClinicNestedInput
   tasks?: Prisma.TaskUncheckedUpdateManyWithoutClinicNestedInput
+  inventoryItems?: Prisma.InventoryItemUncheckedUpdateManyWithoutClinicNestedInput
 }
 
 export type ClinicCreateWithoutInvoicesInput = {
@@ -938,6 +1063,7 @@ export type ClinicCreateWithoutInvoicesInput = {
   procedures?: Prisma.ProcedureCreateNestedManyWithoutClinicInput
   appointments?: Prisma.AppointmentCreateNestedManyWithoutClinicInput
   tasks?: Prisma.TaskCreateNestedManyWithoutClinicInput
+  inventoryItems?: Prisma.InventoryItemCreateNestedManyWithoutClinicInput
 }
 
 export type ClinicUncheckedCreateWithoutInvoicesInput = {
@@ -954,6 +1080,7 @@ export type ClinicUncheckedCreateWithoutInvoicesInput = {
   procedures?: Prisma.ProcedureUncheckedCreateNestedManyWithoutClinicInput
   appointments?: Prisma.AppointmentUncheckedCreateNestedManyWithoutClinicInput
   tasks?: Prisma.TaskUncheckedCreateNestedManyWithoutClinicInput
+  inventoryItems?: Prisma.InventoryItemUncheckedCreateNestedManyWithoutClinicInput
 }
 
 export type ClinicCreateOrConnectWithoutInvoicesInput = {
@@ -986,6 +1113,7 @@ export type ClinicUpdateWithoutInvoicesInput = {
   procedures?: Prisma.ProcedureUpdateManyWithoutClinicNestedInput
   appointments?: Prisma.AppointmentUpdateManyWithoutClinicNestedInput
   tasks?: Prisma.TaskUpdateManyWithoutClinicNestedInput
+  inventoryItems?: Prisma.InventoryItemUpdateManyWithoutClinicNestedInput
 }
 
 export type ClinicUncheckedUpdateWithoutInvoicesInput = {
@@ -1002,6 +1130,7 @@ export type ClinicUncheckedUpdateWithoutInvoicesInput = {
   procedures?: Prisma.ProcedureUncheckedUpdateManyWithoutClinicNestedInput
   appointments?: Prisma.AppointmentUncheckedUpdateManyWithoutClinicNestedInput
   tasks?: Prisma.TaskUncheckedUpdateManyWithoutClinicNestedInput
+  inventoryItems?: Prisma.InventoryItemUncheckedUpdateManyWithoutClinicNestedInput
 }
 
 export type ClinicCreateWithoutTasksInput = {
@@ -1018,6 +1147,7 @@ export type ClinicCreateWithoutTasksInput = {
   procedures?: Prisma.ProcedureCreateNestedManyWithoutClinicInput
   appointments?: Prisma.AppointmentCreateNestedManyWithoutClinicInput
   invoices?: Prisma.InvoiceCreateNestedManyWithoutClinicInput
+  inventoryItems?: Prisma.InventoryItemCreateNestedManyWithoutClinicInput
 }
 
 export type ClinicUncheckedCreateWithoutTasksInput = {
@@ -1034,6 +1164,7 @@ export type ClinicUncheckedCreateWithoutTasksInput = {
   procedures?: Prisma.ProcedureUncheckedCreateNestedManyWithoutClinicInput
   appointments?: Prisma.AppointmentUncheckedCreateNestedManyWithoutClinicInput
   invoices?: Prisma.InvoiceUncheckedCreateNestedManyWithoutClinicInput
+  inventoryItems?: Prisma.InventoryItemUncheckedCreateNestedManyWithoutClinicInput
 }
 
 export type ClinicCreateOrConnectWithoutTasksInput = {
@@ -1066,6 +1197,7 @@ export type ClinicUpdateWithoutTasksInput = {
   procedures?: Prisma.ProcedureUpdateManyWithoutClinicNestedInput
   appointments?: Prisma.AppointmentUpdateManyWithoutClinicNestedInput
   invoices?: Prisma.InvoiceUpdateManyWithoutClinicNestedInput
+  inventoryItems?: Prisma.InventoryItemUpdateManyWithoutClinicNestedInput
 }
 
 export type ClinicUncheckedUpdateWithoutTasksInput = {
@@ -1082,6 +1214,7 @@ export type ClinicUncheckedUpdateWithoutTasksInput = {
   procedures?: Prisma.ProcedureUncheckedUpdateManyWithoutClinicNestedInput
   appointments?: Prisma.AppointmentUncheckedUpdateManyWithoutClinicNestedInput
   invoices?: Prisma.InvoiceUncheckedUpdateManyWithoutClinicNestedInput
+  inventoryItems?: Prisma.InventoryItemUncheckedUpdateManyWithoutClinicNestedInput
 }
 
 
@@ -1097,6 +1230,7 @@ export type ClinicCountOutputType = {
   appointments: number
   invoices: number
   tasks: number
+  inventoryItems: number
 }
 
 export type ClinicCountOutputTypeSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
@@ -1107,6 +1241,7 @@ export type ClinicCountOutputTypeSelect<ExtArgs extends runtime.Types.Extensions
   appointments?: boolean | ClinicCountOutputTypeCountAppointmentsArgs
   invoices?: boolean | ClinicCountOutputTypeCountInvoicesArgs
   tasks?: boolean | ClinicCountOutputTypeCountTasksArgs
+  inventoryItems?: boolean | ClinicCountOutputTypeCountInventoryItemsArgs
 }
 
 /**
@@ -1168,6 +1303,13 @@ export type ClinicCountOutputTypeCountTasksArgs<ExtArgs extends runtime.Types.Ex
   where?: Prisma.TaskWhereInput
 }
 
+/**
+ * ClinicCountOutputType without action
+ */
+export type ClinicCountOutputTypeCountInventoryItemsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.InventoryItemWhereInput
+}
+
 
 export type ClinicSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   id?: boolean
@@ -1184,6 +1326,7 @@ export type ClinicSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs =
   appointments?: boolean | Prisma.Clinic$appointmentsArgs<ExtArgs>
   invoices?: boolean | Prisma.Clinic$invoicesArgs<ExtArgs>
   tasks?: boolean | Prisma.Clinic$tasksArgs<ExtArgs>
+  inventoryItems?: boolean | Prisma.Clinic$inventoryItemsArgs<ExtArgs>
   _count?: boolean | Prisma.ClinicCountOutputTypeDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["clinic"]>
 
@@ -1226,6 +1369,7 @@ export type ClinicInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs 
   appointments?: boolean | Prisma.Clinic$appointmentsArgs<ExtArgs>
   invoices?: boolean | Prisma.Clinic$invoicesArgs<ExtArgs>
   tasks?: boolean | Prisma.Clinic$tasksArgs<ExtArgs>
+  inventoryItems?: boolean | Prisma.Clinic$inventoryItemsArgs<ExtArgs>
   _count?: boolean | Prisma.ClinicCountOutputTypeDefaultArgs<ExtArgs>
 }
 export type ClinicIncludeCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {}
@@ -1241,6 +1385,7 @@ export type $ClinicPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs
     appointments: Prisma.$AppointmentPayload<ExtArgs>[]
     invoices: Prisma.$InvoicePayload<ExtArgs>[]
     tasks: Prisma.$TaskPayload<ExtArgs>[]
+    inventoryItems: Prisma.$InventoryItemPayload<ExtArgs>[]
   }
   scalars: runtime.Types.Extensions.GetPayloadResult<{
     id: string
@@ -1651,6 +1796,7 @@ export interface Prisma__ClinicClient<T, Null = never, ExtArgs extends runtime.T
   appointments<T extends Prisma.Clinic$appointmentsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Clinic$appointmentsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$AppointmentPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   invoices<T extends Prisma.Clinic$invoicesArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Clinic$invoicesArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$InvoicePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   tasks<T extends Prisma.Clinic$tasksArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Clinic$tasksArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$TaskPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  inventoryItems<T extends Prisma.Clinic$inventoryItemsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Clinic$inventoryItemsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$InventoryItemPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   /**
    * Attaches callbacks for the resolution and/or rejection of the Promise.
    * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -2245,6 +2391,30 @@ export type Clinic$tasksArgs<ExtArgs extends runtime.Types.Extensions.InternalAr
   take?: number
   skip?: number
   distinct?: Prisma.TaskScalarFieldEnum | Prisma.TaskScalarFieldEnum[]
+}
+
+/**
+ * Clinic.inventoryItems
+ */
+export type Clinic$inventoryItemsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the InventoryItem
+   */
+  select?: Prisma.InventoryItemSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the InventoryItem
+   */
+  omit?: Prisma.InventoryItemOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.InventoryItemInclude<ExtArgs> | null
+  where?: Prisma.InventoryItemWhereInput
+  orderBy?: Prisma.InventoryItemOrderByWithRelationInput | Prisma.InventoryItemOrderByWithRelationInput[]
+  cursor?: Prisma.InventoryItemWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.InventoryItemScalarFieldEnum | Prisma.InventoryItemScalarFieldEnum[]
 }
 
 /**

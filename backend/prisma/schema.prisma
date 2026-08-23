@@ -95,6 +95,7 @@ model Clinic {
   appointments        Appointment[]
   invoices            Invoice[]
   tasks               Task[]
+  inventoryItems      InventoryItem[]
 }
 
 model User {
@@ -119,6 +120,27 @@ model User {
   tasksCreated  Task[] @relation("TaskCreatedBy")
   tasksAssigned Task[] @relation("TaskAssignedToUser")
 
+  @@index([clinicId])
+}
+
+model InventoryItem {
+  id                String    @id @default(cuid())
+  reference         String
+  name              String
+  category          String
+  quantity          Int       @default(0)
+  unitPrice         Decimal   @db.Decimal(10, 2)
+  dateAdded         DateTime  @default(now())
+  expiryDate        DateTime?
+  supplier          String?
+  lowStockThreshold Int       @default(5)
+  clinicId          String
+  createdAt         DateTime  @default(now())
+  updatedAt         DateTime  @updatedAt
+
+  clinic Clinic @relation(fields: [clinicId], references: [id])
+
+  @@unique([clinicId, reference])
   @@index([clinicId])
 }
 

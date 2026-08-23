@@ -10,6 +10,7 @@
  */
 export type * from './models/Clinic.ts'
 export type * from './models/User.ts'
+export type * from './models/InventoryItem.ts'
 export type * from './models/Patient.ts'
 export type * from './models/ProcedureCategory.ts'
 export type * from './models/Procedure.ts'

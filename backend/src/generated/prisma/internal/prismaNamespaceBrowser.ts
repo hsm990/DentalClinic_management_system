@@ -53,6 +53,7 @@ export const AnyNull = runtime.AnyNull
 export const ModelName = {
   Clinic: 'Clinic',
   User: 'User',
+  InventoryItem: 'InventoryItem',
   Patient: 'Patient',
   ProcedureCategory: 'ProcedureCategory',
   Procedure: 'Procedure',
@@ -109,6 +110,25 @@ export const UserScalarFieldEnum = {
 } as const
 
 export type UserScalarFieldEnum = (typeof UserScalarFieldEnum)[keyof typeof UserScalarFieldEnum]
+
+
+export const InventoryItemScalarFieldEnum = {
+  id: 'id',
+  reference: 'reference',
+  name: 'name',
+  category: 'category',
+  quantity: 'quantity',
+  unitPrice: 'unitPrice',
+  dateAdded: 'dateAdded',
+  expiryDate: 'expiryDate',
+  supplier: 'supplier',
+  lowStockThreshold: 'lowStockThreshold',
+  clinicId: 'clinicId',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+} as const
+
+export type InventoryItemScalarFieldEnum = (typeof InventoryItemScalarFieldEnum)[keyof typeof InventoryItemScalarFieldEnum]
 
 
 export const PatientScalarFieldEnum = {

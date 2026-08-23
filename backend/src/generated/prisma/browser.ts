@@ -28,6 +28,11 @@ export type Clinic = Prisma.ClinicModel
  */
 export type User = Prisma.UserModel
 /**
+ * Model InventoryItem
+ * 
+ */
+export type InventoryItem = Prisma.InventoryItemModel
+/**
  * Model Patient
  * 
  */
