@@ -9,6 +9,7 @@ import { AppointmentsPage } from "@/pages/AppointmentsPage";
 import { PatientDetailPage } from "@/pages/PatientDetailPage";
 import { AdminPage } from "@/pages/AdminPage";
 import { CalendarPage } from "@/pages/CalendarPage";
+import { TasksPage } from "@/pages/TasksPage";
 
 const router = createBrowserRouter([
   {
@@ -27,6 +28,7 @@ const router = createBrowserRouter([
           { path: "/patients/:id", element: <PatientDetailPage /> },
           { path: "/admin", element: <AdminPage /> },
           { path: "/calendar", element: <CalendarPage /> },
+          { path: "/tasks", element: <TasksPage /> },
         ],
       },
     ],
