@@ -26,13 +26,17 @@ import {
   TrendingUp,
   ArrowRight,
 } from "lucide-react";
+import { useGetLowStockSummaryQuery } from "@/features/inventory/inventoryApi";
+import { PackageX } from "lucide-react";
 
 export function DashboardPage() {
   const user = useAppSelector((state) => state.auth.user);
   const navigate = useNavigate();
   const isFrontDesk = user?.role === "ADMIN" || user?.role === "RECEPTIONIST";
   const isDentist = user?.role === "DENTIST";
-
+  const { data: lowStock } = useGetLowStockSummaryQuery(undefined, {
+    skip: user?.role !== "ADMIN" && user?.role !== "ASSISTANT",
+  });
   const today = new Date();
   const todayStart = new Date(
     today.getFullYear(),
@@ -208,6 +212,14 @@ export function DashboardPage() {
           </div>
         </CardContent>
       </Card>
+      {(user?.role === "ADMIN" || user?.role === "ASSISTANT") && (
+        <StatCard
+          label="Low stock items"
+          value={lowStock?.count ?? "—"}
+          icon={PackageX}
+          tone={lowStock && lowStock.count > 0 ? "warning" : "success"}
+        />
+      )}
     </div>
   );
 }
