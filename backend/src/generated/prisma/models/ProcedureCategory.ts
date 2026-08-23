@@ -437,14 +437,6 @@ export type ProcedureCategoryUncheckedUpdateManyWithoutClinicNestedInput = {
   deleteMany?: Prisma.ProcedureCategoryScalarWhereInput | Prisma.ProcedureCategoryScalarWhereInput[]
 }
 
-export type IntFieldUpdateOperationsInput = {
-  set?: number
-  increment?: number
-  decrement?: number
-  multiply?: number
-  divide?: number
-}
-
 export type ProcedureCategoryCreateNestedOneWithoutProceduresInput = {
   create?: Prisma.XOR<Prisma.ProcedureCategoryCreateWithoutProceduresInput, Prisma.ProcedureCategoryUncheckedCreateWithoutProceduresInput>
   connectOrCreate?: Prisma.ProcedureCategoryCreateOrConnectWithoutProceduresInput
