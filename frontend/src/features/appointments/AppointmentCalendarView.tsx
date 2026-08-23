@@ -14,12 +14,21 @@ import { StatusActions } from "./StatusActions";
 import { STATUS_LABELS, STATUS_BADGE_VARIANT } from "./stateMachine";
 import { Badge } from "@/components/ui/badge";
 import { Skeleton } from "@/components/ui/skeleton";
+import { useGetTasksQuery } from "@/features/tasks/tasksApi";
+import { TaskCard } from "@/features/tasks/TaskCard";
 
 export function AppointmentCalendarView() {
   const user = useAppSelector((state) => state.auth.user);
   const [month, setMonth] = useState(new Date());
   const [selectedDate, setSelectedDate] = useState<Date | null>(new Date());
+  const { data: allTasks } = useGetTasksQuery();
 
+  const selectedDayTasks = useMemo(() => {
+    if (!selectedDate) return [];
+    return (allTasks ?? []).filter(
+      (t) => t.dueDate && isSameDay(new Date(t.dueDate), selectedDate),
+    );
+  }, [allTasks, selectedDate]);
   const gridStart = startOfWeek(startOfMonth(month));
   const gridEnd = endOfWeek(endOfMonth(month));
 
@@ -99,6 +108,14 @@ export function AppointmentCalendarView() {
           ))}
         </div>
       </div>
+      {selectedDayTasks.length > 0 && (
+        <div className="mt-4 space-y-2">
+          <p className="text-sm font-medium">Tasks due</p>
+          {selectedDayTasks.map((task) => (
+            <TaskCard key={task.id} task={task} />
+          ))}
+        </div>
+      )}
     </div>
   );
 }

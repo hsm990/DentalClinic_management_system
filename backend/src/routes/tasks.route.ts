@@ -1,5 +1,7 @@
 import { Router } from "express";
 import validate from "../middleware/validate.middleware";
+import requireRole from "../middleware/rbac.middleware";
+
 import {
   createTaskSchema,
   updateTaskStatusSchema,
@@ -17,6 +19,6 @@ router.patch(
   validate(updateTaskStatusSchema),
   tasksController.updateStatus,
 );
-router.delete("/:id", tasksController.remove);
+router.delete("/:id", requireRole("ADMIN"), tasksController.remove);
 
 export default router;
