@@ -48,6 +48,15 @@ const getOutstandingSummary = asyncHandler(
     res.json(summary);
   },
 );
+const getFinanceSummary = asyncHandler(async (req: Request, res: Response) => {
+  const { from, to } = req.query as any;
+  const summary = await billingService.getFinanceSummary(
+    req.user!,
+    new Date(from),
+    new Date(to),
+  );
+  res.json({ summary });
+});
 export default {
   createInvoice,
   getInvoice,
@@ -55,4 +64,5 @@ export default {
   getRevenue,
   listPatientInvoices,
   getOutstandingSummary,
+  getFinanceSummary,
 };
