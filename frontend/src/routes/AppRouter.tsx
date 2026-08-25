@@ -11,6 +11,7 @@ import { AdminPage } from "@/pages/AdminPage";
 import { CalendarPage } from "@/pages/CalendarPage";
 import { TasksPage } from "@/pages/TasksPage";
 import { InventoryPage } from "@/pages/InventoryPage";
+import { FinancePage } from "@/pages/FinancePage";
 const router = createBrowserRouter([
   {
     element: <PublicOnlyRoute />,
@@ -30,6 +31,7 @@ const router = createBrowserRouter([
           { path: "/calendar", element: <CalendarPage /> },
           { path: "/tasks", element: <TasksPage /> },
           { path: "/inventory", element: <InventoryPage /> },
+          { path: "/finance", element: <FinancePage /> },
         ],
       },
     ],

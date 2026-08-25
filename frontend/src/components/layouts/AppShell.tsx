@@ -24,7 +24,11 @@ export function AppShell() {
 
   const navItems =
     user?.role === "ADMIN"
-      ? [...baseNavItems, { to: "/admin", label: "Admin" }]
+      ? [
+          ...baseNavItems,
+          { to: "/finance", label: "Finance" },
+          { to: "/admin", label: "Admin" },
+        ]
       : baseNavItems;
 
   async function handleLogout() {

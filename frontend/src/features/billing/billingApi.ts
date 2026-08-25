@@ -11,6 +11,17 @@ export interface InvoiceItem {
   totalPrice: string;
   procedureId: string;
 }
+export interface FinanceSummary {
+  totalRevenue: number;
+  totalBilled: number;
+  totalOutstanding: number;
+  invoiceCount: number;
+  paymentCount: number;
+  revenueByDay: { date: string; total: number }[];
+  revenueByMethod: { method: string; total: number }[];
+  revenueByCategory: { category: string; total: number }[];
+}
+
 export interface OutstandingSummary {
   totalOutstanding: number;
   invoiceCount: number;
@@ -97,7 +108,34 @@ export const billingApi = apiSlice.injectEndpoints({
     getOutstandingSummary: builder.query<OutstandingSummary, void>({
       query: () => "/reports/outstanding",
     }),
-
+    getFinanceSummary: builder.query<
+      FinanceSummary,
+      { from: string; to: string }
+    >({
+      query: ({ from, to }) => ({
+        url: "/reports/finance-summary",
+        params: { from, to },
+      }),
+      transformResponse: (r: { summary: any }) => ({
+        totalRevenue: Number(r.summary.totalRevenue) || 0,
+        totalBilled: Number(r.summary.totalBilled) || 0,
+        totalOutstanding: Number(r.summary.totalOutstanding) || 0,
+        invoiceCount: r.summary.invoiceCount,
+        paymentCount: r.summary.paymentCount,
+        revenueByDay: r.summary.revenueByDay.map((d: any) => ({
+          date: d.date,
+          total: Number(d.total),
+        })),
+        revenueByMethod: r.summary.revenueByMethod.map((m: any) => ({
+          method: m.method,
+          total: Number(m.total),
+        })),
+        revenueByCategory: r.summary.revenueByCategory.map((c: any) => ({
+          category: c.category,
+          total: Number(c.total),
+        })),
+      }),
+    }),
     getRevenue: builder.query<RevenueSummary, { from: string; to: string }>({
       query: ({ from, to }) => ({
         url: "/reports/revenue",
@@ -120,7 +158,7 @@ export const billingApi = apiSlice.injectEndpoints({
         notes?: string;
       }
     >({
-      query: ({ invoiceId, patientId, ...body }) => ({
+      query: ({ invoiceId, ...body }) => ({
         url: `/invoices/${invoiceId}/payments`,
         method: "POST",
         body,
@@ -141,4 +179,5 @@ export const {
   useGetPatientInvoicesQuery,
   useGetOutstandingSummaryQuery,
   useGetRevenueQuery,
+  useGetFinanceSummaryQuery,
 } = billingApi;

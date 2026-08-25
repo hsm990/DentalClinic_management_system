@@ -263,6 +263,84 @@ async function getOutstandingSummary(user: RequestingUser) {
 
   return { totalOutstanding, invoiceCount: invoices.length };
 }
+async function getFinanceSummary(user: RequestingUser, from: Date, to: Date) {
+  const clinicId = requireClinicId(user);
+
+  // cash actually collected in the range, by day and by method — based on
+  // when payments were made, not when invoices were created
+  const payments = await prisma.payment.findMany({
+    where: { invoice: { clinicId }, paidAt: { gte: from, lte: to } },
+  });
+
+  const revenueByDayMap = new Map<string, number>();
+  const revenueByMethodMap = new Map<string, number>();
+  let totalRevenue = 0;
+
+  for (const p of payments) {
+    const amount = Number(p.amount);
+    totalRevenue += amount;
+    const day = p.paidAt.toISOString().slice(0, 10);
+    revenueByDayMap.set(day, (revenueByDayMap.get(day) ?? 0) + amount);
+    revenueByMethodMap.set(
+      p.method,
+      (revenueByMethodMap.get(p.method) ?? 0) + amount,
+    );
+  }
+
+  // billed amount by procedure category — based on invoices created in
+  // range (this is "work billed," a different number from "cash collected"
+  // above; the two can legitimately differ if a client pays late)
+  const invoices = await prisma.invoice.findMany({
+    where: { clinicId, createdAt: { gte: from, lte: to } },
+    include: {
+      payments: true,
+      items: { include: { procedure: { include: { category: true } } } },
+    },
+  });
+
+  const revenueByCategoryMap = new Map<string, number>();
+  let totalBilled = 0;
+  for (const inv of invoices) {
+    for (const item of inv.items) {
+      const amount = Number(item.totalPrice);
+      totalBilled += amount;
+      const categoryName = item.procedure.category?.name ?? "Uncategorized";
+      revenueByCategoryMap.set(
+        categoryName,
+        (revenueByCategoryMap.get(categoryName) ?? 0) + amount,
+      );
+    }
+  }
+
+  // current outstanding balance across ALL open invoices, not just this
+  // date range — this is a point-in-time figure, always "as of now"
+  const openInvoices = await prisma.invoice.findMany({
+    where: { clinicId, status: { in: ["PENDING", "PARTIALLY_PAID"] } },
+    include: { payments: true },
+  });
+  let totalOutstanding = 0;
+  for (const inv of openInvoices) {
+    const paid = inv.payments.reduce((s, p) => s + Number(p.amount), 0);
+    totalOutstanding += Math.max(0, Number(inv.total) - paid);
+  }
+
+  return {
+    totalRevenue,
+    totalBilled,
+    totalOutstanding,
+    invoiceCount: invoices.length,
+    paymentCount: payments.length,
+    revenueByDay: Array.from(revenueByDayMap.entries())
+      .map(([date, total]) => ({ date, total }))
+      .sort((a, b) => a.date.localeCompare(b.date)),
+    revenueByMethod: Array.from(revenueByMethodMap.entries()).map(
+      ([method, total]) => ({ method, total }),
+    ),
+    revenueByCategory: Array.from(revenueByCategoryMap.entries()).map(
+      ([category, total]) => ({ category, total }),
+    ),
+  };
+}
 export default {
   createInvoice,
   recordPayment,
@@ -270,4 +348,5 @@ export default {
   getRevenue,
   listPatientInvoices,
   getOutstandingSummary,
+  getFinanceSummary,
 };

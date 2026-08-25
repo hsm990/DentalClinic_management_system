@@ -6,6 +6,7 @@ import {
   createInvoiceSchema,
   recordPaymentSchema,
   revenueQuerySchema,
+  financeSummaryQuerySchema,
 } from "../modules/billing/schema";
 import billingController from "../modules/billing/controller";
 
@@ -46,5 +47,11 @@ router.get(
   "/reports/outstanding",
   requireRole("ADMIN", "RECEPTIONIST"),
   billingController.getOutstandingSummary,
+);
+router.get(
+  "/reports/finance-summary",
+  requireRole("ADMIN"),
+  validate(financeSummaryQuerySchema, "query"),
+  billingController.getFinanceSummary,
 );
 export default router;

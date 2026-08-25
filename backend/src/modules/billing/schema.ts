@@ -25,3 +25,7 @@ export const revenueQuerySchema = z.object({
   from: z.coerce.date(),
   to: z.coerce.date(),
 });
+export const financeSummaryQuerySchema = z.object({
+  from: z.coerce.date(),
+  to: z.coerce.date(),
+});
