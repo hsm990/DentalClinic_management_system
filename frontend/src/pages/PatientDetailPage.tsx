@@ -18,6 +18,7 @@ import { DeletePatientButton } from "@/features/patients/DeletePatientButton";
 import { ArchiveRestoreButtons } from "@/features/patients/ArchiveRestoreButtons";
 import { useGetTreatmentPlansQuery } from "@/features/treatmentPlans/treatmentPlansApi";
 import { useGetMyClinicQuery } from "@/features/clinic/clinicApi";
+import { OrthodonticsPanel } from "@/features/orthodontics/OrthodonticsPanel";
 
 export function PatientDetailPage() {
   const { data: clinic } = useGetMyClinicQuery();
@@ -100,6 +101,7 @@ export function PatientDetailPage() {
           <TabsTrigger value="tooth-chart">Tooth Chart</TabsTrigger>
           <TabsTrigger value="treatment-plans">Treatment Plans</TabsTrigger>
           <TabsTrigger value="billing">Billing</TabsTrigger>
+          <TabsTrigger value="orthodontics">Orthodontics</TabsTrigger>
         </TabsList>
         <TabsContent value="overview" className="space-y-6 pt-4">
           <div className="grid gap-4 sm:grid-cols-3">
@@ -224,6 +226,9 @@ export function PatientDetailPage() {
               No invoices yet. Create one from completed treatment items.
             </p>
           )}
+        </TabsContent>
+        <TabsContent value="orthodontics" className="pt-4">
+          <OrthodonticsPanel patientId={patient.id} />
         </TabsContent>
       </Tabs>
       {unbilledCompletedItems.length > 0 && (

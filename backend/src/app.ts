@@ -16,6 +16,7 @@ import treatmentPlansRouter from "./routes/treatment-plans.route";
 import billingRouter from "./routes/billing.route";
 import tasksRoutes from "./routes/tasks.route";
 import inventoryRoutes from "./routes/inventory.route";
+import orthodonticsRoutes from "./routes/orthodontics.route";
 
 import authMiddleware from "./middleware/auth.middleware";
 
@@ -49,5 +50,6 @@ app.use("/api/v1", authMiddleware, treatmentPlansRouter);
 app.use("/api/v1", authMiddleware, billingRouter);
 app.use("/api/v1/tasks", authMiddleware, tasksRoutes);
 app.use("/api/v1/inventory", authMiddleware, inventoryRoutes);
+app.use("/api/v1", authMiddleware, orthodonticsRoutes);
 app.use(errorMiddleware);
 export default app;

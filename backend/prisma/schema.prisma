@@ -9,6 +9,12 @@ generator client {
   importFileExtension = "ts"
 }
 
+enum OrthodonticCaseStatus {
+  ACTIVE
+  COMPLETED
+  DISCONTINUED
+}
+
 enum TaskStatus {
   PENDING
   IN_PROGRESS
@@ -117,8 +123,11 @@ model User {
   treatmentPlansCreated     TreatmentPlan[]     @relation("TreatmentPlanCreatedBy")
   treatmentPlanItemsCreated TreatmentPlanItem[] @relation("TreatmentPlanItemCreatedBy")
 
-  tasksCreated  Task[] @relation("TaskCreatedBy")
-  tasksAssigned Task[] @relation("TaskAssignedToUser")
+  tasksCreated       Task[]             @relation("TaskCreatedBy")
+  tasksAssigned      Task[]             @relation("TaskAssignedToUser")
+  orthoCasesDentist  OrthodonticCase[]  @relation("OrthoCaseDentist")
+  orthoCasesCreated  OrthodonticCase[]  @relation("OrthoCaseCreatedBy")
+  orthoVisitsCreated OrthodonticVisit[] @relation("OrthoVisitCreatedBy")
 
   @@index([clinicId])
 }
@@ -160,11 +169,12 @@ model Patient {
   createdAt    DateTime  @default(now())
   updatedAt    DateTime  @updatedAt
 
-  clinic         Clinic            @relation(fields: [clinicId], references: [id])
-  appointments   Appointment[]
-  toothChart     ToothChartEntry[]
-  treatmentPlans TreatmentPlan[]
-  invoices       Invoice[]
+  clinic           Clinic            @relation(fields: [clinicId], references: [id])
+  appointments     Appointment[]
+  toothChart       ToothChartEntry[]
+  treatmentPlans   TreatmentPlan[]
+  invoices         Invoice[]
+  orthodonticCases OrthodonticCase[]
 
   @@index([clinicId])
 }
@@ -362,4 +372,40 @@ model Task {
 
   @@index([clinicId])
   @@index([targetUserId])
+}
+
+model OrthodonticCase {
+  id               String                @id @default(cuid())
+  applianceType    String // e.g. "Metal braces", "Clear aligners"
+  startDate        DateTime
+  estimatedEndDate DateTime?
+  status           OrthodonticCaseStatus @default(ACTIVE)
+  notes            String?
+  patientId        String
+  dentistId        String
+  createdById      String?
+  createdAt        DateTime              @default(now())
+  updatedAt        DateTime              @updatedAt
+
+  patient   Patient            @relation(fields: [patientId], references: [id])
+  dentist   User               @relation("OrthoCaseDentist", fields: [dentistId], references: [id])
+  createdBy User?              @relation("OrthoCaseCreatedBy", fields: [createdById], references: [id])
+  visits    OrthodonticVisit[]
+
+  @@index([patientId])
+}
+
+model OrthodonticVisit {
+  id            String    @id @default(cuid())
+  visitDate     DateTime  @default(now())
+  notes         String
+  nextVisitDate DateTime?
+  caseId        String
+  createdById   String?
+  createdAt     DateTime  @default(now())
+
+  case      OrthodonticCase @relation(fields: [caseId], references: [id], onDelete: Cascade)
+  createdBy User?           @relation("OrthoVisitCreatedBy", fields: [createdById], references: [id])
+
+  @@index([caseId])
 }

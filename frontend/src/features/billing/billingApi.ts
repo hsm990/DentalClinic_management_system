@@ -158,7 +158,7 @@ export const billingApi = apiSlice.injectEndpoints({
         notes?: string;
       }
     >({
-      query: ({ invoiceId, ...body }) => ({
+      query: ({ invoiceId, patientId: _patientId, ...body }) => ({
         url: `/invoices/${invoiceId}/payments`,
         method: "POST",
         body,
