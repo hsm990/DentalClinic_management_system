@@ -64,7 +64,9 @@ export const ModelName = {
   Invoice: 'Invoice',
   InvoiceItem: 'InvoiceItem',
   Payment: 'Payment',
-  Task: 'Task'
+  Task: 'Task',
+  OrthodonticCase: 'OrthodonticCase',
+  OrthodonticVisit: 'OrthodonticVisit'
 } as const
 
 export type ModelName = (typeof ModelName)[keyof typeof ModelName]
@@ -302,6 +304,36 @@ export const TaskScalarFieldEnum = {
 } as const
 
 export type TaskScalarFieldEnum = (typeof TaskScalarFieldEnum)[keyof typeof TaskScalarFieldEnum]
+
+
+export const OrthodonticCaseScalarFieldEnum = {
+  id: 'id',
+  applianceType: 'applianceType',
+  startDate: 'startDate',
+  estimatedEndDate: 'estimatedEndDate',
+  status: 'status',
+  notes: 'notes',
+  patientId: 'patientId',
+  dentistId: 'dentistId',
+  createdById: 'createdById',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+} as const
+
+export type OrthodonticCaseScalarFieldEnum = (typeof OrthodonticCaseScalarFieldEnum)[keyof typeof OrthodonticCaseScalarFieldEnum]
+
+
+export const OrthodonticVisitScalarFieldEnum = {
+  id: 'id',
+  visitDate: 'visitDate',
+  notes: 'notes',
+  nextVisitDate: 'nextVisitDate',
+  caseId: 'caseId',
+  createdById: 'createdById',
+  createdAt: 'createdAt'
+} as const
+
+export type OrthodonticVisitScalarFieldEnum = (typeof OrthodonticVisitScalarFieldEnum)[keyof typeof OrthodonticVisitScalarFieldEnum]
 
 
 export const SortOrder = {

@@ -399,6 +399,23 @@ export type EnumUserRoleNullableWithAggregatesFilter<$PrismaModel = never> = {
   _max?: Prisma.NestedEnumUserRoleNullableFilter<$PrismaModel>
 }
 
+export type EnumOrthodonticCaseStatusFilter<$PrismaModel = never> = {
+  equals?: $Enums.OrthodonticCaseStatus | Prisma.EnumOrthodonticCaseStatusFieldRefInput<$PrismaModel>
+  in?: $Enums.OrthodonticCaseStatus[] | Prisma.ListEnumOrthodonticCaseStatusFieldRefInput<$PrismaModel>
+  notIn?: $Enums.OrthodonticCaseStatus[] | Prisma.ListEnumOrthodonticCaseStatusFieldRefInput<$PrismaModel>
+  not?: Prisma.NestedEnumOrthodonticCaseStatusFilter<$PrismaModel> | $Enums.OrthodonticCaseStatus
+}
+
+export type EnumOrthodonticCaseStatusWithAggregatesFilter<$PrismaModel = never> = {
+  equals?: $Enums.OrthodonticCaseStatus | Prisma.EnumOrthodonticCaseStatusFieldRefInput<$PrismaModel>
+  in?: $Enums.OrthodonticCaseStatus[] | Prisma.ListEnumOrthodonticCaseStatusFieldRefInput<$PrismaModel>
+  notIn?: $Enums.OrthodonticCaseStatus[] | Prisma.ListEnumOrthodonticCaseStatusFieldRefInput<$PrismaModel>
+  not?: Prisma.NestedEnumOrthodonticCaseStatusWithAggregatesFilter<$PrismaModel> | $Enums.OrthodonticCaseStatus
+  _count?: Prisma.NestedIntFilter<$PrismaModel>
+  _min?: Prisma.NestedEnumOrthodonticCaseStatusFilter<$PrismaModel>
+  _max?: Prisma.NestedEnumOrthodonticCaseStatusFilter<$PrismaModel>
+}
+
 export type NestedStringFilter<$PrismaModel = never> = {
   equals?: string | Prisma.StringFieldRefInput<$PrismaModel>
   in?: string[] | Prisma.ListStringFieldRefInput<$PrismaModel>
@@ -795,6 +812,23 @@ export type NestedEnumUserRoleNullableWithAggregatesFilter<$PrismaModel = never>
   _count?: Prisma.NestedIntNullableFilter<$PrismaModel>
   _min?: Prisma.NestedEnumUserRoleNullableFilter<$PrismaModel>
   _max?: Prisma.NestedEnumUserRoleNullableFilter<$PrismaModel>
+}
+
+export type NestedEnumOrthodonticCaseStatusFilter<$PrismaModel = never> = {
+  equals?: $Enums.OrthodonticCaseStatus | Prisma.EnumOrthodonticCaseStatusFieldRefInput<$PrismaModel>
+  in?: $Enums.OrthodonticCaseStatus[] | Prisma.ListEnumOrthodonticCaseStatusFieldRefInput<$PrismaModel>
+  notIn?: $Enums.OrthodonticCaseStatus[] | Prisma.ListEnumOrthodonticCaseStatusFieldRefInput<$PrismaModel>
+  not?: Prisma.NestedEnumOrthodonticCaseStatusFilter<$PrismaModel> | $Enums.OrthodonticCaseStatus
+}
+
+export type NestedEnumOrthodonticCaseStatusWithAggregatesFilter<$PrismaModel = never> = {
+  equals?: $Enums.OrthodonticCaseStatus | Prisma.EnumOrthodonticCaseStatusFieldRefInput<$PrismaModel>
+  in?: $Enums.OrthodonticCaseStatus[] | Prisma.ListEnumOrthodonticCaseStatusFieldRefInput<$PrismaModel>
+  notIn?: $Enums.OrthodonticCaseStatus[] | Prisma.ListEnumOrthodonticCaseStatusFieldRefInput<$PrismaModel>
+  not?: Prisma.NestedEnumOrthodonticCaseStatusWithAggregatesFilter<$PrismaModel> | $Enums.OrthodonticCaseStatus
+  _count?: Prisma.NestedIntFilter<$PrismaModel>
+  _min?: Prisma.NestedEnumOrthodonticCaseStatusFilter<$PrismaModel>
+  _max?: Prisma.NestedEnumOrthodonticCaseStatusFilter<$PrismaModel>
 }
 
 

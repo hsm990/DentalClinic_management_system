@@ -9,6 +9,15 @@
 * 🟢 You can import this file directly.
 */
 
+export const OrthodonticCaseStatus = {
+  ACTIVE: 'ACTIVE',
+  COMPLETED: 'COMPLETED',
+  DISCONTINUED: 'DISCONTINUED'
+} as const
+
+export type OrthodonticCaseStatus = (typeof OrthodonticCaseStatus)[keyof typeof OrthodonticCaseStatus]
+
+
 export const TaskStatus = {
   PENDING: 'PENDING',
   IN_PROGRESS: 'IN_PROGRESS',

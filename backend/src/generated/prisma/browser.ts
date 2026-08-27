@@ -87,3 +87,13 @@ export type Payment = Prisma.PaymentModel
  * 
  */
 export type Task = Prisma.TaskModel
+/**
+ * Model OrthodonticCase
+ * 
+ */
+export type OrthodonticCase = Prisma.OrthodonticCaseModel
+/**
+ * Model OrthodonticVisit
+ * 
+ */
+export type OrthodonticVisit = Prisma.OrthodonticVisitModel

@@ -410,7 +410,9 @@ export const ModelName = {
   Invoice: 'Invoice',
   InvoiceItem: 'InvoiceItem',
   Payment: 'Payment',
-  Task: 'Task'
+  Task: 'Task',
+  OrthodonticCase: 'OrthodonticCase',
+  OrthodonticVisit: 'OrthodonticVisit'
 } as const
 
 export type ModelName = (typeof ModelName)[keyof typeof ModelName]
@@ -426,7 +428,7 @@ export type TypeMap<ExtArgs extends runtime.Types.Extensions.InternalArgs = runt
     omit: GlobalOmitOptions
   }
   meta: {
-    modelProps: "clinic" | "user" | "inventoryItem" | "patient" | "procedureCategory" | "procedure" | "appointment" | "toothChartEntry" | "treatmentPlan" | "treatmentPlanItem" | "invoice" | "invoiceItem" | "payment" | "task"
+    modelProps: "clinic" | "user" | "inventoryItem" | "patient" | "procedureCategory" | "procedure" | "appointment" | "toothChartEntry" | "treatmentPlan" | "treatmentPlanItem" | "invoice" | "invoiceItem" | "payment" | "task" | "orthodonticCase" | "orthodonticVisit"
     txIsolationLevel: TransactionIsolationLevel
   }
   model: {
@@ -1466,6 +1468,154 @@ export type TypeMap<ExtArgs extends runtime.Types.Extensions.InternalArgs = runt
         }
       }
     }
+    OrthodonticCase: {
+      payload: Prisma.$OrthodonticCasePayload<ExtArgs>
+      fields: Prisma.OrthodonticCaseFieldRefs
+      operations: {
+        findUnique: {
+          args: Prisma.OrthodonticCaseFindUniqueArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$OrthodonticCasePayload> | null
+        }
+        findUniqueOrThrow: {
+          args: Prisma.OrthodonticCaseFindUniqueOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$OrthodonticCasePayload>
+        }
+        findFirst: {
+          args: Prisma.OrthodonticCaseFindFirstArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$OrthodonticCasePayload> | null
+        }
+        findFirstOrThrow: {
+          args: Prisma.OrthodonticCaseFindFirstOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$OrthodonticCasePayload>
+        }
+        findMany: {
+          args: Prisma.OrthodonticCaseFindManyArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$OrthodonticCasePayload>[]
+        }
+        create: {
+          args: Prisma.OrthodonticCaseCreateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$OrthodonticCasePayload>
+        }
+        createMany: {
+          args: Prisma.OrthodonticCaseCreateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        createManyAndReturn: {
+          args: Prisma.OrthodonticCaseCreateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$OrthodonticCasePayload>[]
+        }
+        delete: {
+          args: Prisma.OrthodonticCaseDeleteArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$OrthodonticCasePayload>
+        }
+        update: {
+          args: Prisma.OrthodonticCaseUpdateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$OrthodonticCasePayload>
+        }
+        deleteMany: {
+          args: Prisma.OrthodonticCaseDeleteManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateMany: {
+          args: Prisma.OrthodonticCaseUpdateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateManyAndReturn: {
+          args: Prisma.OrthodonticCaseUpdateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$OrthodonticCasePayload>[]
+        }
+        upsert: {
+          args: Prisma.OrthodonticCaseUpsertArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$OrthodonticCasePayload>
+        }
+        aggregate: {
+          args: Prisma.OrthodonticCaseAggregateArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.AggregateOrthodonticCase>
+        }
+        groupBy: {
+          args: Prisma.OrthodonticCaseGroupByArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.OrthodonticCaseGroupByOutputType>[]
+        }
+        count: {
+          args: Prisma.OrthodonticCaseCountArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.OrthodonticCaseCountAggregateOutputType> | number
+        }
+      }
+    }
+    OrthodonticVisit: {
+      payload: Prisma.$OrthodonticVisitPayload<ExtArgs>
+      fields: Prisma.OrthodonticVisitFieldRefs
+      operations: {
+        findUnique: {
+          args: Prisma.OrthodonticVisitFindUniqueArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$OrthodonticVisitPayload> | null
+        }
+        findUniqueOrThrow: {
+          args: Prisma.OrthodonticVisitFindUniqueOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$OrthodonticVisitPayload>
+        }
+        findFirst: {
+          args: Prisma.OrthodonticVisitFindFirstArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$OrthodonticVisitPayload> | null
+        }
+        findFirstOrThrow: {
+          args: Prisma.OrthodonticVisitFindFirstOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$OrthodonticVisitPayload>
+        }
+        findMany: {
+          args: Prisma.OrthodonticVisitFindManyArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$OrthodonticVisitPayload>[]
+        }
+        create: {
+          args: Prisma.OrthodonticVisitCreateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$OrthodonticVisitPayload>
+        }
+        createMany: {
+          args: Prisma.OrthodonticVisitCreateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        createManyAndReturn: {
+          args: Prisma.OrthodonticVisitCreateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$OrthodonticVisitPayload>[]
+        }
+        delete: {
+          args: Prisma.OrthodonticVisitDeleteArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$OrthodonticVisitPayload>
+        }
+        update: {
+          args: Prisma.OrthodonticVisitUpdateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$OrthodonticVisitPayload>
+        }
+        deleteMany: {
+          args: Prisma.OrthodonticVisitDeleteManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateMany: {
+          args: Prisma.OrthodonticVisitUpdateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateManyAndReturn: {
+          args: Prisma.OrthodonticVisitUpdateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$OrthodonticVisitPayload>[]
+        }
+        upsert: {
+          args: Prisma.OrthodonticVisitUpsertArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$OrthodonticVisitPayload>
+        }
+        aggregate: {
+          args: Prisma.OrthodonticVisitAggregateArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.AggregateOrthodonticVisit>
+        }
+        groupBy: {
+          args: Prisma.OrthodonticVisitGroupByArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.OrthodonticVisitGroupByOutputType>[]
+        }
+        count: {
+          args: Prisma.OrthodonticVisitCountArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.OrthodonticVisitCountAggregateOutputType> | number
+        }
+      }
+    }
   }
 } & {
   other: {
@@ -1726,6 +1876,36 @@ export const TaskScalarFieldEnum = {
 export type TaskScalarFieldEnum = (typeof TaskScalarFieldEnum)[keyof typeof TaskScalarFieldEnum]
 
 
+export const OrthodonticCaseScalarFieldEnum = {
+  id: 'id',
+  applianceType: 'applianceType',
+  startDate: 'startDate',
+  estimatedEndDate: 'estimatedEndDate',
+  status: 'status',
+  notes: 'notes',
+  patientId: 'patientId',
+  dentistId: 'dentistId',
+  createdById: 'createdById',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+} as const
+
+export type OrthodonticCaseScalarFieldEnum = (typeof OrthodonticCaseScalarFieldEnum)[keyof typeof OrthodonticCaseScalarFieldEnum]
+
+
+export const OrthodonticVisitScalarFieldEnum = {
+  id: 'id',
+  visitDate: 'visitDate',
+  notes: 'notes',
+  nextVisitDate: 'nextVisitDate',
+  caseId: 'caseId',
+  createdById: 'createdById',
+  createdAt: 'createdAt'
+} as const
+
+export type OrthodonticVisitScalarFieldEnum = (typeof OrthodonticVisitScalarFieldEnum)[keyof typeof OrthodonticVisitScalarFieldEnum]
+
+
 export const SortOrder = {
   asc: 'asc',
   desc: 'desc'
@@ -1946,6 +2126,20 @@ export type ListEnumTaskTargetTypeFieldRefInput<$PrismaModel> = FieldRefInputTyp
 
 
 /**
+ * Reference to a field of type 'OrthodonticCaseStatus'
+ */
+export type EnumOrthodonticCaseStatusFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'OrthodonticCaseStatus'>
+    
+
+
+/**
+ * Reference to a field of type 'OrthodonticCaseStatus[]'
+ */
+export type ListEnumOrthodonticCaseStatusFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'OrthodonticCaseStatus[]'>
+    
+
+
+/**
  * Reference to a field of type 'Float'
  */
 export type FloatFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Float'>
@@ -2123,6 +2317,8 @@ export type GlobalOmitConfig = {
   invoiceItem?: Prisma.InvoiceItemOmit
   payment?: Prisma.PaymentOmit
   task?: Prisma.TaskOmit
+  orthodonticCase?: Prisma.OrthodonticCaseOmit
+  orthodonticVisit?: Prisma.OrthodonticVisitOmit
 }
 
 /* Types for Logging */
