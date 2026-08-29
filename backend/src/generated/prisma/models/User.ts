@@ -232,6 +232,7 @@ export type UserWhereInput = {
   orthoCasesDentist?: Prisma.OrthodonticCaseListRelationFilter
   orthoCasesCreated?: Prisma.OrthodonticCaseListRelationFilter
   orthoVisitsCreated?: Prisma.OrthodonticVisitListRelationFilter
+  personalTodos?: Prisma.PersonalTodoListRelationFilter
 }
 
 export type UserOrderByWithRelationInput = {
@@ -255,6 +256,7 @@ export type UserOrderByWithRelationInput = {
   orthoCasesDentist?: Prisma.OrthodonticCaseOrderByRelationAggregateInput
   orthoCasesCreated?: Prisma.OrthodonticCaseOrderByRelationAggregateInput
   orthoVisitsCreated?: Prisma.OrthodonticVisitOrderByRelationAggregateInput
+  personalTodos?: Prisma.PersonalTodoOrderByRelationAggregateInput
 }
 
 export type UserWhereUniqueInput = Prisma.AtLeast<{
@@ -281,6 +283,7 @@ export type UserWhereUniqueInput = Prisma.AtLeast<{
   orthoCasesDentist?: Prisma.OrthodonticCaseListRelationFilter
   orthoCasesCreated?: Prisma.OrthodonticCaseListRelationFilter
   orthoVisitsCreated?: Prisma.OrthodonticVisitListRelationFilter
+  personalTodos?: Prisma.PersonalTodoListRelationFilter
 }, "id" | "email">
 
 export type UserOrderByWithAggregationInput = {
@@ -335,6 +338,7 @@ export type UserCreateInput = {
   orthoCasesDentist?: Prisma.OrthodonticCaseCreateNestedManyWithoutDentistInput
   orthoCasesCreated?: Prisma.OrthodonticCaseCreateNestedManyWithoutCreatedByInput
   orthoVisitsCreated?: Prisma.OrthodonticVisitCreateNestedManyWithoutCreatedByInput
+  personalTodos?: Prisma.PersonalTodoCreateNestedManyWithoutUserInput
 }
 
 export type UserUncheckedCreateInput = {
@@ -357,6 +361,7 @@ export type UserUncheckedCreateInput = {
   orthoCasesDentist?: Prisma.OrthodonticCaseUncheckedCreateNestedManyWithoutDentistInput
   orthoCasesCreated?: Prisma.OrthodonticCaseUncheckedCreateNestedManyWithoutCreatedByInput
   orthoVisitsCreated?: Prisma.OrthodonticVisitUncheckedCreateNestedManyWithoutCreatedByInput
+  personalTodos?: Prisma.PersonalTodoUncheckedCreateNestedManyWithoutUserInput
 }
 
 export type UserUpdateInput = {
@@ -379,6 +384,7 @@ export type UserUpdateInput = {
   orthoCasesDentist?: Prisma.OrthodonticCaseUpdateManyWithoutDentistNestedInput
   orthoCasesCreated?: Prisma.OrthodonticCaseUpdateManyWithoutCreatedByNestedInput
   orthoVisitsCreated?: Prisma.OrthodonticVisitUpdateManyWithoutCreatedByNestedInput
+  personalTodos?: Prisma.PersonalTodoUpdateManyWithoutUserNestedInput
 }
 
 export type UserUncheckedUpdateInput = {
@@ -401,6 +407,7 @@ export type UserUncheckedUpdateInput = {
   orthoCasesDentist?: Prisma.OrthodonticCaseUncheckedUpdateManyWithoutDentistNestedInput
   orthoCasesCreated?: Prisma.OrthodonticCaseUncheckedUpdateManyWithoutCreatedByNestedInput
   orthoVisitsCreated?: Prisma.OrthodonticVisitUncheckedUpdateManyWithoutCreatedByNestedInput
+  personalTodos?: Prisma.PersonalTodoUncheckedUpdateManyWithoutUserNestedInput
 }
 
 export type UserCreateManyInput = {
@@ -684,6 +691,20 @@ export type UserUpdateOneWithoutOrthoVisitsCreatedNestedInput = {
   update?: Prisma.XOR<Prisma.XOR<Prisma.UserUpdateToOneWithWhereWithoutOrthoVisitsCreatedInput, Prisma.UserUpdateWithoutOrthoVisitsCreatedInput>, Prisma.UserUncheckedUpdateWithoutOrthoVisitsCreatedInput>
 }
 
+export type UserCreateNestedOneWithoutPersonalTodosInput = {
+  create?: Prisma.XOR<Prisma.UserCreateWithoutPersonalTodosInput, Prisma.UserUncheckedCreateWithoutPersonalTodosInput>
+  connectOrCreate?: Prisma.UserCreateOrConnectWithoutPersonalTodosInput
+  connect?: Prisma.UserWhereUniqueInput
+}
+
+export type UserUpdateOneRequiredWithoutPersonalTodosNestedInput = {
+  create?: Prisma.XOR<Prisma.UserCreateWithoutPersonalTodosInput, Prisma.UserUncheckedCreateWithoutPersonalTodosInput>
+  connectOrCreate?: Prisma.UserCreateOrConnectWithoutPersonalTodosInput
+  upsert?: Prisma.UserUpsertWithoutPersonalTodosInput
+  connect?: Prisma.UserWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.UserUpdateToOneWithWhereWithoutPersonalTodosInput, Prisma.UserUpdateWithoutPersonalTodosInput>, Prisma.UserUncheckedUpdateWithoutPersonalTodosInput>
+}
+
 export type UserCreateWithoutClinicInput = {
   id?: string
   email: string
@@ -703,6 +724,7 @@ export type UserCreateWithoutClinicInput = {
   orthoCasesDentist?: Prisma.OrthodonticCaseCreateNestedManyWithoutDentistInput
   orthoCasesCreated?: Prisma.OrthodonticCaseCreateNestedManyWithoutCreatedByInput
   orthoVisitsCreated?: Prisma.OrthodonticVisitCreateNestedManyWithoutCreatedByInput
+  personalTodos?: Prisma.PersonalTodoCreateNestedManyWithoutUserInput
 }
 
 export type UserUncheckedCreateWithoutClinicInput = {
@@ -724,6 +746,7 @@ export type UserUncheckedCreateWithoutClinicInput = {
   orthoCasesDentist?: Prisma.OrthodonticCaseUncheckedCreateNestedManyWithoutDentistInput
   orthoCasesCreated?: Prisma.OrthodonticCaseUncheckedCreateNestedManyWithoutCreatedByInput
   orthoVisitsCreated?: Prisma.OrthodonticVisitUncheckedCreateNestedManyWithoutCreatedByInput
+  personalTodos?: Prisma.PersonalTodoUncheckedCreateNestedManyWithoutUserInput
 }
 
 export type UserCreateOrConnectWithoutClinicInput = {
@@ -787,6 +810,7 @@ export type UserCreateWithoutAppointmentsInput = {
   orthoCasesDentist?: Prisma.OrthodonticCaseCreateNestedManyWithoutDentistInput
   orthoCasesCreated?: Prisma.OrthodonticCaseCreateNestedManyWithoutCreatedByInput
   orthoVisitsCreated?: Prisma.OrthodonticVisitCreateNestedManyWithoutCreatedByInput
+  personalTodos?: Prisma.PersonalTodoCreateNestedManyWithoutUserInput
 }
 
 export type UserUncheckedCreateWithoutAppointmentsInput = {
@@ -808,6 +832,7 @@ export type UserUncheckedCreateWithoutAppointmentsInput = {
   orthoCasesDentist?: Prisma.OrthodonticCaseUncheckedCreateNestedManyWithoutDentistInput
   orthoCasesCreated?: Prisma.OrthodonticCaseUncheckedCreateNestedManyWithoutCreatedByInput
   orthoVisitsCreated?: Prisma.OrthodonticVisitUncheckedCreateNestedManyWithoutCreatedByInput
+  personalTodos?: Prisma.PersonalTodoUncheckedCreateNestedManyWithoutUserInput
 }
 
 export type UserCreateOrConnectWithoutAppointmentsInput = {
@@ -845,6 +870,7 @@ export type UserUpdateWithoutAppointmentsInput = {
   orthoCasesDentist?: Prisma.OrthodonticCaseUpdateManyWithoutDentistNestedInput
   orthoCasesCreated?: Prisma.OrthodonticCaseUpdateManyWithoutCreatedByNestedInput
   orthoVisitsCreated?: Prisma.OrthodonticVisitUpdateManyWithoutCreatedByNestedInput
+  personalTodos?: Prisma.PersonalTodoUpdateManyWithoutUserNestedInput
 }
 
 export type UserUncheckedUpdateWithoutAppointmentsInput = {
@@ -866,6 +892,7 @@ export type UserUncheckedUpdateWithoutAppointmentsInput = {
   orthoCasesDentist?: Prisma.OrthodonticCaseUncheckedUpdateManyWithoutDentistNestedInput
   orthoCasesCreated?: Prisma.OrthodonticCaseUncheckedUpdateManyWithoutCreatedByNestedInput
   orthoVisitsCreated?: Prisma.OrthodonticVisitUncheckedUpdateManyWithoutCreatedByNestedInput
+  personalTodos?: Prisma.PersonalTodoUncheckedUpdateManyWithoutUserNestedInput
 }
 
 export type UserCreateWithoutTreatmentPlansCreatedInput = {
@@ -887,6 +914,7 @@ export type UserCreateWithoutTreatmentPlansCreatedInput = {
   orthoCasesDentist?: Prisma.OrthodonticCaseCreateNestedManyWithoutDentistInput
   orthoCasesCreated?: Prisma.OrthodonticCaseCreateNestedManyWithoutCreatedByInput
   orthoVisitsCreated?: Prisma.OrthodonticVisitCreateNestedManyWithoutCreatedByInput
+  personalTodos?: Prisma.PersonalTodoCreateNestedManyWithoutUserInput
 }
 
 export type UserUncheckedCreateWithoutTreatmentPlansCreatedInput = {
@@ -908,6 +936,7 @@ export type UserUncheckedCreateWithoutTreatmentPlansCreatedInput = {
   orthoCasesDentist?: Prisma.OrthodonticCaseUncheckedCreateNestedManyWithoutDentistInput
   orthoCasesCreated?: Prisma.OrthodonticCaseUncheckedCreateNestedManyWithoutCreatedByInput
   orthoVisitsCreated?: Prisma.OrthodonticVisitUncheckedCreateNestedManyWithoutCreatedByInput
+  personalTodos?: Prisma.PersonalTodoUncheckedCreateNestedManyWithoutUserInput
 }
 
 export type UserCreateOrConnectWithoutTreatmentPlansCreatedInput = {
@@ -945,6 +974,7 @@ export type UserUpdateWithoutTreatmentPlansCreatedInput = {
   orthoCasesDentist?: Prisma.OrthodonticCaseUpdateManyWithoutDentistNestedInput
   orthoCasesCreated?: Prisma.OrthodonticCaseUpdateManyWithoutCreatedByNestedInput
   orthoVisitsCreated?: Prisma.OrthodonticVisitUpdateManyWithoutCreatedByNestedInput
+  personalTodos?: Prisma.PersonalTodoUpdateManyWithoutUserNestedInput
 }
 
 export type UserUncheckedUpdateWithoutTreatmentPlansCreatedInput = {
@@ -966,6 +996,7 @@ export type UserUncheckedUpdateWithoutTreatmentPlansCreatedInput = {
   orthoCasesDentist?: Prisma.OrthodonticCaseUncheckedUpdateManyWithoutDentistNestedInput
   orthoCasesCreated?: Prisma.OrthodonticCaseUncheckedUpdateManyWithoutCreatedByNestedInput
   orthoVisitsCreated?: Prisma.OrthodonticVisitUncheckedUpdateManyWithoutCreatedByNestedInput
+  personalTodos?: Prisma.PersonalTodoUncheckedUpdateManyWithoutUserNestedInput
 }
 
 export type UserCreateWithoutTreatmentPlanItemsCreatedInput = {
@@ -987,6 +1018,7 @@ export type UserCreateWithoutTreatmentPlanItemsCreatedInput = {
   orthoCasesDentist?: Prisma.OrthodonticCaseCreateNestedManyWithoutDentistInput
   orthoCasesCreated?: Prisma.OrthodonticCaseCreateNestedManyWithoutCreatedByInput
   orthoVisitsCreated?: Prisma.OrthodonticVisitCreateNestedManyWithoutCreatedByInput
+  personalTodos?: Prisma.PersonalTodoCreateNestedManyWithoutUserInput
 }
 
 export type UserUncheckedCreateWithoutTreatmentPlanItemsCreatedInput = {
@@ -1008,6 +1040,7 @@ export type UserUncheckedCreateWithoutTreatmentPlanItemsCreatedInput = {
   orthoCasesDentist?: Prisma.OrthodonticCaseUncheckedCreateNestedManyWithoutDentistInput
   orthoCasesCreated?: Prisma.OrthodonticCaseUncheckedCreateNestedManyWithoutCreatedByInput
   orthoVisitsCreated?: Prisma.OrthodonticVisitUncheckedCreateNestedManyWithoutCreatedByInput
+  personalTodos?: Prisma.PersonalTodoUncheckedCreateNestedManyWithoutUserInput
 }
 
 export type UserCreateOrConnectWithoutTreatmentPlanItemsCreatedInput = {
@@ -1045,6 +1078,7 @@ export type UserUpdateWithoutTreatmentPlanItemsCreatedInput = {
   orthoCasesDentist?: Prisma.OrthodonticCaseUpdateManyWithoutDentistNestedInput
   orthoCasesCreated?: Prisma.OrthodonticCaseUpdateManyWithoutCreatedByNestedInput
   orthoVisitsCreated?: Prisma.OrthodonticVisitUpdateManyWithoutCreatedByNestedInput
+  personalTodos?: Prisma.PersonalTodoUpdateManyWithoutUserNestedInput
 }
 
 export type UserUncheckedUpdateWithoutTreatmentPlanItemsCreatedInput = {
@@ -1066,6 +1100,7 @@ export type UserUncheckedUpdateWithoutTreatmentPlanItemsCreatedInput = {
   orthoCasesDentist?: Prisma.OrthodonticCaseUncheckedUpdateManyWithoutDentistNestedInput
   orthoCasesCreated?: Prisma.OrthodonticCaseUncheckedUpdateManyWithoutCreatedByNestedInput
   orthoVisitsCreated?: Prisma.OrthodonticVisitUncheckedUpdateManyWithoutCreatedByNestedInput
+  personalTodos?: Prisma.PersonalTodoUncheckedUpdateManyWithoutUserNestedInput
 }
 
 export type UserCreateWithoutCreatedInvoicesInput = {
@@ -1087,6 +1122,7 @@ export type UserCreateWithoutCreatedInvoicesInput = {
   orthoCasesDentist?: Prisma.OrthodonticCaseCreateNestedManyWithoutDentistInput
   orthoCasesCreated?: Prisma.OrthodonticCaseCreateNestedManyWithoutCreatedByInput
   orthoVisitsCreated?: Prisma.OrthodonticVisitCreateNestedManyWithoutCreatedByInput
+  personalTodos?: Prisma.PersonalTodoCreateNestedManyWithoutUserInput
 }
 
 export type UserUncheckedCreateWithoutCreatedInvoicesInput = {
@@ -1108,6 +1144,7 @@ export type UserUncheckedCreateWithoutCreatedInvoicesInput = {
   orthoCasesDentist?: Prisma.OrthodonticCaseUncheckedCreateNestedManyWithoutDentistInput
   orthoCasesCreated?: Prisma.OrthodonticCaseUncheckedCreateNestedManyWithoutCreatedByInput
   orthoVisitsCreated?: Prisma.OrthodonticVisitUncheckedCreateNestedManyWithoutCreatedByInput
+  personalTodos?: Prisma.PersonalTodoUncheckedCreateNestedManyWithoutUserInput
 }
 
 export type UserCreateOrConnectWithoutCreatedInvoicesInput = {
@@ -1145,6 +1182,7 @@ export type UserUpdateWithoutCreatedInvoicesInput = {
   orthoCasesDentist?: Prisma.OrthodonticCaseUpdateManyWithoutDentistNestedInput
   orthoCasesCreated?: Prisma.OrthodonticCaseUpdateManyWithoutCreatedByNestedInput
   orthoVisitsCreated?: Prisma.OrthodonticVisitUpdateManyWithoutCreatedByNestedInput
+  personalTodos?: Prisma.PersonalTodoUpdateManyWithoutUserNestedInput
 }
 
 export type UserUncheckedUpdateWithoutCreatedInvoicesInput = {
@@ -1166,6 +1204,7 @@ export type UserUncheckedUpdateWithoutCreatedInvoicesInput = {
   orthoCasesDentist?: Prisma.OrthodonticCaseUncheckedUpdateManyWithoutDentistNestedInput
   orthoCasesCreated?: Prisma.OrthodonticCaseUncheckedUpdateManyWithoutCreatedByNestedInput
   orthoVisitsCreated?: Prisma.OrthodonticVisitUncheckedUpdateManyWithoutCreatedByNestedInput
+  personalTodos?: Prisma.PersonalTodoUncheckedUpdateManyWithoutUserNestedInput
 }
 
 export type UserCreateWithoutTasksCreatedInput = {
@@ -1187,6 +1226,7 @@ export type UserCreateWithoutTasksCreatedInput = {
   orthoCasesDentist?: Prisma.OrthodonticCaseCreateNestedManyWithoutDentistInput
   orthoCasesCreated?: Prisma.OrthodonticCaseCreateNestedManyWithoutCreatedByInput
   orthoVisitsCreated?: Prisma.OrthodonticVisitCreateNestedManyWithoutCreatedByInput
+  personalTodos?: Prisma.PersonalTodoCreateNestedManyWithoutUserInput
 }
 
 export type UserUncheckedCreateWithoutTasksCreatedInput = {
@@ -1208,6 +1248,7 @@ export type UserUncheckedCreateWithoutTasksCreatedInput = {
   orthoCasesDentist?: Prisma.OrthodonticCaseUncheckedCreateNestedManyWithoutDentistInput
   orthoCasesCreated?: Prisma.OrthodonticCaseUncheckedCreateNestedManyWithoutCreatedByInput
   orthoVisitsCreated?: Prisma.OrthodonticVisitUncheckedCreateNestedManyWithoutCreatedByInput
+  personalTodos?: Prisma.PersonalTodoUncheckedCreateNestedManyWithoutUserInput
 }
 
 export type UserCreateOrConnectWithoutTasksCreatedInput = {
@@ -1234,6 +1275,7 @@ export type UserCreateWithoutTasksAssignedInput = {
   orthoCasesDentist?: Prisma.OrthodonticCaseCreateNestedManyWithoutDentistInput
   orthoCasesCreated?: Prisma.OrthodonticCaseCreateNestedManyWithoutCreatedByInput
   orthoVisitsCreated?: Prisma.OrthodonticVisitCreateNestedManyWithoutCreatedByInput
+  personalTodos?: Prisma.PersonalTodoCreateNestedManyWithoutUserInput
 }
 
 export type UserUncheckedCreateWithoutTasksAssignedInput = {
@@ -1255,6 +1297,7 @@ export type UserUncheckedCreateWithoutTasksAssignedInput = {
   orthoCasesDentist?: Prisma.OrthodonticCaseUncheckedCreateNestedManyWithoutDentistInput
   orthoCasesCreated?: Prisma.OrthodonticCaseUncheckedCreateNestedManyWithoutCreatedByInput
   orthoVisitsCreated?: Prisma.OrthodonticVisitUncheckedCreateNestedManyWithoutCreatedByInput
+  personalTodos?: Prisma.PersonalTodoUncheckedCreateNestedManyWithoutUserInput
 }
 
 export type UserCreateOrConnectWithoutTasksAssignedInput = {
@@ -1292,6 +1335,7 @@ export type UserUpdateWithoutTasksCreatedInput = {
   orthoCasesDentist?: Prisma.OrthodonticCaseUpdateManyWithoutDentistNestedInput
   orthoCasesCreated?: Prisma.OrthodonticCaseUpdateManyWithoutCreatedByNestedInput
   orthoVisitsCreated?: Prisma.OrthodonticVisitUpdateManyWithoutCreatedByNestedInput
+  personalTodos?: Prisma.PersonalTodoUpdateManyWithoutUserNestedInput
 }
 
 export type UserUncheckedUpdateWithoutTasksCreatedInput = {
@@ -1313,6 +1357,7 @@ export type UserUncheckedUpdateWithoutTasksCreatedInput = {
   orthoCasesDentist?: Prisma.OrthodonticCaseUncheckedUpdateManyWithoutDentistNestedInput
   orthoCasesCreated?: Prisma.OrthodonticCaseUncheckedUpdateManyWithoutCreatedByNestedInput
   orthoVisitsCreated?: Prisma.OrthodonticVisitUncheckedUpdateManyWithoutCreatedByNestedInput
+  personalTodos?: Prisma.PersonalTodoUncheckedUpdateManyWithoutUserNestedInput
 }
 
 export type UserUpsertWithoutTasksAssignedInput = {
@@ -1345,6 +1390,7 @@ export type UserUpdateWithoutTasksAssignedInput = {
   orthoCasesDentist?: Prisma.OrthodonticCaseUpdateManyWithoutDentistNestedInput
   orthoCasesCreated?: Prisma.OrthodonticCaseUpdateManyWithoutCreatedByNestedInput
   orthoVisitsCreated?: Prisma.OrthodonticVisitUpdateManyWithoutCreatedByNestedInput
+  personalTodos?: Prisma.PersonalTodoUpdateManyWithoutUserNestedInput
 }
 
 export type UserUncheckedUpdateWithoutTasksAssignedInput = {
@@ -1366,6 +1412,7 @@ export type UserUncheckedUpdateWithoutTasksAssignedInput = {
   orthoCasesDentist?: Prisma.OrthodonticCaseUncheckedUpdateManyWithoutDentistNestedInput
   orthoCasesCreated?: Prisma.OrthodonticCaseUncheckedUpdateManyWithoutCreatedByNestedInput
   orthoVisitsCreated?: Prisma.OrthodonticVisitUncheckedUpdateManyWithoutCreatedByNestedInput
+  personalTodos?: Prisma.PersonalTodoUncheckedUpdateManyWithoutUserNestedInput
 }
 
 export type UserCreateWithoutOrthoCasesDentistInput = {
@@ -1387,6 +1434,7 @@ export type UserCreateWithoutOrthoCasesDentistInput = {
   tasksAssigned?: Prisma.TaskCreateNestedManyWithoutTargetUserInput
   orthoCasesCreated?: Prisma.OrthodonticCaseCreateNestedManyWithoutCreatedByInput
   orthoVisitsCreated?: Prisma.OrthodonticVisitCreateNestedManyWithoutCreatedByInput
+  personalTodos?: Prisma.PersonalTodoCreateNestedManyWithoutUserInput
 }
 
 export type UserUncheckedCreateWithoutOrthoCasesDentistInput = {
@@ -1408,6 +1456,7 @@ export type UserUncheckedCreateWithoutOrthoCasesDentistInput = {
   tasksAssigned?: Prisma.TaskUncheckedCreateNestedManyWithoutTargetUserInput
   orthoCasesCreated?: Prisma.OrthodonticCaseUncheckedCreateNestedManyWithoutCreatedByInput
   orthoVisitsCreated?: Prisma.OrthodonticVisitUncheckedCreateNestedManyWithoutCreatedByInput
+  personalTodos?: Prisma.PersonalTodoUncheckedCreateNestedManyWithoutUserInput
 }
 
 export type UserCreateOrConnectWithoutOrthoCasesDentistInput = {
@@ -1434,6 +1483,7 @@ export type UserCreateWithoutOrthoCasesCreatedInput = {
   tasksAssigned?: Prisma.TaskCreateNestedManyWithoutTargetUserInput
   orthoCasesDentist?: Prisma.OrthodonticCaseCreateNestedManyWithoutDentistInput
   orthoVisitsCreated?: Prisma.OrthodonticVisitCreateNestedManyWithoutCreatedByInput
+  personalTodos?: Prisma.PersonalTodoCreateNestedManyWithoutUserInput
 }
 
 export type UserUncheckedCreateWithoutOrthoCasesCreatedInput = {
@@ -1455,6 +1505,7 @@ export type UserUncheckedCreateWithoutOrthoCasesCreatedInput = {
   tasksAssigned?: Prisma.TaskUncheckedCreateNestedManyWithoutTargetUserInput
   orthoCasesDentist?: Prisma.OrthodonticCaseUncheckedCreateNestedManyWithoutDentistInput
   orthoVisitsCreated?: Prisma.OrthodonticVisitUncheckedCreateNestedManyWithoutCreatedByInput
+  personalTodos?: Prisma.PersonalTodoUncheckedCreateNestedManyWithoutUserInput
 }
 
 export type UserCreateOrConnectWithoutOrthoCasesCreatedInput = {
@@ -1492,6 +1543,7 @@ export type UserUpdateWithoutOrthoCasesDentistInput = {
   tasksAssigned?: Prisma.TaskUpdateManyWithoutTargetUserNestedInput
   orthoCasesCreated?: Prisma.OrthodonticCaseUpdateManyWithoutCreatedByNestedInput
   orthoVisitsCreated?: Prisma.OrthodonticVisitUpdateManyWithoutCreatedByNestedInput
+  personalTodos?: Prisma.PersonalTodoUpdateManyWithoutUserNestedInput
 }
 
 export type UserUncheckedUpdateWithoutOrthoCasesDentistInput = {
@@ -1513,6 +1565,7 @@ export type UserUncheckedUpdateWithoutOrthoCasesDentistInput = {
   tasksAssigned?: Prisma.TaskUncheckedUpdateManyWithoutTargetUserNestedInput
   orthoCasesCreated?: Prisma.OrthodonticCaseUncheckedUpdateManyWithoutCreatedByNestedInput
   orthoVisitsCreated?: Prisma.OrthodonticVisitUncheckedUpdateManyWithoutCreatedByNestedInput
+  personalTodos?: Prisma.PersonalTodoUncheckedUpdateManyWithoutUserNestedInput
 }
 
 export type UserUpsertWithoutOrthoCasesCreatedInput = {
@@ -1545,6 +1598,7 @@ export type UserUpdateWithoutOrthoCasesCreatedInput = {
   tasksAssigned?: Prisma.TaskUpdateManyWithoutTargetUserNestedInput
   orthoCasesDentist?: Prisma.OrthodonticCaseUpdateManyWithoutDentistNestedInput
   orthoVisitsCreated?: Prisma.OrthodonticVisitUpdateManyWithoutCreatedByNestedInput
+  personalTodos?: Prisma.PersonalTodoUpdateManyWithoutUserNestedInput
 }
 
 export type UserUncheckedUpdateWithoutOrthoCasesCreatedInput = {
@@ -1566,6 +1620,7 @@ export type UserUncheckedUpdateWithoutOrthoCasesCreatedInput = {
   tasksAssigned?: Prisma.TaskUncheckedUpdateManyWithoutTargetUserNestedInput
   orthoCasesDentist?: Prisma.OrthodonticCaseUncheckedUpdateManyWithoutDentistNestedInput
   orthoVisitsCreated?: Prisma.OrthodonticVisitUncheckedUpdateManyWithoutCreatedByNestedInput
+  personalTodos?: Prisma.PersonalTodoUncheckedUpdateManyWithoutUserNestedInput
 }
 
 export type UserCreateWithoutOrthoVisitsCreatedInput = {
@@ -1587,6 +1642,7 @@ export type UserCreateWithoutOrthoVisitsCreatedInput = {
   tasksAssigned?: Prisma.TaskCreateNestedManyWithoutTargetUserInput
   orthoCasesDentist?: Prisma.OrthodonticCaseCreateNestedManyWithoutDentistInput
   orthoCasesCreated?: Prisma.OrthodonticCaseCreateNestedManyWithoutCreatedByInput
+  personalTodos?: Prisma.PersonalTodoCreateNestedManyWithoutUserInput
 }
 
 export type UserUncheckedCreateWithoutOrthoVisitsCreatedInput = {
@@ -1608,6 +1664,7 @@ export type UserUncheckedCreateWithoutOrthoVisitsCreatedInput = {
   tasksAssigned?: Prisma.TaskUncheckedCreateNestedManyWithoutTargetUserInput
   orthoCasesDentist?: Prisma.OrthodonticCaseUncheckedCreateNestedManyWithoutDentistInput
   orthoCasesCreated?: Prisma.OrthodonticCaseUncheckedCreateNestedManyWithoutCreatedByInput
+  personalTodos?: Prisma.PersonalTodoUncheckedCreateNestedManyWithoutUserInput
 }
 
 export type UserCreateOrConnectWithoutOrthoVisitsCreatedInput = {
@@ -1645,6 +1702,7 @@ export type UserUpdateWithoutOrthoVisitsCreatedInput = {
   tasksAssigned?: Prisma.TaskUpdateManyWithoutTargetUserNestedInput
   orthoCasesDentist?: Prisma.OrthodonticCaseUpdateManyWithoutDentistNestedInput
   orthoCasesCreated?: Prisma.OrthodonticCaseUpdateManyWithoutCreatedByNestedInput
+  personalTodos?: Prisma.PersonalTodoUpdateManyWithoutUserNestedInput
 }
 
 export type UserUncheckedUpdateWithoutOrthoVisitsCreatedInput = {
@@ -1666,6 +1724,111 @@ export type UserUncheckedUpdateWithoutOrthoVisitsCreatedInput = {
   tasksAssigned?: Prisma.TaskUncheckedUpdateManyWithoutTargetUserNestedInput
   orthoCasesDentist?: Prisma.OrthodonticCaseUncheckedUpdateManyWithoutDentistNestedInput
   orthoCasesCreated?: Prisma.OrthodonticCaseUncheckedUpdateManyWithoutCreatedByNestedInput
+  personalTodos?: Prisma.PersonalTodoUncheckedUpdateManyWithoutUserNestedInput
+}
+
+export type UserCreateWithoutPersonalTodosInput = {
+  id?: string
+  email: string
+  passwordHash: string
+  firstName: string
+  lastName: string
+  role?: $Enums.UserRole
+  isActive?: boolean
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  clinic?: Prisma.ClinicCreateNestedOneWithoutUsersInput
+  appointments?: Prisma.AppointmentCreateNestedManyWithoutDentistInput
+  createdInvoices?: Prisma.InvoiceCreateNestedManyWithoutCreatedByInput
+  treatmentPlansCreated?: Prisma.TreatmentPlanCreateNestedManyWithoutCreatedByInput
+  treatmentPlanItemsCreated?: Prisma.TreatmentPlanItemCreateNestedManyWithoutCreatedByInput
+  tasksCreated?: Prisma.TaskCreateNestedManyWithoutCreatedByInput
+  tasksAssigned?: Prisma.TaskCreateNestedManyWithoutTargetUserInput
+  orthoCasesDentist?: Prisma.OrthodonticCaseCreateNestedManyWithoutDentistInput
+  orthoCasesCreated?: Prisma.OrthodonticCaseCreateNestedManyWithoutCreatedByInput
+  orthoVisitsCreated?: Prisma.OrthodonticVisitCreateNestedManyWithoutCreatedByInput
+}
+
+export type UserUncheckedCreateWithoutPersonalTodosInput = {
+  id?: string
+  email: string
+  passwordHash: string
+  firstName: string
+  lastName: string
+  role?: $Enums.UserRole
+  isActive?: boolean
+  clinicId?: string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  appointments?: Prisma.AppointmentUncheckedCreateNestedManyWithoutDentistInput
+  createdInvoices?: Prisma.InvoiceUncheckedCreateNestedManyWithoutCreatedByInput
+  treatmentPlansCreated?: Prisma.TreatmentPlanUncheckedCreateNestedManyWithoutCreatedByInput
+  treatmentPlanItemsCreated?: Prisma.TreatmentPlanItemUncheckedCreateNestedManyWithoutCreatedByInput
+  tasksCreated?: Prisma.TaskUncheckedCreateNestedManyWithoutCreatedByInput
+  tasksAssigned?: Prisma.TaskUncheckedCreateNestedManyWithoutTargetUserInput
+  orthoCasesDentist?: Prisma.OrthodonticCaseUncheckedCreateNestedManyWithoutDentistInput
+  orthoCasesCreated?: Prisma.OrthodonticCaseUncheckedCreateNestedManyWithoutCreatedByInput
+  orthoVisitsCreated?: Prisma.OrthodonticVisitUncheckedCreateNestedManyWithoutCreatedByInput
+}
+
+export type UserCreateOrConnectWithoutPersonalTodosInput = {
+  where: Prisma.UserWhereUniqueInput
+  create: Prisma.XOR<Prisma.UserCreateWithoutPersonalTodosInput, Prisma.UserUncheckedCreateWithoutPersonalTodosInput>
+}
+
+export type UserUpsertWithoutPersonalTodosInput = {
+  update: Prisma.XOR<Prisma.UserUpdateWithoutPersonalTodosInput, Prisma.UserUncheckedUpdateWithoutPersonalTodosInput>
+  create: Prisma.XOR<Prisma.UserCreateWithoutPersonalTodosInput, Prisma.UserUncheckedCreateWithoutPersonalTodosInput>
+  where?: Prisma.UserWhereInput
+}
+
+export type UserUpdateToOneWithWhereWithoutPersonalTodosInput = {
+  where?: Prisma.UserWhereInput
+  data: Prisma.XOR<Prisma.UserUpdateWithoutPersonalTodosInput, Prisma.UserUncheckedUpdateWithoutPersonalTodosInput>
+}
+
+export type UserUpdateWithoutPersonalTodosInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  email?: Prisma.StringFieldUpdateOperationsInput | string
+  passwordHash?: Prisma.StringFieldUpdateOperationsInput | string
+  firstName?: Prisma.StringFieldUpdateOperationsInput | string
+  lastName?: Prisma.StringFieldUpdateOperationsInput | string
+  role?: Prisma.EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole
+  isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  clinic?: Prisma.ClinicUpdateOneWithoutUsersNestedInput
+  appointments?: Prisma.AppointmentUpdateManyWithoutDentistNestedInput
+  createdInvoices?: Prisma.InvoiceUpdateManyWithoutCreatedByNestedInput
+  treatmentPlansCreated?: Prisma.TreatmentPlanUpdateManyWithoutCreatedByNestedInput
+  treatmentPlanItemsCreated?: Prisma.TreatmentPlanItemUpdateManyWithoutCreatedByNestedInput
+  tasksCreated?: Prisma.TaskUpdateManyWithoutCreatedByNestedInput
+  tasksAssigned?: Prisma.TaskUpdateManyWithoutTargetUserNestedInput
+  orthoCasesDentist?: Prisma.OrthodonticCaseUpdateManyWithoutDentistNestedInput
+  orthoCasesCreated?: Prisma.OrthodonticCaseUpdateManyWithoutCreatedByNestedInput
+  orthoVisitsCreated?: Prisma.OrthodonticVisitUpdateManyWithoutCreatedByNestedInput
+}
+
+export type UserUncheckedUpdateWithoutPersonalTodosInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  email?: Prisma.StringFieldUpdateOperationsInput | string
+  passwordHash?: Prisma.StringFieldUpdateOperationsInput | string
+  firstName?: Prisma.StringFieldUpdateOperationsInput | string
+  lastName?: Prisma.StringFieldUpdateOperationsInput | string
+  role?: Prisma.EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole
+  isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  clinicId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  appointments?: Prisma.AppointmentUncheckedUpdateManyWithoutDentistNestedInput
+  createdInvoices?: Prisma.InvoiceUncheckedUpdateManyWithoutCreatedByNestedInput
+  treatmentPlansCreated?: Prisma.TreatmentPlanUncheckedUpdateManyWithoutCreatedByNestedInput
+  treatmentPlanItemsCreated?: Prisma.TreatmentPlanItemUncheckedUpdateManyWithoutCreatedByNestedInput
+  tasksCreated?: Prisma.TaskUncheckedUpdateManyWithoutCreatedByNestedInput
+  tasksAssigned?: Prisma.TaskUncheckedUpdateManyWithoutTargetUserNestedInput
+  orthoCasesDentist?: Prisma.OrthodonticCaseUncheckedUpdateManyWithoutDentistNestedInput
+  orthoCasesCreated?: Prisma.OrthodonticCaseUncheckedUpdateManyWithoutCreatedByNestedInput
+  orthoVisitsCreated?: Prisma.OrthodonticVisitUncheckedUpdateManyWithoutCreatedByNestedInput
 }
 
 export type UserCreateManyClinicInput = {
@@ -1699,6 +1862,7 @@ export type UserUpdateWithoutClinicInput = {
   orthoCasesDentist?: Prisma.OrthodonticCaseUpdateManyWithoutDentistNestedInput
   orthoCasesCreated?: Prisma.OrthodonticCaseUpdateManyWithoutCreatedByNestedInput
   orthoVisitsCreated?: Prisma.OrthodonticVisitUpdateManyWithoutCreatedByNestedInput
+  personalTodos?: Prisma.PersonalTodoUpdateManyWithoutUserNestedInput
 }
 
 export type UserUncheckedUpdateWithoutClinicInput = {
@@ -1720,6 +1884,7 @@ export type UserUncheckedUpdateWithoutClinicInput = {
   orthoCasesDentist?: Prisma.OrthodonticCaseUncheckedUpdateManyWithoutDentistNestedInput
   orthoCasesCreated?: Prisma.OrthodonticCaseUncheckedUpdateManyWithoutCreatedByNestedInput
   orthoVisitsCreated?: Prisma.OrthodonticVisitUncheckedUpdateManyWithoutCreatedByNestedInput
+  personalTodos?: Prisma.PersonalTodoUncheckedUpdateManyWithoutUserNestedInput
 }
 
 export type UserUncheckedUpdateManyWithoutClinicInput = {
@@ -1749,6 +1914,7 @@ export type UserCountOutputType = {
   orthoCasesDentist: number
   orthoCasesCreated: number
   orthoVisitsCreated: number
+  personalTodos: number
 }
 
 export type UserCountOutputTypeSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
@@ -1761,6 +1927,7 @@ export type UserCountOutputTypeSelect<ExtArgs extends runtime.Types.Extensions.I
   orthoCasesDentist?: boolean | UserCountOutputTypeCountOrthoCasesDentistArgs
   orthoCasesCreated?: boolean | UserCountOutputTypeCountOrthoCasesCreatedArgs
   orthoVisitsCreated?: boolean | UserCountOutputTypeCountOrthoVisitsCreatedArgs
+  personalTodos?: boolean | UserCountOutputTypeCountPersonalTodosArgs
 }
 
 /**
@@ -1836,6 +2003,13 @@ export type UserCountOutputTypeCountOrthoVisitsCreatedArgs<ExtArgs extends runti
   where?: Prisma.OrthodonticVisitWhereInput
 }
 
+/**
+ * UserCountOutputType without action
+ */
+export type UserCountOutputTypeCountPersonalTodosArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.PersonalTodoWhereInput
+}
+
 
 export type UserSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   id?: boolean
@@ -1858,6 +2032,7 @@ export type UserSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = r
   orthoCasesDentist?: boolean | Prisma.User$orthoCasesDentistArgs<ExtArgs>
   orthoCasesCreated?: boolean | Prisma.User$orthoCasesCreatedArgs<ExtArgs>
   orthoVisitsCreated?: boolean | Prisma.User$orthoVisitsCreatedArgs<ExtArgs>
+  personalTodos?: boolean | Prisma.User$personalTodosArgs<ExtArgs>
   _count?: boolean | Prisma.UserCountOutputTypeDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["user"]>
 
@@ -1914,6 +2089,7 @@ export type UserInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = 
   orthoCasesDentist?: boolean | Prisma.User$orthoCasesDentistArgs<ExtArgs>
   orthoCasesCreated?: boolean | Prisma.User$orthoCasesCreatedArgs<ExtArgs>
   orthoVisitsCreated?: boolean | Prisma.User$orthoVisitsCreatedArgs<ExtArgs>
+  personalTodos?: boolean | Prisma.User$personalTodosArgs<ExtArgs>
   _count?: boolean | Prisma.UserCountOutputTypeDefaultArgs<ExtArgs>
 }
 export type UserIncludeCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
@@ -1936,6 +2112,7 @@ export type $UserPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs =
     orthoCasesDentist: Prisma.$OrthodonticCasePayload<ExtArgs>[]
     orthoCasesCreated: Prisma.$OrthodonticCasePayload<ExtArgs>[]
     orthoVisitsCreated: Prisma.$OrthodonticVisitPayload<ExtArgs>[]
+    personalTodos: Prisma.$PersonalTodoPayload<ExtArgs>[]
   }
   scalars: runtime.Types.Extensions.GetPayloadResult<{
     id: string
@@ -2352,6 +2529,7 @@ export interface Prisma__UserClient<T, Null = never, ExtArgs extends runtime.Typ
   orthoCasesDentist<T extends Prisma.User$orthoCasesDentistArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$orthoCasesDentistArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$OrthodonticCasePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   orthoCasesCreated<T extends Prisma.User$orthoCasesCreatedArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$orthoCasesCreatedArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$OrthodonticCasePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   orthoVisitsCreated<T extends Prisma.User$orthoVisitsCreatedArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$orthoVisitsCreatedArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$OrthodonticVisitPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  personalTodos<T extends Prisma.User$personalTodosArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$personalTodosArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$PersonalTodoPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   /**
    * Attaches callbacks for the resolution and/or rejection of the Promise.
    * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -3024,6 +3202,30 @@ export type User$orthoVisitsCreatedArgs<ExtArgs extends runtime.Types.Extensions
   take?: number
   skip?: number
   distinct?: Prisma.OrthodonticVisitScalarFieldEnum | Prisma.OrthodonticVisitScalarFieldEnum[]
+}
+
+/**
+ * User.personalTodos
+ */
+export type User$personalTodosArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the PersonalTodo
+   */
+  select?: Prisma.PersonalTodoSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the PersonalTodo
+   */
+  omit?: Prisma.PersonalTodoOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.PersonalTodoInclude<ExtArgs> | null
+  where?: Prisma.PersonalTodoWhereInput
+  orderBy?: Prisma.PersonalTodoOrderByWithRelationInput | Prisma.PersonalTodoOrderByWithRelationInput[]
+  cursor?: Prisma.PersonalTodoWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.PersonalTodoScalarFieldEnum | Prisma.PersonalTodoScalarFieldEnum[]
 }
 
 /**

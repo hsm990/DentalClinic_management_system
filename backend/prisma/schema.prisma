@@ -128,6 +128,7 @@ model User {
   orthoCasesDentist  OrthodonticCase[]  @relation("OrthoCaseDentist")
   orthoCasesCreated  OrthodonticCase[]  @relation("OrthoCaseCreatedBy")
   orthoVisitsCreated OrthodonticVisit[] @relation("OrthoVisitCreatedBy")
+  personalTodos      PersonalTodo[]
 
   @@index([clinicId])
 }
@@ -408,4 +409,18 @@ model OrthodonticVisit {
   createdBy User?           @relation("OrthoVisitCreatedBy", fields: [createdById], references: [id])
 
   @@index([caseId])
+}
+
+model PersonalTodo {
+  id        String   @id @default(cuid())
+  text      String
+  date      DateTime // the day this todo is for (time portion ignored)
+  isDone    Boolean  @default(false)
+  userId    String
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  user User @relation(fields: [userId], references: [id])
+
+  @@index([userId, date])
 }
