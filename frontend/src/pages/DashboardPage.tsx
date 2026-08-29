@@ -28,6 +28,7 @@ import {
 } from "lucide-react";
 import { useGetLowStockSummaryQuery } from "@/features/inventory/inventoryApi";
 import { PackageX } from "lucide-react";
+import { DayTodoList } from "@/features/todos/DayTodoList";
 
 export function DashboardPage() {
   const user = useAppSelector((state) => state.auth.user);
@@ -210,6 +211,11 @@ export function DashboardPage() {
               </div>
             ))}
           </div>
+        </CardContent>
+      </Card>
+      <Card>
+        <CardContent className="p-5">
+          <DayTodoList date={today} />
         </CardContent>
       </Card>
       {(user?.role === "ADMIN" || user?.role === "ASSISTANT") && (

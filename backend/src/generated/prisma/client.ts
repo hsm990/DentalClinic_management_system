@@ -119,3 +119,8 @@ export type OrthodonticCase = Prisma.OrthodonticCaseModel
  * 
  */
 export type OrthodonticVisit = Prisma.OrthodonticVisitModel
+/**
+ * Model PersonalTodo
+ * 
+ */
+export type PersonalTodo = Prisma.PersonalTodoModel

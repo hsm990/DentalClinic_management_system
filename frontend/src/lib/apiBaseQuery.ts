@@ -67,6 +67,7 @@ export const apiSlice = createApi({
     "Task",
     "Inventory",
     "OrthoCase",
+    "Todo",
   ],
   endpoints: () => ({}),
 });

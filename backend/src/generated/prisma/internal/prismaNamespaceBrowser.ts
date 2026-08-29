@@ -66,7 +66,8 @@ export const ModelName = {
   Payment: 'Payment',
   Task: 'Task',
   OrthodonticCase: 'OrthodonticCase',
-  OrthodonticVisit: 'OrthodonticVisit'
+  OrthodonticVisit: 'OrthodonticVisit',
+  PersonalTodo: 'PersonalTodo'
 } as const
 
 export type ModelName = (typeof ModelName)[keyof typeof ModelName]
@@ -334,6 +335,19 @@ export const OrthodonticVisitScalarFieldEnum = {
 } as const
 
 export type OrthodonticVisitScalarFieldEnum = (typeof OrthodonticVisitScalarFieldEnum)[keyof typeof OrthodonticVisitScalarFieldEnum]
+
+
+export const PersonalTodoScalarFieldEnum = {
+  id: 'id',
+  text: 'text',
+  date: 'date',
+  isDone: 'isDone',
+  userId: 'userId',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+} as const
+
+export type PersonalTodoScalarFieldEnum = (typeof PersonalTodoScalarFieldEnum)[keyof typeof PersonalTodoScalarFieldEnum]
 
 
 export const SortOrder = {

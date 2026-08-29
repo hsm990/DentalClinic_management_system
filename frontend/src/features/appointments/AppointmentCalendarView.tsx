@@ -16,6 +16,7 @@ import { Badge } from "@/components/ui/badge";
 import { Skeleton } from "@/components/ui/skeleton";
 import { useGetTasksQuery } from "@/features/tasks/tasksApi";
 import { TaskCard } from "@/features/tasks/TaskCard";
+import { DayTodoList } from "@/features/todos/DayTodoList";
 
 export function AppointmentCalendarView() {
   const user = useAppSelector((state) => state.auth.user);
@@ -114,6 +115,11 @@ export function AppointmentCalendarView() {
           {selectedDayTasks.map((task) => (
             <TaskCard key={task.id} task={task} />
           ))}
+        </div>
+      )}
+      {selectedDate && (
+        <div className="mt-4 border-t pt-4">
+          <DayTodoList date={selectedDate} />
         </div>
       )}
     </div>

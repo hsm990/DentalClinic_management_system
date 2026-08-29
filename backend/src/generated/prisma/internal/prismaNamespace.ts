@@ -412,7 +412,8 @@ export const ModelName = {
   Payment: 'Payment',
   Task: 'Task',
   OrthodonticCase: 'OrthodonticCase',
-  OrthodonticVisit: 'OrthodonticVisit'
+  OrthodonticVisit: 'OrthodonticVisit',
+  PersonalTodo: 'PersonalTodo'
 } as const
 
 export type ModelName = (typeof ModelName)[keyof typeof ModelName]
@@ -428,7 +429,7 @@ export type TypeMap<ExtArgs extends runtime.Types.Extensions.InternalArgs = runt
     omit: GlobalOmitOptions
   }
   meta: {
-    modelProps: "clinic" | "user" | "inventoryItem" | "patient" | "procedureCategory" | "procedure" | "appointment" | "toothChartEntry" | "treatmentPlan" | "treatmentPlanItem" | "invoice" | "invoiceItem" | "payment" | "task" | "orthodonticCase" | "orthodonticVisit"
+    modelProps: "clinic" | "user" | "inventoryItem" | "patient" | "procedureCategory" | "procedure" | "appointment" | "toothChartEntry" | "treatmentPlan" | "treatmentPlanItem" | "invoice" | "invoiceItem" | "payment" | "task" | "orthodonticCase" | "orthodonticVisit" | "personalTodo"
     txIsolationLevel: TransactionIsolationLevel
   }
   model: {
@@ -1616,6 +1617,80 @@ export type TypeMap<ExtArgs extends runtime.Types.Extensions.InternalArgs = runt
         }
       }
     }
+    PersonalTodo: {
+      payload: Prisma.$PersonalTodoPayload<ExtArgs>
+      fields: Prisma.PersonalTodoFieldRefs
+      operations: {
+        findUnique: {
+          args: Prisma.PersonalTodoFindUniqueArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$PersonalTodoPayload> | null
+        }
+        findUniqueOrThrow: {
+          args: Prisma.PersonalTodoFindUniqueOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$PersonalTodoPayload>
+        }
+        findFirst: {
+          args: Prisma.PersonalTodoFindFirstArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$PersonalTodoPayload> | null
+        }
+        findFirstOrThrow: {
+          args: Prisma.PersonalTodoFindFirstOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$PersonalTodoPayload>
+        }
+        findMany: {
+          args: Prisma.PersonalTodoFindManyArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$PersonalTodoPayload>[]
+        }
+        create: {
+          args: Prisma.PersonalTodoCreateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$PersonalTodoPayload>
+        }
+        createMany: {
+          args: Prisma.PersonalTodoCreateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        createManyAndReturn: {
+          args: Prisma.PersonalTodoCreateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$PersonalTodoPayload>[]
+        }
+        delete: {
+          args: Prisma.PersonalTodoDeleteArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$PersonalTodoPayload>
+        }
+        update: {
+          args: Prisma.PersonalTodoUpdateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$PersonalTodoPayload>
+        }
+        deleteMany: {
+          args: Prisma.PersonalTodoDeleteManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateMany: {
+          args: Prisma.PersonalTodoUpdateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateManyAndReturn: {
+          args: Prisma.PersonalTodoUpdateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$PersonalTodoPayload>[]
+        }
+        upsert: {
+          args: Prisma.PersonalTodoUpsertArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$PersonalTodoPayload>
+        }
+        aggregate: {
+          args: Prisma.PersonalTodoAggregateArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.AggregatePersonalTodo>
+        }
+        groupBy: {
+          args: Prisma.PersonalTodoGroupByArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.PersonalTodoGroupByOutputType>[]
+        }
+        count: {
+          args: Prisma.PersonalTodoCountArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.PersonalTodoCountAggregateOutputType> | number
+        }
+      }
+    }
   }
 } & {
   other: {
@@ -1904,6 +1979,19 @@ export const OrthodonticVisitScalarFieldEnum = {
 } as const
 
 export type OrthodonticVisitScalarFieldEnum = (typeof OrthodonticVisitScalarFieldEnum)[keyof typeof OrthodonticVisitScalarFieldEnum]
+
+
+export const PersonalTodoScalarFieldEnum = {
+  id: 'id',
+  text: 'text',
+  date: 'date',
+  isDone: 'isDone',
+  userId: 'userId',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+} as const
+
+export type PersonalTodoScalarFieldEnum = (typeof PersonalTodoScalarFieldEnum)[keyof typeof PersonalTodoScalarFieldEnum]
 
 
 export const SortOrder = {
@@ -2319,6 +2407,7 @@ export type GlobalOmitConfig = {
   task?: Prisma.TaskOmit
   orthodonticCase?: Prisma.OrthodonticCaseOmit
   orthodonticVisit?: Prisma.OrthodonticVisitOmit
+  personalTodo?: Prisma.PersonalTodoOmit
 }
 
 /* Types for Logging */
