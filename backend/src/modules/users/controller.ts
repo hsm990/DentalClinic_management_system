@@ -14,4 +14,22 @@ const listStaff = asyncHandler(async (req: Request, res: Response) => {
   const staff = await userService.listStaff(req.user!);
   res.json({ staff });
 });
-export default { create, listDentists, listStaff };
+const update = asyncHandler(async (req: Request, res: Response) => {
+  const staff = await userService.updateStaff(
+    req.user!,
+    req.params.id as string,
+    req.body,
+  );
+  res.json({ staff });
+});
+
+const setActive = asyncHandler(async (req: Request, res: Response) => {
+  const staff = await userService.setStaffActive(
+    req.user!,
+    req.params.id as string,
+    req.body.isActive,
+  );
+  res.json({ staff });
+});
+
+export default { create, listDentists, listStaff, update, setActive };

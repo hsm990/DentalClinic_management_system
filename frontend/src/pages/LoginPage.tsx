@@ -34,7 +34,10 @@ export function LoginPage() {
     try {
       const result = await login(values).unwrap();
       dispatch(credentialsSet(result as any));
-      navigate("/", { replace: true });
+      navigate(
+        result.user.role === "SUPER_ADMIN" ? "/super-admin" : "/dashboard",
+        { replace: true },
+      ); // was: navigate("/dashboard", { replace: true });
     } catch {
       toast.error("Invalid email or password");
     }

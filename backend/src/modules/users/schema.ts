@@ -7,3 +7,8 @@ export const createUserSchema = z.object({
   lastName: z.string().min(3),
   role: z.enum(["DENTIST", "ASSISTANT", "RECEPTIONIST"]),
 });
+export const updateStaffSchema = z.object({
+  firstName: z.string().min(1).optional(),
+  lastName: z.string().min(1).optional(),
+  role: z.enum(["DENTIST", "ASSISTANT", "RECEPTIONIST"]).optional(),
+});

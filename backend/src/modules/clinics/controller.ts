@@ -15,5 +15,13 @@ const getById = asyncHandler(async (req: Request, res: Response) => {
   const clinic = await clinicService.getClinicById(req.params.id as string);
   res.json({ clinic });
 });
+const updateMine = asyncHandler(async (req: Request, res: Response) => {
+  const clinic = await clinicService.updateMyClinic(req.user!, req.body);
+  res.json({ clinic });
+});
+const listAll = asyncHandler(async (req: Request, res: Response) => {
+  const clinics = await clinicService.listAllClinics(req.user!);
+  res.json({ clinics });
+});
 
-export default { onboard, getMine, getById };
+export default { onboard, getMine, getById, updateMine, listAll };

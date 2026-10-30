@@ -233,6 +233,10 @@ export type UserWhereInput = {
   orthoCasesCreated?: Prisma.OrthodonticCaseListRelationFilter
   orthoVisitsCreated?: Prisma.OrthodonticVisitListRelationFilter
   personalTodos?: Prisma.PersonalTodoListRelationFilter
+  documentsUploaded?: Prisma.PatientDocumentListRelationFilter
+  expensesCreated?: Prisma.ExpenseListRelationFilter
+  auditLogsActor?: Prisma.AuditLogListRelationFilter
+  prescriptionsWritten?: Prisma.PrescriptionListRelationFilter
 }
 
 export type UserOrderByWithRelationInput = {
@@ -257,6 +261,10 @@ export type UserOrderByWithRelationInput = {
   orthoCasesCreated?: Prisma.OrthodonticCaseOrderByRelationAggregateInput
   orthoVisitsCreated?: Prisma.OrthodonticVisitOrderByRelationAggregateInput
   personalTodos?: Prisma.PersonalTodoOrderByRelationAggregateInput
+  documentsUploaded?: Prisma.PatientDocumentOrderByRelationAggregateInput
+  expensesCreated?: Prisma.ExpenseOrderByRelationAggregateInput
+  auditLogsActor?: Prisma.AuditLogOrderByRelationAggregateInput
+  prescriptionsWritten?: Prisma.PrescriptionOrderByRelationAggregateInput
 }
 
 export type UserWhereUniqueInput = Prisma.AtLeast<{
@@ -284,6 +292,10 @@ export type UserWhereUniqueInput = Prisma.AtLeast<{
   orthoCasesCreated?: Prisma.OrthodonticCaseListRelationFilter
   orthoVisitsCreated?: Prisma.OrthodonticVisitListRelationFilter
   personalTodos?: Prisma.PersonalTodoListRelationFilter
+  documentsUploaded?: Prisma.PatientDocumentListRelationFilter
+  expensesCreated?: Prisma.ExpenseListRelationFilter
+  auditLogsActor?: Prisma.AuditLogListRelationFilter
+  prescriptionsWritten?: Prisma.PrescriptionListRelationFilter
 }, "id" | "email">
 
 export type UserOrderByWithAggregationInput = {
@@ -339,6 +351,10 @@ export type UserCreateInput = {
   orthoCasesCreated?: Prisma.OrthodonticCaseCreateNestedManyWithoutCreatedByInput
   orthoVisitsCreated?: Prisma.OrthodonticVisitCreateNestedManyWithoutCreatedByInput
   personalTodos?: Prisma.PersonalTodoCreateNestedManyWithoutUserInput
+  documentsUploaded?: Prisma.PatientDocumentCreateNestedManyWithoutUploadedByInput
+  expensesCreated?: Prisma.ExpenseCreateNestedManyWithoutCreatedByInput
+  auditLogsActor?: Prisma.AuditLogCreateNestedManyWithoutUserInput
+  prescriptionsWritten?: Prisma.PrescriptionCreateNestedManyWithoutDentistInput
 }
 
 export type UserUncheckedCreateInput = {
@@ -362,6 +378,10 @@ export type UserUncheckedCreateInput = {
   orthoCasesCreated?: Prisma.OrthodonticCaseUncheckedCreateNestedManyWithoutCreatedByInput
   orthoVisitsCreated?: Prisma.OrthodonticVisitUncheckedCreateNestedManyWithoutCreatedByInput
   personalTodos?: Prisma.PersonalTodoUncheckedCreateNestedManyWithoutUserInput
+  documentsUploaded?: Prisma.PatientDocumentUncheckedCreateNestedManyWithoutUploadedByInput
+  expensesCreated?: Prisma.ExpenseUncheckedCreateNestedManyWithoutCreatedByInput
+  auditLogsActor?: Prisma.AuditLogUncheckedCreateNestedManyWithoutUserInput
+  prescriptionsWritten?: Prisma.PrescriptionUncheckedCreateNestedManyWithoutDentistInput
 }
 
 export type UserUpdateInput = {
@@ -385,6 +405,10 @@ export type UserUpdateInput = {
   orthoCasesCreated?: Prisma.OrthodonticCaseUpdateManyWithoutCreatedByNestedInput
   orthoVisitsCreated?: Prisma.OrthodonticVisitUpdateManyWithoutCreatedByNestedInput
   personalTodos?: Prisma.PersonalTodoUpdateManyWithoutUserNestedInput
+  documentsUploaded?: Prisma.PatientDocumentUpdateManyWithoutUploadedByNestedInput
+  expensesCreated?: Prisma.ExpenseUpdateManyWithoutCreatedByNestedInput
+  auditLogsActor?: Prisma.AuditLogUpdateManyWithoutUserNestedInput
+  prescriptionsWritten?: Prisma.PrescriptionUpdateManyWithoutDentistNestedInput
 }
 
 export type UserUncheckedUpdateInput = {
@@ -408,6 +432,10 @@ export type UserUncheckedUpdateInput = {
   orthoCasesCreated?: Prisma.OrthodonticCaseUncheckedUpdateManyWithoutCreatedByNestedInput
   orthoVisitsCreated?: Prisma.OrthodonticVisitUncheckedUpdateManyWithoutCreatedByNestedInput
   personalTodos?: Prisma.PersonalTodoUncheckedUpdateManyWithoutUserNestedInput
+  documentsUploaded?: Prisma.PatientDocumentUncheckedUpdateManyWithoutUploadedByNestedInput
+  expensesCreated?: Prisma.ExpenseUncheckedUpdateManyWithoutCreatedByNestedInput
+  auditLogsActor?: Prisma.AuditLogUncheckedUpdateManyWithoutUserNestedInput
+  prescriptionsWritten?: Prisma.PrescriptionUncheckedUpdateManyWithoutDentistNestedInput
 }
 
 export type UserCreateManyInput = {
@@ -705,6 +733,68 @@ export type UserUpdateOneRequiredWithoutPersonalTodosNestedInput = {
   update?: Prisma.XOR<Prisma.XOR<Prisma.UserUpdateToOneWithWhereWithoutPersonalTodosInput, Prisma.UserUpdateWithoutPersonalTodosInput>, Prisma.UserUncheckedUpdateWithoutPersonalTodosInput>
 }
 
+export type UserCreateNestedOneWithoutDocumentsUploadedInput = {
+  create?: Prisma.XOR<Prisma.UserCreateWithoutDocumentsUploadedInput, Prisma.UserUncheckedCreateWithoutDocumentsUploadedInput>
+  connectOrCreate?: Prisma.UserCreateOrConnectWithoutDocumentsUploadedInput
+  connect?: Prisma.UserWhereUniqueInput
+}
+
+export type UserUpdateOneWithoutDocumentsUploadedNestedInput = {
+  create?: Prisma.XOR<Prisma.UserCreateWithoutDocumentsUploadedInput, Prisma.UserUncheckedCreateWithoutDocumentsUploadedInput>
+  connectOrCreate?: Prisma.UserCreateOrConnectWithoutDocumentsUploadedInput
+  upsert?: Prisma.UserUpsertWithoutDocumentsUploadedInput
+  disconnect?: Prisma.UserWhereInput | boolean
+  delete?: Prisma.UserWhereInput | boolean
+  connect?: Prisma.UserWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.UserUpdateToOneWithWhereWithoutDocumentsUploadedInput, Prisma.UserUpdateWithoutDocumentsUploadedInput>, Prisma.UserUncheckedUpdateWithoutDocumentsUploadedInput>
+}
+
+export type UserCreateNestedOneWithoutExpensesCreatedInput = {
+  create?: Prisma.XOR<Prisma.UserCreateWithoutExpensesCreatedInput, Prisma.UserUncheckedCreateWithoutExpensesCreatedInput>
+  connectOrCreate?: Prisma.UserCreateOrConnectWithoutExpensesCreatedInput
+  connect?: Prisma.UserWhereUniqueInput
+}
+
+export type UserUpdateOneWithoutExpensesCreatedNestedInput = {
+  create?: Prisma.XOR<Prisma.UserCreateWithoutExpensesCreatedInput, Prisma.UserUncheckedCreateWithoutExpensesCreatedInput>
+  connectOrCreate?: Prisma.UserCreateOrConnectWithoutExpensesCreatedInput
+  upsert?: Prisma.UserUpsertWithoutExpensesCreatedInput
+  disconnect?: Prisma.UserWhereInput | boolean
+  delete?: Prisma.UserWhereInput | boolean
+  connect?: Prisma.UserWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.UserUpdateToOneWithWhereWithoutExpensesCreatedInput, Prisma.UserUpdateWithoutExpensesCreatedInput>, Prisma.UserUncheckedUpdateWithoutExpensesCreatedInput>
+}
+
+export type UserCreateNestedOneWithoutAuditLogsActorInput = {
+  create?: Prisma.XOR<Prisma.UserCreateWithoutAuditLogsActorInput, Prisma.UserUncheckedCreateWithoutAuditLogsActorInput>
+  connectOrCreate?: Prisma.UserCreateOrConnectWithoutAuditLogsActorInput
+  connect?: Prisma.UserWhereUniqueInput
+}
+
+export type UserUpdateOneWithoutAuditLogsActorNestedInput = {
+  create?: Prisma.XOR<Prisma.UserCreateWithoutAuditLogsActorInput, Prisma.UserUncheckedCreateWithoutAuditLogsActorInput>
+  connectOrCreate?: Prisma.UserCreateOrConnectWithoutAuditLogsActorInput
+  upsert?: Prisma.UserUpsertWithoutAuditLogsActorInput
+  disconnect?: Prisma.UserWhereInput | boolean
+  delete?: Prisma.UserWhereInput | boolean
+  connect?: Prisma.UserWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.UserUpdateToOneWithWhereWithoutAuditLogsActorInput, Prisma.UserUpdateWithoutAuditLogsActorInput>, Prisma.UserUncheckedUpdateWithoutAuditLogsActorInput>
+}
+
+export type UserCreateNestedOneWithoutPrescriptionsWrittenInput = {
+  create?: Prisma.XOR<Prisma.UserCreateWithoutPrescriptionsWrittenInput, Prisma.UserUncheckedCreateWithoutPrescriptionsWrittenInput>
+  connectOrCreate?: Prisma.UserCreateOrConnectWithoutPrescriptionsWrittenInput
+  connect?: Prisma.UserWhereUniqueInput
+}
+
+export type UserUpdateOneRequiredWithoutPrescriptionsWrittenNestedInput = {
+  create?: Prisma.XOR<Prisma.UserCreateWithoutPrescriptionsWrittenInput, Prisma.UserUncheckedCreateWithoutPrescriptionsWrittenInput>
+  connectOrCreate?: Prisma.UserCreateOrConnectWithoutPrescriptionsWrittenInput
+  upsert?: Prisma.UserUpsertWithoutPrescriptionsWrittenInput
+  connect?: Prisma.UserWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.UserUpdateToOneWithWhereWithoutPrescriptionsWrittenInput, Prisma.UserUpdateWithoutPrescriptionsWrittenInput>, Prisma.UserUncheckedUpdateWithoutPrescriptionsWrittenInput>
+}
+
 export type UserCreateWithoutClinicInput = {
   id?: string
   email: string
@@ -725,6 +815,10 @@ export type UserCreateWithoutClinicInput = {
   orthoCasesCreated?: Prisma.OrthodonticCaseCreateNestedManyWithoutCreatedByInput
   orthoVisitsCreated?: Prisma.OrthodonticVisitCreateNestedManyWithoutCreatedByInput
   personalTodos?: Prisma.PersonalTodoCreateNestedManyWithoutUserInput
+  documentsUploaded?: Prisma.PatientDocumentCreateNestedManyWithoutUploadedByInput
+  expensesCreated?: Prisma.ExpenseCreateNestedManyWithoutCreatedByInput
+  auditLogsActor?: Prisma.AuditLogCreateNestedManyWithoutUserInput
+  prescriptionsWritten?: Prisma.PrescriptionCreateNestedManyWithoutDentistInput
 }
 
 export type UserUncheckedCreateWithoutClinicInput = {
@@ -747,6 +841,10 @@ export type UserUncheckedCreateWithoutClinicInput = {
   orthoCasesCreated?: Prisma.OrthodonticCaseUncheckedCreateNestedManyWithoutCreatedByInput
   orthoVisitsCreated?: Prisma.OrthodonticVisitUncheckedCreateNestedManyWithoutCreatedByInput
   personalTodos?: Prisma.PersonalTodoUncheckedCreateNestedManyWithoutUserInput
+  documentsUploaded?: Prisma.PatientDocumentUncheckedCreateNestedManyWithoutUploadedByInput
+  expensesCreated?: Prisma.ExpenseUncheckedCreateNestedManyWithoutCreatedByInput
+  auditLogsActor?: Prisma.AuditLogUncheckedCreateNestedManyWithoutUserInput
+  prescriptionsWritten?: Prisma.PrescriptionUncheckedCreateNestedManyWithoutDentistInput
 }
 
 export type UserCreateOrConnectWithoutClinicInput = {
@@ -811,6 +909,10 @@ export type UserCreateWithoutAppointmentsInput = {
   orthoCasesCreated?: Prisma.OrthodonticCaseCreateNestedManyWithoutCreatedByInput
   orthoVisitsCreated?: Prisma.OrthodonticVisitCreateNestedManyWithoutCreatedByInput
   personalTodos?: Prisma.PersonalTodoCreateNestedManyWithoutUserInput
+  documentsUploaded?: Prisma.PatientDocumentCreateNestedManyWithoutUploadedByInput
+  expensesCreated?: Prisma.ExpenseCreateNestedManyWithoutCreatedByInput
+  auditLogsActor?: Prisma.AuditLogCreateNestedManyWithoutUserInput
+  prescriptionsWritten?: Prisma.PrescriptionCreateNestedManyWithoutDentistInput
 }
 
 export type UserUncheckedCreateWithoutAppointmentsInput = {
@@ -833,6 +935,10 @@ export type UserUncheckedCreateWithoutAppointmentsInput = {
   orthoCasesCreated?: Prisma.OrthodonticCaseUncheckedCreateNestedManyWithoutCreatedByInput
   orthoVisitsCreated?: Prisma.OrthodonticVisitUncheckedCreateNestedManyWithoutCreatedByInput
   personalTodos?: Prisma.PersonalTodoUncheckedCreateNestedManyWithoutUserInput
+  documentsUploaded?: Prisma.PatientDocumentUncheckedCreateNestedManyWithoutUploadedByInput
+  expensesCreated?: Prisma.ExpenseUncheckedCreateNestedManyWithoutCreatedByInput
+  auditLogsActor?: Prisma.AuditLogUncheckedCreateNestedManyWithoutUserInput
+  prescriptionsWritten?: Prisma.PrescriptionUncheckedCreateNestedManyWithoutDentistInput
 }
 
 export type UserCreateOrConnectWithoutAppointmentsInput = {
@@ -871,6 +977,10 @@ export type UserUpdateWithoutAppointmentsInput = {
   orthoCasesCreated?: Prisma.OrthodonticCaseUpdateManyWithoutCreatedByNestedInput
   orthoVisitsCreated?: Prisma.OrthodonticVisitUpdateManyWithoutCreatedByNestedInput
   personalTodos?: Prisma.PersonalTodoUpdateManyWithoutUserNestedInput
+  documentsUploaded?: Prisma.PatientDocumentUpdateManyWithoutUploadedByNestedInput
+  expensesCreated?: Prisma.ExpenseUpdateManyWithoutCreatedByNestedInput
+  auditLogsActor?: Prisma.AuditLogUpdateManyWithoutUserNestedInput
+  prescriptionsWritten?: Prisma.PrescriptionUpdateManyWithoutDentistNestedInput
 }
 
 export type UserUncheckedUpdateWithoutAppointmentsInput = {
@@ -893,6 +1003,10 @@ export type UserUncheckedUpdateWithoutAppointmentsInput = {
   orthoCasesCreated?: Prisma.OrthodonticCaseUncheckedUpdateManyWithoutCreatedByNestedInput
   orthoVisitsCreated?: Prisma.OrthodonticVisitUncheckedUpdateManyWithoutCreatedByNestedInput
   personalTodos?: Prisma.PersonalTodoUncheckedUpdateManyWithoutUserNestedInput
+  documentsUploaded?: Prisma.PatientDocumentUncheckedUpdateManyWithoutUploadedByNestedInput
+  expensesCreated?: Prisma.ExpenseUncheckedUpdateManyWithoutCreatedByNestedInput
+  auditLogsActor?: Prisma.AuditLogUncheckedUpdateManyWithoutUserNestedInput
+  prescriptionsWritten?: Prisma.PrescriptionUncheckedUpdateManyWithoutDentistNestedInput
 }
 
 export type UserCreateWithoutTreatmentPlansCreatedInput = {
@@ -915,6 +1029,10 @@ export type UserCreateWithoutTreatmentPlansCreatedInput = {
   orthoCasesCreated?: Prisma.OrthodonticCaseCreateNestedManyWithoutCreatedByInput
   orthoVisitsCreated?: Prisma.OrthodonticVisitCreateNestedManyWithoutCreatedByInput
   personalTodos?: Prisma.PersonalTodoCreateNestedManyWithoutUserInput
+  documentsUploaded?: Prisma.PatientDocumentCreateNestedManyWithoutUploadedByInput
+  expensesCreated?: Prisma.ExpenseCreateNestedManyWithoutCreatedByInput
+  auditLogsActor?: Prisma.AuditLogCreateNestedManyWithoutUserInput
+  prescriptionsWritten?: Prisma.PrescriptionCreateNestedManyWithoutDentistInput
 }
 
 export type UserUncheckedCreateWithoutTreatmentPlansCreatedInput = {
@@ -937,6 +1055,10 @@ export type UserUncheckedCreateWithoutTreatmentPlansCreatedInput = {
   orthoCasesCreated?: Prisma.OrthodonticCaseUncheckedCreateNestedManyWithoutCreatedByInput
   orthoVisitsCreated?: Prisma.OrthodonticVisitUncheckedCreateNestedManyWithoutCreatedByInput
   personalTodos?: Prisma.PersonalTodoUncheckedCreateNestedManyWithoutUserInput
+  documentsUploaded?: Prisma.PatientDocumentUncheckedCreateNestedManyWithoutUploadedByInput
+  expensesCreated?: Prisma.ExpenseUncheckedCreateNestedManyWithoutCreatedByInput
+  auditLogsActor?: Prisma.AuditLogUncheckedCreateNestedManyWithoutUserInput
+  prescriptionsWritten?: Prisma.PrescriptionUncheckedCreateNestedManyWithoutDentistInput
 }
 
 export type UserCreateOrConnectWithoutTreatmentPlansCreatedInput = {
@@ -975,6 +1097,10 @@ export type UserUpdateWithoutTreatmentPlansCreatedInput = {
   orthoCasesCreated?: Prisma.OrthodonticCaseUpdateManyWithoutCreatedByNestedInput
   orthoVisitsCreated?: Prisma.OrthodonticVisitUpdateManyWithoutCreatedByNestedInput
   personalTodos?: Prisma.PersonalTodoUpdateManyWithoutUserNestedInput
+  documentsUploaded?: Prisma.PatientDocumentUpdateManyWithoutUploadedByNestedInput
+  expensesCreated?: Prisma.ExpenseUpdateManyWithoutCreatedByNestedInput
+  auditLogsActor?: Prisma.AuditLogUpdateManyWithoutUserNestedInput
+  prescriptionsWritten?: Prisma.PrescriptionUpdateManyWithoutDentistNestedInput
 }
 
 export type UserUncheckedUpdateWithoutTreatmentPlansCreatedInput = {
@@ -997,6 +1123,10 @@ export type UserUncheckedUpdateWithoutTreatmentPlansCreatedInput = {
   orthoCasesCreated?: Prisma.OrthodonticCaseUncheckedUpdateManyWithoutCreatedByNestedInput
   orthoVisitsCreated?: Prisma.OrthodonticVisitUncheckedUpdateManyWithoutCreatedByNestedInput
   personalTodos?: Prisma.PersonalTodoUncheckedUpdateManyWithoutUserNestedInput
+  documentsUploaded?: Prisma.PatientDocumentUncheckedUpdateManyWithoutUploadedByNestedInput
+  expensesCreated?: Prisma.ExpenseUncheckedUpdateManyWithoutCreatedByNestedInput
+  auditLogsActor?: Prisma.AuditLogUncheckedUpdateManyWithoutUserNestedInput
+  prescriptionsWritten?: Prisma.PrescriptionUncheckedUpdateManyWithoutDentistNestedInput
 }
 
 export type UserCreateWithoutTreatmentPlanItemsCreatedInput = {
@@ -1019,6 +1149,10 @@ export type UserCreateWithoutTreatmentPlanItemsCreatedInput = {
   orthoCasesCreated?: Prisma.OrthodonticCaseCreateNestedManyWithoutCreatedByInput
   orthoVisitsCreated?: Prisma.OrthodonticVisitCreateNestedManyWithoutCreatedByInput
   personalTodos?: Prisma.PersonalTodoCreateNestedManyWithoutUserInput
+  documentsUploaded?: Prisma.PatientDocumentCreateNestedManyWithoutUploadedByInput
+  expensesCreated?: Prisma.ExpenseCreateNestedManyWithoutCreatedByInput
+  auditLogsActor?: Prisma.AuditLogCreateNestedManyWithoutUserInput
+  prescriptionsWritten?: Prisma.PrescriptionCreateNestedManyWithoutDentistInput
 }
 
 export type UserUncheckedCreateWithoutTreatmentPlanItemsCreatedInput = {
@@ -1041,6 +1175,10 @@ export type UserUncheckedCreateWithoutTreatmentPlanItemsCreatedInput = {
   orthoCasesCreated?: Prisma.OrthodonticCaseUncheckedCreateNestedManyWithoutCreatedByInput
   orthoVisitsCreated?: Prisma.OrthodonticVisitUncheckedCreateNestedManyWithoutCreatedByInput
   personalTodos?: Prisma.PersonalTodoUncheckedCreateNestedManyWithoutUserInput
+  documentsUploaded?: Prisma.PatientDocumentUncheckedCreateNestedManyWithoutUploadedByInput
+  expensesCreated?: Prisma.ExpenseUncheckedCreateNestedManyWithoutCreatedByInput
+  auditLogsActor?: Prisma.AuditLogUncheckedCreateNestedManyWithoutUserInput
+  prescriptionsWritten?: Prisma.PrescriptionUncheckedCreateNestedManyWithoutDentistInput
 }
 
 export type UserCreateOrConnectWithoutTreatmentPlanItemsCreatedInput = {
@@ -1079,6 +1217,10 @@ export type UserUpdateWithoutTreatmentPlanItemsCreatedInput = {
   orthoCasesCreated?: Prisma.OrthodonticCaseUpdateManyWithoutCreatedByNestedInput
   orthoVisitsCreated?: Prisma.OrthodonticVisitUpdateManyWithoutCreatedByNestedInput
   personalTodos?: Prisma.PersonalTodoUpdateManyWithoutUserNestedInput
+  documentsUploaded?: Prisma.PatientDocumentUpdateManyWithoutUploadedByNestedInput
+  expensesCreated?: Prisma.ExpenseUpdateManyWithoutCreatedByNestedInput
+  auditLogsActor?: Prisma.AuditLogUpdateManyWithoutUserNestedInput
+  prescriptionsWritten?: Prisma.PrescriptionUpdateManyWithoutDentistNestedInput
 }
 
 export type UserUncheckedUpdateWithoutTreatmentPlanItemsCreatedInput = {
@@ -1101,6 +1243,10 @@ export type UserUncheckedUpdateWithoutTreatmentPlanItemsCreatedInput = {
   orthoCasesCreated?: Prisma.OrthodonticCaseUncheckedUpdateManyWithoutCreatedByNestedInput
   orthoVisitsCreated?: Prisma.OrthodonticVisitUncheckedUpdateManyWithoutCreatedByNestedInput
   personalTodos?: Prisma.PersonalTodoUncheckedUpdateManyWithoutUserNestedInput
+  documentsUploaded?: Prisma.PatientDocumentUncheckedUpdateManyWithoutUploadedByNestedInput
+  expensesCreated?: Prisma.ExpenseUncheckedUpdateManyWithoutCreatedByNestedInput
+  auditLogsActor?: Prisma.AuditLogUncheckedUpdateManyWithoutUserNestedInput
+  prescriptionsWritten?: Prisma.PrescriptionUncheckedUpdateManyWithoutDentistNestedInput
 }
 
 export type UserCreateWithoutCreatedInvoicesInput = {
@@ -1123,6 +1269,10 @@ export type UserCreateWithoutCreatedInvoicesInput = {
   orthoCasesCreated?: Prisma.OrthodonticCaseCreateNestedManyWithoutCreatedByInput
   orthoVisitsCreated?: Prisma.OrthodonticVisitCreateNestedManyWithoutCreatedByInput
   personalTodos?: Prisma.PersonalTodoCreateNestedManyWithoutUserInput
+  documentsUploaded?: Prisma.PatientDocumentCreateNestedManyWithoutUploadedByInput
+  expensesCreated?: Prisma.ExpenseCreateNestedManyWithoutCreatedByInput
+  auditLogsActor?: Prisma.AuditLogCreateNestedManyWithoutUserInput
+  prescriptionsWritten?: Prisma.PrescriptionCreateNestedManyWithoutDentistInput
 }
 
 export type UserUncheckedCreateWithoutCreatedInvoicesInput = {
@@ -1145,6 +1295,10 @@ export type UserUncheckedCreateWithoutCreatedInvoicesInput = {
   orthoCasesCreated?: Prisma.OrthodonticCaseUncheckedCreateNestedManyWithoutCreatedByInput
   orthoVisitsCreated?: Prisma.OrthodonticVisitUncheckedCreateNestedManyWithoutCreatedByInput
   personalTodos?: Prisma.PersonalTodoUncheckedCreateNestedManyWithoutUserInput
+  documentsUploaded?: Prisma.PatientDocumentUncheckedCreateNestedManyWithoutUploadedByInput
+  expensesCreated?: Prisma.ExpenseUncheckedCreateNestedManyWithoutCreatedByInput
+  auditLogsActor?: Prisma.AuditLogUncheckedCreateNestedManyWithoutUserInput
+  prescriptionsWritten?: Prisma.PrescriptionUncheckedCreateNestedManyWithoutDentistInput
 }
 
 export type UserCreateOrConnectWithoutCreatedInvoicesInput = {
@@ -1183,6 +1337,10 @@ export type UserUpdateWithoutCreatedInvoicesInput = {
   orthoCasesCreated?: Prisma.OrthodonticCaseUpdateManyWithoutCreatedByNestedInput
   orthoVisitsCreated?: Prisma.OrthodonticVisitUpdateManyWithoutCreatedByNestedInput
   personalTodos?: Prisma.PersonalTodoUpdateManyWithoutUserNestedInput
+  documentsUploaded?: Prisma.PatientDocumentUpdateManyWithoutUploadedByNestedInput
+  expensesCreated?: Prisma.ExpenseUpdateManyWithoutCreatedByNestedInput
+  auditLogsActor?: Prisma.AuditLogUpdateManyWithoutUserNestedInput
+  prescriptionsWritten?: Prisma.PrescriptionUpdateManyWithoutDentistNestedInput
 }
 
 export type UserUncheckedUpdateWithoutCreatedInvoicesInput = {
@@ -1205,6 +1363,10 @@ export type UserUncheckedUpdateWithoutCreatedInvoicesInput = {
   orthoCasesCreated?: Prisma.OrthodonticCaseUncheckedUpdateManyWithoutCreatedByNestedInput
   orthoVisitsCreated?: Prisma.OrthodonticVisitUncheckedUpdateManyWithoutCreatedByNestedInput
   personalTodos?: Prisma.PersonalTodoUncheckedUpdateManyWithoutUserNestedInput
+  documentsUploaded?: Prisma.PatientDocumentUncheckedUpdateManyWithoutUploadedByNestedInput
+  expensesCreated?: Prisma.ExpenseUncheckedUpdateManyWithoutCreatedByNestedInput
+  auditLogsActor?: Prisma.AuditLogUncheckedUpdateManyWithoutUserNestedInput
+  prescriptionsWritten?: Prisma.PrescriptionUncheckedUpdateManyWithoutDentistNestedInput
 }
 
 export type UserCreateWithoutTasksCreatedInput = {
@@ -1227,6 +1389,10 @@ export type UserCreateWithoutTasksCreatedInput = {
   orthoCasesCreated?: Prisma.OrthodonticCaseCreateNestedManyWithoutCreatedByInput
   orthoVisitsCreated?: Prisma.OrthodonticVisitCreateNestedManyWithoutCreatedByInput
   personalTodos?: Prisma.PersonalTodoCreateNestedManyWithoutUserInput
+  documentsUploaded?: Prisma.PatientDocumentCreateNestedManyWithoutUploadedByInput
+  expensesCreated?: Prisma.ExpenseCreateNestedManyWithoutCreatedByInput
+  auditLogsActor?: Prisma.AuditLogCreateNestedManyWithoutUserInput
+  prescriptionsWritten?: Prisma.PrescriptionCreateNestedManyWithoutDentistInput
 }
 
 export type UserUncheckedCreateWithoutTasksCreatedInput = {
@@ -1249,6 +1415,10 @@ export type UserUncheckedCreateWithoutTasksCreatedInput = {
   orthoCasesCreated?: Prisma.OrthodonticCaseUncheckedCreateNestedManyWithoutCreatedByInput
   orthoVisitsCreated?: Prisma.OrthodonticVisitUncheckedCreateNestedManyWithoutCreatedByInput
   personalTodos?: Prisma.PersonalTodoUncheckedCreateNestedManyWithoutUserInput
+  documentsUploaded?: Prisma.PatientDocumentUncheckedCreateNestedManyWithoutUploadedByInput
+  expensesCreated?: Prisma.ExpenseUncheckedCreateNestedManyWithoutCreatedByInput
+  auditLogsActor?: Prisma.AuditLogUncheckedCreateNestedManyWithoutUserInput
+  prescriptionsWritten?: Prisma.PrescriptionUncheckedCreateNestedManyWithoutDentistInput
 }
 
 export type UserCreateOrConnectWithoutTasksCreatedInput = {
@@ -1276,6 +1446,10 @@ export type UserCreateWithoutTasksAssignedInput = {
   orthoCasesCreated?: Prisma.OrthodonticCaseCreateNestedManyWithoutCreatedByInput
   orthoVisitsCreated?: Prisma.OrthodonticVisitCreateNestedManyWithoutCreatedByInput
   personalTodos?: Prisma.PersonalTodoCreateNestedManyWithoutUserInput
+  documentsUploaded?: Prisma.PatientDocumentCreateNestedManyWithoutUploadedByInput
+  expensesCreated?: Prisma.ExpenseCreateNestedManyWithoutCreatedByInput
+  auditLogsActor?: Prisma.AuditLogCreateNestedManyWithoutUserInput
+  prescriptionsWritten?: Prisma.PrescriptionCreateNestedManyWithoutDentistInput
 }
 
 export type UserUncheckedCreateWithoutTasksAssignedInput = {
@@ -1298,6 +1472,10 @@ export type UserUncheckedCreateWithoutTasksAssignedInput = {
   orthoCasesCreated?: Prisma.OrthodonticCaseUncheckedCreateNestedManyWithoutCreatedByInput
   orthoVisitsCreated?: Prisma.OrthodonticVisitUncheckedCreateNestedManyWithoutCreatedByInput
   personalTodos?: Prisma.PersonalTodoUncheckedCreateNestedManyWithoutUserInput
+  documentsUploaded?: Prisma.PatientDocumentUncheckedCreateNestedManyWithoutUploadedByInput
+  expensesCreated?: Prisma.ExpenseUncheckedCreateNestedManyWithoutCreatedByInput
+  auditLogsActor?: Prisma.AuditLogUncheckedCreateNestedManyWithoutUserInput
+  prescriptionsWritten?: Prisma.PrescriptionUncheckedCreateNestedManyWithoutDentistInput
 }
 
 export type UserCreateOrConnectWithoutTasksAssignedInput = {
@@ -1336,6 +1514,10 @@ export type UserUpdateWithoutTasksCreatedInput = {
   orthoCasesCreated?: Prisma.OrthodonticCaseUpdateManyWithoutCreatedByNestedInput
   orthoVisitsCreated?: Prisma.OrthodonticVisitUpdateManyWithoutCreatedByNestedInput
   personalTodos?: Prisma.PersonalTodoUpdateManyWithoutUserNestedInput
+  documentsUploaded?: Prisma.PatientDocumentUpdateManyWithoutUploadedByNestedInput
+  expensesCreated?: Prisma.ExpenseUpdateManyWithoutCreatedByNestedInput
+  auditLogsActor?: Prisma.AuditLogUpdateManyWithoutUserNestedInput
+  prescriptionsWritten?: Prisma.PrescriptionUpdateManyWithoutDentistNestedInput
 }
 
 export type UserUncheckedUpdateWithoutTasksCreatedInput = {
@@ -1358,6 +1540,10 @@ export type UserUncheckedUpdateWithoutTasksCreatedInput = {
   orthoCasesCreated?: Prisma.OrthodonticCaseUncheckedUpdateManyWithoutCreatedByNestedInput
   orthoVisitsCreated?: Prisma.OrthodonticVisitUncheckedUpdateManyWithoutCreatedByNestedInput
   personalTodos?: Prisma.PersonalTodoUncheckedUpdateManyWithoutUserNestedInput
+  documentsUploaded?: Prisma.PatientDocumentUncheckedUpdateManyWithoutUploadedByNestedInput
+  expensesCreated?: Prisma.ExpenseUncheckedUpdateManyWithoutCreatedByNestedInput
+  auditLogsActor?: Prisma.AuditLogUncheckedUpdateManyWithoutUserNestedInput
+  prescriptionsWritten?: Prisma.PrescriptionUncheckedUpdateManyWithoutDentistNestedInput
 }
 
 export type UserUpsertWithoutTasksAssignedInput = {
@@ -1391,6 +1577,10 @@ export type UserUpdateWithoutTasksAssignedInput = {
   orthoCasesCreated?: Prisma.OrthodonticCaseUpdateManyWithoutCreatedByNestedInput
   orthoVisitsCreated?: Prisma.OrthodonticVisitUpdateManyWithoutCreatedByNestedInput
   personalTodos?: Prisma.PersonalTodoUpdateManyWithoutUserNestedInput
+  documentsUploaded?: Prisma.PatientDocumentUpdateManyWithoutUploadedByNestedInput
+  expensesCreated?: Prisma.ExpenseUpdateManyWithoutCreatedByNestedInput
+  auditLogsActor?: Prisma.AuditLogUpdateManyWithoutUserNestedInput
+  prescriptionsWritten?: Prisma.PrescriptionUpdateManyWithoutDentistNestedInput
 }
 
 export type UserUncheckedUpdateWithoutTasksAssignedInput = {
@@ -1413,6 +1603,10 @@ export type UserUncheckedUpdateWithoutTasksAssignedInput = {
   orthoCasesCreated?: Prisma.OrthodonticCaseUncheckedUpdateManyWithoutCreatedByNestedInput
   orthoVisitsCreated?: Prisma.OrthodonticVisitUncheckedUpdateManyWithoutCreatedByNestedInput
   personalTodos?: Prisma.PersonalTodoUncheckedUpdateManyWithoutUserNestedInput
+  documentsUploaded?: Prisma.PatientDocumentUncheckedUpdateManyWithoutUploadedByNestedInput
+  expensesCreated?: Prisma.ExpenseUncheckedUpdateManyWithoutCreatedByNestedInput
+  auditLogsActor?: Prisma.AuditLogUncheckedUpdateManyWithoutUserNestedInput
+  prescriptionsWritten?: Prisma.PrescriptionUncheckedUpdateManyWithoutDentistNestedInput
 }
 
 export type UserCreateWithoutOrthoCasesDentistInput = {
@@ -1435,6 +1629,10 @@ export type UserCreateWithoutOrthoCasesDentistInput = {
   orthoCasesCreated?: Prisma.OrthodonticCaseCreateNestedManyWithoutCreatedByInput
   orthoVisitsCreated?: Prisma.OrthodonticVisitCreateNestedManyWithoutCreatedByInput
   personalTodos?: Prisma.PersonalTodoCreateNestedManyWithoutUserInput
+  documentsUploaded?: Prisma.PatientDocumentCreateNestedManyWithoutUploadedByInput
+  expensesCreated?: Prisma.ExpenseCreateNestedManyWithoutCreatedByInput
+  auditLogsActor?: Prisma.AuditLogCreateNestedManyWithoutUserInput
+  prescriptionsWritten?: Prisma.PrescriptionCreateNestedManyWithoutDentistInput
 }
 
 export type UserUncheckedCreateWithoutOrthoCasesDentistInput = {
@@ -1457,6 +1655,10 @@ export type UserUncheckedCreateWithoutOrthoCasesDentistInput = {
   orthoCasesCreated?: Prisma.OrthodonticCaseUncheckedCreateNestedManyWithoutCreatedByInput
   orthoVisitsCreated?: Prisma.OrthodonticVisitUncheckedCreateNestedManyWithoutCreatedByInput
   personalTodos?: Prisma.PersonalTodoUncheckedCreateNestedManyWithoutUserInput
+  documentsUploaded?: Prisma.PatientDocumentUncheckedCreateNestedManyWithoutUploadedByInput
+  expensesCreated?: Prisma.ExpenseUncheckedCreateNestedManyWithoutCreatedByInput
+  auditLogsActor?: Prisma.AuditLogUncheckedCreateNestedManyWithoutUserInput
+  prescriptionsWritten?: Prisma.PrescriptionUncheckedCreateNestedManyWithoutDentistInput
 }
 
 export type UserCreateOrConnectWithoutOrthoCasesDentistInput = {
@@ -1484,6 +1686,10 @@ export type UserCreateWithoutOrthoCasesCreatedInput = {
   orthoCasesDentist?: Prisma.OrthodonticCaseCreateNestedManyWithoutDentistInput
   orthoVisitsCreated?: Prisma.OrthodonticVisitCreateNestedManyWithoutCreatedByInput
   personalTodos?: Prisma.PersonalTodoCreateNestedManyWithoutUserInput
+  documentsUploaded?: Prisma.PatientDocumentCreateNestedManyWithoutUploadedByInput
+  expensesCreated?: Prisma.ExpenseCreateNestedManyWithoutCreatedByInput
+  auditLogsActor?: Prisma.AuditLogCreateNestedManyWithoutUserInput
+  prescriptionsWritten?: Prisma.PrescriptionCreateNestedManyWithoutDentistInput
 }
 
 export type UserUncheckedCreateWithoutOrthoCasesCreatedInput = {
@@ -1506,6 +1712,10 @@ export type UserUncheckedCreateWithoutOrthoCasesCreatedInput = {
   orthoCasesDentist?: Prisma.OrthodonticCaseUncheckedCreateNestedManyWithoutDentistInput
   orthoVisitsCreated?: Prisma.OrthodonticVisitUncheckedCreateNestedManyWithoutCreatedByInput
   personalTodos?: Prisma.PersonalTodoUncheckedCreateNestedManyWithoutUserInput
+  documentsUploaded?: Prisma.PatientDocumentUncheckedCreateNestedManyWithoutUploadedByInput
+  expensesCreated?: Prisma.ExpenseUncheckedCreateNestedManyWithoutCreatedByInput
+  auditLogsActor?: Prisma.AuditLogUncheckedCreateNestedManyWithoutUserInput
+  prescriptionsWritten?: Prisma.PrescriptionUncheckedCreateNestedManyWithoutDentistInput
 }
 
 export type UserCreateOrConnectWithoutOrthoCasesCreatedInput = {
@@ -1544,6 +1754,10 @@ export type UserUpdateWithoutOrthoCasesDentistInput = {
   orthoCasesCreated?: Prisma.OrthodonticCaseUpdateManyWithoutCreatedByNestedInput
   orthoVisitsCreated?: Prisma.OrthodonticVisitUpdateManyWithoutCreatedByNestedInput
   personalTodos?: Prisma.PersonalTodoUpdateManyWithoutUserNestedInput
+  documentsUploaded?: Prisma.PatientDocumentUpdateManyWithoutUploadedByNestedInput
+  expensesCreated?: Prisma.ExpenseUpdateManyWithoutCreatedByNestedInput
+  auditLogsActor?: Prisma.AuditLogUpdateManyWithoutUserNestedInput
+  prescriptionsWritten?: Prisma.PrescriptionUpdateManyWithoutDentistNestedInput
 }
 
 export type UserUncheckedUpdateWithoutOrthoCasesDentistInput = {
@@ -1566,6 +1780,10 @@ export type UserUncheckedUpdateWithoutOrthoCasesDentistInput = {
   orthoCasesCreated?: Prisma.OrthodonticCaseUncheckedUpdateManyWithoutCreatedByNestedInput
   orthoVisitsCreated?: Prisma.OrthodonticVisitUncheckedUpdateManyWithoutCreatedByNestedInput
   personalTodos?: Prisma.PersonalTodoUncheckedUpdateManyWithoutUserNestedInput
+  documentsUploaded?: Prisma.PatientDocumentUncheckedUpdateManyWithoutUploadedByNestedInput
+  expensesCreated?: Prisma.ExpenseUncheckedUpdateManyWithoutCreatedByNestedInput
+  auditLogsActor?: Prisma.AuditLogUncheckedUpdateManyWithoutUserNestedInput
+  prescriptionsWritten?: Prisma.PrescriptionUncheckedUpdateManyWithoutDentistNestedInput
 }
 
 export type UserUpsertWithoutOrthoCasesCreatedInput = {
@@ -1599,6 +1817,10 @@ export type UserUpdateWithoutOrthoCasesCreatedInput = {
   orthoCasesDentist?: Prisma.OrthodonticCaseUpdateManyWithoutDentistNestedInput
   orthoVisitsCreated?: Prisma.OrthodonticVisitUpdateManyWithoutCreatedByNestedInput
   personalTodos?: Prisma.PersonalTodoUpdateManyWithoutUserNestedInput
+  documentsUploaded?: Prisma.PatientDocumentUpdateManyWithoutUploadedByNestedInput
+  expensesCreated?: Prisma.ExpenseUpdateManyWithoutCreatedByNestedInput
+  auditLogsActor?: Prisma.AuditLogUpdateManyWithoutUserNestedInput
+  prescriptionsWritten?: Prisma.PrescriptionUpdateManyWithoutDentistNestedInput
 }
 
 export type UserUncheckedUpdateWithoutOrthoCasesCreatedInput = {
@@ -1621,6 +1843,10 @@ export type UserUncheckedUpdateWithoutOrthoCasesCreatedInput = {
   orthoCasesDentist?: Prisma.OrthodonticCaseUncheckedUpdateManyWithoutDentistNestedInput
   orthoVisitsCreated?: Prisma.OrthodonticVisitUncheckedUpdateManyWithoutCreatedByNestedInput
   personalTodos?: Prisma.PersonalTodoUncheckedUpdateManyWithoutUserNestedInput
+  documentsUploaded?: Prisma.PatientDocumentUncheckedUpdateManyWithoutUploadedByNestedInput
+  expensesCreated?: Prisma.ExpenseUncheckedUpdateManyWithoutCreatedByNestedInput
+  auditLogsActor?: Prisma.AuditLogUncheckedUpdateManyWithoutUserNestedInput
+  prescriptionsWritten?: Prisma.PrescriptionUncheckedUpdateManyWithoutDentistNestedInput
 }
 
 export type UserCreateWithoutOrthoVisitsCreatedInput = {
@@ -1643,6 +1869,10 @@ export type UserCreateWithoutOrthoVisitsCreatedInput = {
   orthoCasesDentist?: Prisma.OrthodonticCaseCreateNestedManyWithoutDentistInput
   orthoCasesCreated?: Prisma.OrthodonticCaseCreateNestedManyWithoutCreatedByInput
   personalTodos?: Prisma.PersonalTodoCreateNestedManyWithoutUserInput
+  documentsUploaded?: Prisma.PatientDocumentCreateNestedManyWithoutUploadedByInput
+  expensesCreated?: Prisma.ExpenseCreateNestedManyWithoutCreatedByInput
+  auditLogsActor?: Prisma.AuditLogCreateNestedManyWithoutUserInput
+  prescriptionsWritten?: Prisma.PrescriptionCreateNestedManyWithoutDentistInput
 }
 
 export type UserUncheckedCreateWithoutOrthoVisitsCreatedInput = {
@@ -1665,6 +1895,10 @@ export type UserUncheckedCreateWithoutOrthoVisitsCreatedInput = {
   orthoCasesDentist?: Prisma.OrthodonticCaseUncheckedCreateNestedManyWithoutDentistInput
   orthoCasesCreated?: Prisma.OrthodonticCaseUncheckedCreateNestedManyWithoutCreatedByInput
   personalTodos?: Prisma.PersonalTodoUncheckedCreateNestedManyWithoutUserInput
+  documentsUploaded?: Prisma.PatientDocumentUncheckedCreateNestedManyWithoutUploadedByInput
+  expensesCreated?: Prisma.ExpenseUncheckedCreateNestedManyWithoutCreatedByInput
+  auditLogsActor?: Prisma.AuditLogUncheckedCreateNestedManyWithoutUserInput
+  prescriptionsWritten?: Prisma.PrescriptionUncheckedCreateNestedManyWithoutDentistInput
 }
 
 export type UserCreateOrConnectWithoutOrthoVisitsCreatedInput = {
@@ -1703,6 +1937,10 @@ export type UserUpdateWithoutOrthoVisitsCreatedInput = {
   orthoCasesDentist?: Prisma.OrthodonticCaseUpdateManyWithoutDentistNestedInput
   orthoCasesCreated?: Prisma.OrthodonticCaseUpdateManyWithoutCreatedByNestedInput
   personalTodos?: Prisma.PersonalTodoUpdateManyWithoutUserNestedInput
+  documentsUploaded?: Prisma.PatientDocumentUpdateManyWithoutUploadedByNestedInput
+  expensesCreated?: Prisma.ExpenseUpdateManyWithoutCreatedByNestedInput
+  auditLogsActor?: Prisma.AuditLogUpdateManyWithoutUserNestedInput
+  prescriptionsWritten?: Prisma.PrescriptionUpdateManyWithoutDentistNestedInput
 }
 
 export type UserUncheckedUpdateWithoutOrthoVisitsCreatedInput = {
@@ -1725,6 +1963,10 @@ export type UserUncheckedUpdateWithoutOrthoVisitsCreatedInput = {
   orthoCasesDentist?: Prisma.OrthodonticCaseUncheckedUpdateManyWithoutDentistNestedInput
   orthoCasesCreated?: Prisma.OrthodonticCaseUncheckedUpdateManyWithoutCreatedByNestedInput
   personalTodos?: Prisma.PersonalTodoUncheckedUpdateManyWithoutUserNestedInput
+  documentsUploaded?: Prisma.PatientDocumentUncheckedUpdateManyWithoutUploadedByNestedInput
+  expensesCreated?: Prisma.ExpenseUncheckedUpdateManyWithoutCreatedByNestedInput
+  auditLogsActor?: Prisma.AuditLogUncheckedUpdateManyWithoutUserNestedInput
+  prescriptionsWritten?: Prisma.PrescriptionUncheckedUpdateManyWithoutDentistNestedInput
 }
 
 export type UserCreateWithoutPersonalTodosInput = {
@@ -1747,6 +1989,10 @@ export type UserCreateWithoutPersonalTodosInput = {
   orthoCasesDentist?: Prisma.OrthodonticCaseCreateNestedManyWithoutDentistInput
   orthoCasesCreated?: Prisma.OrthodonticCaseCreateNestedManyWithoutCreatedByInput
   orthoVisitsCreated?: Prisma.OrthodonticVisitCreateNestedManyWithoutCreatedByInput
+  documentsUploaded?: Prisma.PatientDocumentCreateNestedManyWithoutUploadedByInput
+  expensesCreated?: Prisma.ExpenseCreateNestedManyWithoutCreatedByInput
+  auditLogsActor?: Prisma.AuditLogCreateNestedManyWithoutUserInput
+  prescriptionsWritten?: Prisma.PrescriptionCreateNestedManyWithoutDentistInput
 }
 
 export type UserUncheckedCreateWithoutPersonalTodosInput = {
@@ -1769,6 +2015,10 @@ export type UserUncheckedCreateWithoutPersonalTodosInput = {
   orthoCasesDentist?: Prisma.OrthodonticCaseUncheckedCreateNestedManyWithoutDentistInput
   orthoCasesCreated?: Prisma.OrthodonticCaseUncheckedCreateNestedManyWithoutCreatedByInput
   orthoVisitsCreated?: Prisma.OrthodonticVisitUncheckedCreateNestedManyWithoutCreatedByInput
+  documentsUploaded?: Prisma.PatientDocumentUncheckedCreateNestedManyWithoutUploadedByInput
+  expensesCreated?: Prisma.ExpenseUncheckedCreateNestedManyWithoutCreatedByInput
+  auditLogsActor?: Prisma.AuditLogUncheckedCreateNestedManyWithoutUserInput
+  prescriptionsWritten?: Prisma.PrescriptionUncheckedCreateNestedManyWithoutDentistInput
 }
 
 export type UserCreateOrConnectWithoutPersonalTodosInput = {
@@ -1807,6 +2057,10 @@ export type UserUpdateWithoutPersonalTodosInput = {
   orthoCasesDentist?: Prisma.OrthodonticCaseUpdateManyWithoutDentistNestedInput
   orthoCasesCreated?: Prisma.OrthodonticCaseUpdateManyWithoutCreatedByNestedInput
   orthoVisitsCreated?: Prisma.OrthodonticVisitUpdateManyWithoutCreatedByNestedInput
+  documentsUploaded?: Prisma.PatientDocumentUpdateManyWithoutUploadedByNestedInput
+  expensesCreated?: Prisma.ExpenseUpdateManyWithoutCreatedByNestedInput
+  auditLogsActor?: Prisma.AuditLogUpdateManyWithoutUserNestedInput
+  prescriptionsWritten?: Prisma.PrescriptionUpdateManyWithoutDentistNestedInput
 }
 
 export type UserUncheckedUpdateWithoutPersonalTodosInput = {
@@ -1829,6 +2083,490 @@ export type UserUncheckedUpdateWithoutPersonalTodosInput = {
   orthoCasesDentist?: Prisma.OrthodonticCaseUncheckedUpdateManyWithoutDentistNestedInput
   orthoCasesCreated?: Prisma.OrthodonticCaseUncheckedUpdateManyWithoutCreatedByNestedInput
   orthoVisitsCreated?: Prisma.OrthodonticVisitUncheckedUpdateManyWithoutCreatedByNestedInput
+  documentsUploaded?: Prisma.PatientDocumentUncheckedUpdateManyWithoutUploadedByNestedInput
+  expensesCreated?: Prisma.ExpenseUncheckedUpdateManyWithoutCreatedByNestedInput
+  auditLogsActor?: Prisma.AuditLogUncheckedUpdateManyWithoutUserNestedInput
+  prescriptionsWritten?: Prisma.PrescriptionUncheckedUpdateManyWithoutDentistNestedInput
+}
+
+export type UserCreateWithoutDocumentsUploadedInput = {
+  id?: string
+  email: string
+  passwordHash: string
+  firstName: string
+  lastName: string
+  role?: $Enums.UserRole
+  isActive?: boolean
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  clinic?: Prisma.ClinicCreateNestedOneWithoutUsersInput
+  appointments?: Prisma.AppointmentCreateNestedManyWithoutDentistInput
+  createdInvoices?: Prisma.InvoiceCreateNestedManyWithoutCreatedByInput
+  treatmentPlansCreated?: Prisma.TreatmentPlanCreateNestedManyWithoutCreatedByInput
+  treatmentPlanItemsCreated?: Prisma.TreatmentPlanItemCreateNestedManyWithoutCreatedByInput
+  tasksCreated?: Prisma.TaskCreateNestedManyWithoutCreatedByInput
+  tasksAssigned?: Prisma.TaskCreateNestedManyWithoutTargetUserInput
+  orthoCasesDentist?: Prisma.OrthodonticCaseCreateNestedManyWithoutDentistInput
+  orthoCasesCreated?: Prisma.OrthodonticCaseCreateNestedManyWithoutCreatedByInput
+  orthoVisitsCreated?: Prisma.OrthodonticVisitCreateNestedManyWithoutCreatedByInput
+  personalTodos?: Prisma.PersonalTodoCreateNestedManyWithoutUserInput
+  expensesCreated?: Prisma.ExpenseCreateNestedManyWithoutCreatedByInput
+  auditLogsActor?: Prisma.AuditLogCreateNestedManyWithoutUserInput
+  prescriptionsWritten?: Prisma.PrescriptionCreateNestedManyWithoutDentistInput
+}
+
+export type UserUncheckedCreateWithoutDocumentsUploadedInput = {
+  id?: string
+  email: string
+  passwordHash: string
+  firstName: string
+  lastName: string
+  role?: $Enums.UserRole
+  isActive?: boolean
+  clinicId?: string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  appointments?: Prisma.AppointmentUncheckedCreateNestedManyWithoutDentistInput
+  createdInvoices?: Prisma.InvoiceUncheckedCreateNestedManyWithoutCreatedByInput
+  treatmentPlansCreated?: Prisma.TreatmentPlanUncheckedCreateNestedManyWithoutCreatedByInput
+  treatmentPlanItemsCreated?: Prisma.TreatmentPlanItemUncheckedCreateNestedManyWithoutCreatedByInput
+  tasksCreated?: Prisma.TaskUncheckedCreateNestedManyWithoutCreatedByInput
+  tasksAssigned?: Prisma.TaskUncheckedCreateNestedManyWithoutTargetUserInput
+  orthoCasesDentist?: Prisma.OrthodonticCaseUncheckedCreateNestedManyWithoutDentistInput
+  orthoCasesCreated?: Prisma.OrthodonticCaseUncheckedCreateNestedManyWithoutCreatedByInput
+  orthoVisitsCreated?: Prisma.OrthodonticVisitUncheckedCreateNestedManyWithoutCreatedByInput
+  personalTodos?: Prisma.PersonalTodoUncheckedCreateNestedManyWithoutUserInput
+  expensesCreated?: Prisma.ExpenseUncheckedCreateNestedManyWithoutCreatedByInput
+  auditLogsActor?: Prisma.AuditLogUncheckedCreateNestedManyWithoutUserInput
+  prescriptionsWritten?: Prisma.PrescriptionUncheckedCreateNestedManyWithoutDentistInput
+}
+
+export type UserCreateOrConnectWithoutDocumentsUploadedInput = {
+  where: Prisma.UserWhereUniqueInput
+  create: Prisma.XOR<Prisma.UserCreateWithoutDocumentsUploadedInput, Prisma.UserUncheckedCreateWithoutDocumentsUploadedInput>
+}
+
+export type UserUpsertWithoutDocumentsUploadedInput = {
+  update: Prisma.XOR<Prisma.UserUpdateWithoutDocumentsUploadedInput, Prisma.UserUncheckedUpdateWithoutDocumentsUploadedInput>
+  create: Prisma.XOR<Prisma.UserCreateWithoutDocumentsUploadedInput, Prisma.UserUncheckedCreateWithoutDocumentsUploadedInput>
+  where?: Prisma.UserWhereInput
+}
+
+export type UserUpdateToOneWithWhereWithoutDocumentsUploadedInput = {
+  where?: Prisma.UserWhereInput
+  data: Prisma.XOR<Prisma.UserUpdateWithoutDocumentsUploadedInput, Prisma.UserUncheckedUpdateWithoutDocumentsUploadedInput>
+}
+
+export type UserUpdateWithoutDocumentsUploadedInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  email?: Prisma.StringFieldUpdateOperationsInput | string
+  passwordHash?: Prisma.StringFieldUpdateOperationsInput | string
+  firstName?: Prisma.StringFieldUpdateOperationsInput | string
+  lastName?: Prisma.StringFieldUpdateOperationsInput | string
+  role?: Prisma.EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole
+  isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  clinic?: Prisma.ClinicUpdateOneWithoutUsersNestedInput
+  appointments?: Prisma.AppointmentUpdateManyWithoutDentistNestedInput
+  createdInvoices?: Prisma.InvoiceUpdateManyWithoutCreatedByNestedInput
+  treatmentPlansCreated?: Prisma.TreatmentPlanUpdateManyWithoutCreatedByNestedInput
+  treatmentPlanItemsCreated?: Prisma.TreatmentPlanItemUpdateManyWithoutCreatedByNestedInput
+  tasksCreated?: Prisma.TaskUpdateManyWithoutCreatedByNestedInput
+  tasksAssigned?: Prisma.TaskUpdateManyWithoutTargetUserNestedInput
+  orthoCasesDentist?: Prisma.OrthodonticCaseUpdateManyWithoutDentistNestedInput
+  orthoCasesCreated?: Prisma.OrthodonticCaseUpdateManyWithoutCreatedByNestedInput
+  orthoVisitsCreated?: Prisma.OrthodonticVisitUpdateManyWithoutCreatedByNestedInput
+  personalTodos?: Prisma.PersonalTodoUpdateManyWithoutUserNestedInput
+  expensesCreated?: Prisma.ExpenseUpdateManyWithoutCreatedByNestedInput
+  auditLogsActor?: Prisma.AuditLogUpdateManyWithoutUserNestedInput
+  prescriptionsWritten?: Prisma.PrescriptionUpdateManyWithoutDentistNestedInput
+}
+
+export type UserUncheckedUpdateWithoutDocumentsUploadedInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  email?: Prisma.StringFieldUpdateOperationsInput | string
+  passwordHash?: Prisma.StringFieldUpdateOperationsInput | string
+  firstName?: Prisma.StringFieldUpdateOperationsInput | string
+  lastName?: Prisma.StringFieldUpdateOperationsInput | string
+  role?: Prisma.EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole
+  isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  clinicId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  appointments?: Prisma.AppointmentUncheckedUpdateManyWithoutDentistNestedInput
+  createdInvoices?: Prisma.InvoiceUncheckedUpdateManyWithoutCreatedByNestedInput
+  treatmentPlansCreated?: Prisma.TreatmentPlanUncheckedUpdateManyWithoutCreatedByNestedInput
+  treatmentPlanItemsCreated?: Prisma.TreatmentPlanItemUncheckedUpdateManyWithoutCreatedByNestedInput
+  tasksCreated?: Prisma.TaskUncheckedUpdateManyWithoutCreatedByNestedInput
+  tasksAssigned?: Prisma.TaskUncheckedUpdateManyWithoutTargetUserNestedInput
+  orthoCasesDentist?: Prisma.OrthodonticCaseUncheckedUpdateManyWithoutDentistNestedInput
+  orthoCasesCreated?: Prisma.OrthodonticCaseUncheckedUpdateManyWithoutCreatedByNestedInput
+  orthoVisitsCreated?: Prisma.OrthodonticVisitUncheckedUpdateManyWithoutCreatedByNestedInput
+  personalTodos?: Prisma.PersonalTodoUncheckedUpdateManyWithoutUserNestedInput
+  expensesCreated?: Prisma.ExpenseUncheckedUpdateManyWithoutCreatedByNestedInput
+  auditLogsActor?: Prisma.AuditLogUncheckedUpdateManyWithoutUserNestedInput
+  prescriptionsWritten?: Prisma.PrescriptionUncheckedUpdateManyWithoutDentistNestedInput
+}
+
+export type UserCreateWithoutExpensesCreatedInput = {
+  id?: string
+  email: string
+  passwordHash: string
+  firstName: string
+  lastName: string
+  role?: $Enums.UserRole
+  isActive?: boolean
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  clinic?: Prisma.ClinicCreateNestedOneWithoutUsersInput
+  appointments?: Prisma.AppointmentCreateNestedManyWithoutDentistInput
+  createdInvoices?: Prisma.InvoiceCreateNestedManyWithoutCreatedByInput
+  treatmentPlansCreated?: Prisma.TreatmentPlanCreateNestedManyWithoutCreatedByInput
+  treatmentPlanItemsCreated?: Prisma.TreatmentPlanItemCreateNestedManyWithoutCreatedByInput
+  tasksCreated?: Prisma.TaskCreateNestedManyWithoutCreatedByInput
+  tasksAssigned?: Prisma.TaskCreateNestedManyWithoutTargetUserInput
+  orthoCasesDentist?: Prisma.OrthodonticCaseCreateNestedManyWithoutDentistInput
+  orthoCasesCreated?: Prisma.OrthodonticCaseCreateNestedManyWithoutCreatedByInput
+  orthoVisitsCreated?: Prisma.OrthodonticVisitCreateNestedManyWithoutCreatedByInput
+  personalTodos?: Prisma.PersonalTodoCreateNestedManyWithoutUserInput
+  documentsUploaded?: Prisma.PatientDocumentCreateNestedManyWithoutUploadedByInput
+  auditLogsActor?: Prisma.AuditLogCreateNestedManyWithoutUserInput
+  prescriptionsWritten?: Prisma.PrescriptionCreateNestedManyWithoutDentistInput
+}
+
+export type UserUncheckedCreateWithoutExpensesCreatedInput = {
+  id?: string
+  email: string
+  passwordHash: string
+  firstName: string
+  lastName: string
+  role?: $Enums.UserRole
+  isActive?: boolean
+  clinicId?: string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  appointments?: Prisma.AppointmentUncheckedCreateNestedManyWithoutDentistInput
+  createdInvoices?: Prisma.InvoiceUncheckedCreateNestedManyWithoutCreatedByInput
+  treatmentPlansCreated?: Prisma.TreatmentPlanUncheckedCreateNestedManyWithoutCreatedByInput
+  treatmentPlanItemsCreated?: Prisma.TreatmentPlanItemUncheckedCreateNestedManyWithoutCreatedByInput
+  tasksCreated?: Prisma.TaskUncheckedCreateNestedManyWithoutCreatedByInput
+  tasksAssigned?: Prisma.TaskUncheckedCreateNestedManyWithoutTargetUserInput
+  orthoCasesDentist?: Prisma.OrthodonticCaseUncheckedCreateNestedManyWithoutDentistInput
+  orthoCasesCreated?: Prisma.OrthodonticCaseUncheckedCreateNestedManyWithoutCreatedByInput
+  orthoVisitsCreated?: Prisma.OrthodonticVisitUncheckedCreateNestedManyWithoutCreatedByInput
+  personalTodos?: Prisma.PersonalTodoUncheckedCreateNestedManyWithoutUserInput
+  documentsUploaded?: Prisma.PatientDocumentUncheckedCreateNestedManyWithoutUploadedByInput
+  auditLogsActor?: Prisma.AuditLogUncheckedCreateNestedManyWithoutUserInput
+  prescriptionsWritten?: Prisma.PrescriptionUncheckedCreateNestedManyWithoutDentistInput
+}
+
+export type UserCreateOrConnectWithoutExpensesCreatedInput = {
+  where: Prisma.UserWhereUniqueInput
+  create: Prisma.XOR<Prisma.UserCreateWithoutExpensesCreatedInput, Prisma.UserUncheckedCreateWithoutExpensesCreatedInput>
+}
+
+export type UserUpsertWithoutExpensesCreatedInput = {
+  update: Prisma.XOR<Prisma.UserUpdateWithoutExpensesCreatedInput, Prisma.UserUncheckedUpdateWithoutExpensesCreatedInput>
+  create: Prisma.XOR<Prisma.UserCreateWithoutExpensesCreatedInput, Prisma.UserUncheckedCreateWithoutExpensesCreatedInput>
+  where?: Prisma.UserWhereInput
+}
+
+export type UserUpdateToOneWithWhereWithoutExpensesCreatedInput = {
+  where?: Prisma.UserWhereInput
+  data: Prisma.XOR<Prisma.UserUpdateWithoutExpensesCreatedInput, Prisma.UserUncheckedUpdateWithoutExpensesCreatedInput>
+}
+
+export type UserUpdateWithoutExpensesCreatedInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  email?: Prisma.StringFieldUpdateOperationsInput | string
+  passwordHash?: Prisma.StringFieldUpdateOperationsInput | string
+  firstName?: Prisma.StringFieldUpdateOperationsInput | string
+  lastName?: Prisma.StringFieldUpdateOperationsInput | string
+  role?: Prisma.EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole
+  isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  clinic?: Prisma.ClinicUpdateOneWithoutUsersNestedInput
+  appointments?: Prisma.AppointmentUpdateManyWithoutDentistNestedInput
+  createdInvoices?: Prisma.InvoiceUpdateManyWithoutCreatedByNestedInput
+  treatmentPlansCreated?: Prisma.TreatmentPlanUpdateManyWithoutCreatedByNestedInput
+  treatmentPlanItemsCreated?: Prisma.TreatmentPlanItemUpdateManyWithoutCreatedByNestedInput
+  tasksCreated?: Prisma.TaskUpdateManyWithoutCreatedByNestedInput
+  tasksAssigned?: Prisma.TaskUpdateManyWithoutTargetUserNestedInput
+  orthoCasesDentist?: Prisma.OrthodonticCaseUpdateManyWithoutDentistNestedInput
+  orthoCasesCreated?: Prisma.OrthodonticCaseUpdateManyWithoutCreatedByNestedInput
+  orthoVisitsCreated?: Prisma.OrthodonticVisitUpdateManyWithoutCreatedByNestedInput
+  personalTodos?: Prisma.PersonalTodoUpdateManyWithoutUserNestedInput
+  documentsUploaded?: Prisma.PatientDocumentUpdateManyWithoutUploadedByNestedInput
+  auditLogsActor?: Prisma.AuditLogUpdateManyWithoutUserNestedInput
+  prescriptionsWritten?: Prisma.PrescriptionUpdateManyWithoutDentistNestedInput
+}
+
+export type UserUncheckedUpdateWithoutExpensesCreatedInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  email?: Prisma.StringFieldUpdateOperationsInput | string
+  passwordHash?: Prisma.StringFieldUpdateOperationsInput | string
+  firstName?: Prisma.StringFieldUpdateOperationsInput | string
+  lastName?: Prisma.StringFieldUpdateOperationsInput | string
+  role?: Prisma.EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole
+  isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  clinicId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  appointments?: Prisma.AppointmentUncheckedUpdateManyWithoutDentistNestedInput
+  createdInvoices?: Prisma.InvoiceUncheckedUpdateManyWithoutCreatedByNestedInput
+  treatmentPlansCreated?: Prisma.TreatmentPlanUncheckedUpdateManyWithoutCreatedByNestedInput
+  treatmentPlanItemsCreated?: Prisma.TreatmentPlanItemUncheckedUpdateManyWithoutCreatedByNestedInput
+  tasksCreated?: Prisma.TaskUncheckedUpdateManyWithoutCreatedByNestedInput
+  tasksAssigned?: Prisma.TaskUncheckedUpdateManyWithoutTargetUserNestedInput
+  orthoCasesDentist?: Prisma.OrthodonticCaseUncheckedUpdateManyWithoutDentistNestedInput
+  orthoCasesCreated?: Prisma.OrthodonticCaseUncheckedUpdateManyWithoutCreatedByNestedInput
+  orthoVisitsCreated?: Prisma.OrthodonticVisitUncheckedUpdateManyWithoutCreatedByNestedInput
+  personalTodos?: Prisma.PersonalTodoUncheckedUpdateManyWithoutUserNestedInput
+  documentsUploaded?: Prisma.PatientDocumentUncheckedUpdateManyWithoutUploadedByNestedInput
+  auditLogsActor?: Prisma.AuditLogUncheckedUpdateManyWithoutUserNestedInput
+  prescriptionsWritten?: Prisma.PrescriptionUncheckedUpdateManyWithoutDentistNestedInput
+}
+
+export type UserCreateWithoutAuditLogsActorInput = {
+  id?: string
+  email: string
+  passwordHash: string
+  firstName: string
+  lastName: string
+  role?: $Enums.UserRole
+  isActive?: boolean
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  clinic?: Prisma.ClinicCreateNestedOneWithoutUsersInput
+  appointments?: Prisma.AppointmentCreateNestedManyWithoutDentistInput
+  createdInvoices?: Prisma.InvoiceCreateNestedManyWithoutCreatedByInput
+  treatmentPlansCreated?: Prisma.TreatmentPlanCreateNestedManyWithoutCreatedByInput
+  treatmentPlanItemsCreated?: Prisma.TreatmentPlanItemCreateNestedManyWithoutCreatedByInput
+  tasksCreated?: Prisma.TaskCreateNestedManyWithoutCreatedByInput
+  tasksAssigned?: Prisma.TaskCreateNestedManyWithoutTargetUserInput
+  orthoCasesDentist?: Prisma.OrthodonticCaseCreateNestedManyWithoutDentistInput
+  orthoCasesCreated?: Prisma.OrthodonticCaseCreateNestedManyWithoutCreatedByInput
+  orthoVisitsCreated?: Prisma.OrthodonticVisitCreateNestedManyWithoutCreatedByInput
+  personalTodos?: Prisma.PersonalTodoCreateNestedManyWithoutUserInput
+  documentsUploaded?: Prisma.PatientDocumentCreateNestedManyWithoutUploadedByInput
+  expensesCreated?: Prisma.ExpenseCreateNestedManyWithoutCreatedByInput
+  prescriptionsWritten?: Prisma.PrescriptionCreateNestedManyWithoutDentistInput
+}
+
+export type UserUncheckedCreateWithoutAuditLogsActorInput = {
+  id?: string
+  email: string
+  passwordHash: string
+  firstName: string
+  lastName: string
+  role?: $Enums.UserRole
+  isActive?: boolean
+  clinicId?: string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  appointments?: Prisma.AppointmentUncheckedCreateNestedManyWithoutDentistInput
+  createdInvoices?: Prisma.InvoiceUncheckedCreateNestedManyWithoutCreatedByInput
+  treatmentPlansCreated?: Prisma.TreatmentPlanUncheckedCreateNestedManyWithoutCreatedByInput
+  treatmentPlanItemsCreated?: Prisma.TreatmentPlanItemUncheckedCreateNestedManyWithoutCreatedByInput
+  tasksCreated?: Prisma.TaskUncheckedCreateNestedManyWithoutCreatedByInput
+  tasksAssigned?: Prisma.TaskUncheckedCreateNestedManyWithoutTargetUserInput
+  orthoCasesDentist?: Prisma.OrthodonticCaseUncheckedCreateNestedManyWithoutDentistInput
+  orthoCasesCreated?: Prisma.OrthodonticCaseUncheckedCreateNestedManyWithoutCreatedByInput
+  orthoVisitsCreated?: Prisma.OrthodonticVisitUncheckedCreateNestedManyWithoutCreatedByInput
+  personalTodos?: Prisma.PersonalTodoUncheckedCreateNestedManyWithoutUserInput
+  documentsUploaded?: Prisma.PatientDocumentUncheckedCreateNestedManyWithoutUploadedByInput
+  expensesCreated?: Prisma.ExpenseUncheckedCreateNestedManyWithoutCreatedByInput
+  prescriptionsWritten?: Prisma.PrescriptionUncheckedCreateNestedManyWithoutDentistInput
+}
+
+export type UserCreateOrConnectWithoutAuditLogsActorInput = {
+  where: Prisma.UserWhereUniqueInput
+  create: Prisma.XOR<Prisma.UserCreateWithoutAuditLogsActorInput, Prisma.UserUncheckedCreateWithoutAuditLogsActorInput>
+}
+
+export type UserUpsertWithoutAuditLogsActorInput = {
+  update: Prisma.XOR<Prisma.UserUpdateWithoutAuditLogsActorInput, Prisma.UserUncheckedUpdateWithoutAuditLogsActorInput>
+  create: Prisma.XOR<Prisma.UserCreateWithoutAuditLogsActorInput, Prisma.UserUncheckedCreateWithoutAuditLogsActorInput>
+  where?: Prisma.UserWhereInput
+}
+
+export type UserUpdateToOneWithWhereWithoutAuditLogsActorInput = {
+  where?: Prisma.UserWhereInput
+  data: Prisma.XOR<Prisma.UserUpdateWithoutAuditLogsActorInput, Prisma.UserUncheckedUpdateWithoutAuditLogsActorInput>
+}
+
+export type UserUpdateWithoutAuditLogsActorInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  email?: Prisma.StringFieldUpdateOperationsInput | string
+  passwordHash?: Prisma.StringFieldUpdateOperationsInput | string
+  firstName?: Prisma.StringFieldUpdateOperationsInput | string
+  lastName?: Prisma.StringFieldUpdateOperationsInput | string
+  role?: Prisma.EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole
+  isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  clinic?: Prisma.ClinicUpdateOneWithoutUsersNestedInput
+  appointments?: Prisma.AppointmentUpdateManyWithoutDentistNestedInput
+  createdInvoices?: Prisma.InvoiceUpdateManyWithoutCreatedByNestedInput
+  treatmentPlansCreated?: Prisma.TreatmentPlanUpdateManyWithoutCreatedByNestedInput
+  treatmentPlanItemsCreated?: Prisma.TreatmentPlanItemUpdateManyWithoutCreatedByNestedInput
+  tasksCreated?: Prisma.TaskUpdateManyWithoutCreatedByNestedInput
+  tasksAssigned?: Prisma.TaskUpdateManyWithoutTargetUserNestedInput
+  orthoCasesDentist?: Prisma.OrthodonticCaseUpdateManyWithoutDentistNestedInput
+  orthoCasesCreated?: Prisma.OrthodonticCaseUpdateManyWithoutCreatedByNestedInput
+  orthoVisitsCreated?: Prisma.OrthodonticVisitUpdateManyWithoutCreatedByNestedInput
+  personalTodos?: Prisma.PersonalTodoUpdateManyWithoutUserNestedInput
+  documentsUploaded?: Prisma.PatientDocumentUpdateManyWithoutUploadedByNestedInput
+  expensesCreated?: Prisma.ExpenseUpdateManyWithoutCreatedByNestedInput
+  prescriptionsWritten?: Prisma.PrescriptionUpdateManyWithoutDentistNestedInput
+}
+
+export type UserUncheckedUpdateWithoutAuditLogsActorInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  email?: Prisma.StringFieldUpdateOperationsInput | string
+  passwordHash?: Prisma.StringFieldUpdateOperationsInput | string
+  firstName?: Prisma.StringFieldUpdateOperationsInput | string
+  lastName?: Prisma.StringFieldUpdateOperationsInput | string
+  role?: Prisma.EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole
+  isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  clinicId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  appointments?: Prisma.AppointmentUncheckedUpdateManyWithoutDentistNestedInput
+  createdInvoices?: Prisma.InvoiceUncheckedUpdateManyWithoutCreatedByNestedInput
+  treatmentPlansCreated?: Prisma.TreatmentPlanUncheckedUpdateManyWithoutCreatedByNestedInput
+  treatmentPlanItemsCreated?: Prisma.TreatmentPlanItemUncheckedUpdateManyWithoutCreatedByNestedInput
+  tasksCreated?: Prisma.TaskUncheckedUpdateManyWithoutCreatedByNestedInput
+  tasksAssigned?: Prisma.TaskUncheckedUpdateManyWithoutTargetUserNestedInput
+  orthoCasesDentist?: Prisma.OrthodonticCaseUncheckedUpdateManyWithoutDentistNestedInput
+  orthoCasesCreated?: Prisma.OrthodonticCaseUncheckedUpdateManyWithoutCreatedByNestedInput
+  orthoVisitsCreated?: Prisma.OrthodonticVisitUncheckedUpdateManyWithoutCreatedByNestedInput
+  personalTodos?: Prisma.PersonalTodoUncheckedUpdateManyWithoutUserNestedInput
+  documentsUploaded?: Prisma.PatientDocumentUncheckedUpdateManyWithoutUploadedByNestedInput
+  expensesCreated?: Prisma.ExpenseUncheckedUpdateManyWithoutCreatedByNestedInput
+  prescriptionsWritten?: Prisma.PrescriptionUncheckedUpdateManyWithoutDentistNestedInput
+}
+
+export type UserCreateWithoutPrescriptionsWrittenInput = {
+  id?: string
+  email: string
+  passwordHash: string
+  firstName: string
+  lastName: string
+  role?: $Enums.UserRole
+  isActive?: boolean
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  clinic?: Prisma.ClinicCreateNestedOneWithoutUsersInput
+  appointments?: Prisma.AppointmentCreateNestedManyWithoutDentistInput
+  createdInvoices?: Prisma.InvoiceCreateNestedManyWithoutCreatedByInput
+  treatmentPlansCreated?: Prisma.TreatmentPlanCreateNestedManyWithoutCreatedByInput
+  treatmentPlanItemsCreated?: Prisma.TreatmentPlanItemCreateNestedManyWithoutCreatedByInput
+  tasksCreated?: Prisma.TaskCreateNestedManyWithoutCreatedByInput
+  tasksAssigned?: Prisma.TaskCreateNestedManyWithoutTargetUserInput
+  orthoCasesDentist?: Prisma.OrthodonticCaseCreateNestedManyWithoutDentistInput
+  orthoCasesCreated?: Prisma.OrthodonticCaseCreateNestedManyWithoutCreatedByInput
+  orthoVisitsCreated?: Prisma.OrthodonticVisitCreateNestedManyWithoutCreatedByInput
+  personalTodos?: Prisma.PersonalTodoCreateNestedManyWithoutUserInput
+  documentsUploaded?: Prisma.PatientDocumentCreateNestedManyWithoutUploadedByInput
+  expensesCreated?: Prisma.ExpenseCreateNestedManyWithoutCreatedByInput
+  auditLogsActor?: Prisma.AuditLogCreateNestedManyWithoutUserInput
+}
+
+export type UserUncheckedCreateWithoutPrescriptionsWrittenInput = {
+  id?: string
+  email: string
+  passwordHash: string
+  firstName: string
+  lastName: string
+  role?: $Enums.UserRole
+  isActive?: boolean
+  clinicId?: string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  appointments?: Prisma.AppointmentUncheckedCreateNestedManyWithoutDentistInput
+  createdInvoices?: Prisma.InvoiceUncheckedCreateNestedManyWithoutCreatedByInput
+  treatmentPlansCreated?: Prisma.TreatmentPlanUncheckedCreateNestedManyWithoutCreatedByInput
+  treatmentPlanItemsCreated?: Prisma.TreatmentPlanItemUncheckedCreateNestedManyWithoutCreatedByInput
+  tasksCreated?: Prisma.TaskUncheckedCreateNestedManyWithoutCreatedByInput
+  tasksAssigned?: Prisma.TaskUncheckedCreateNestedManyWithoutTargetUserInput
+  orthoCasesDentist?: Prisma.OrthodonticCaseUncheckedCreateNestedManyWithoutDentistInput
+  orthoCasesCreated?: Prisma.OrthodonticCaseUncheckedCreateNestedManyWithoutCreatedByInput
+  orthoVisitsCreated?: Prisma.OrthodonticVisitUncheckedCreateNestedManyWithoutCreatedByInput
+  personalTodos?: Prisma.PersonalTodoUncheckedCreateNestedManyWithoutUserInput
+  documentsUploaded?: Prisma.PatientDocumentUncheckedCreateNestedManyWithoutUploadedByInput
+  expensesCreated?: Prisma.ExpenseUncheckedCreateNestedManyWithoutCreatedByInput
+  auditLogsActor?: Prisma.AuditLogUncheckedCreateNestedManyWithoutUserInput
+}
+
+export type UserCreateOrConnectWithoutPrescriptionsWrittenInput = {
+  where: Prisma.UserWhereUniqueInput
+  create: Prisma.XOR<Prisma.UserCreateWithoutPrescriptionsWrittenInput, Prisma.UserUncheckedCreateWithoutPrescriptionsWrittenInput>
+}
+
+export type UserUpsertWithoutPrescriptionsWrittenInput = {
+  update: Prisma.XOR<Prisma.UserUpdateWithoutPrescriptionsWrittenInput, Prisma.UserUncheckedUpdateWithoutPrescriptionsWrittenInput>
+  create: Prisma.XOR<Prisma.UserCreateWithoutPrescriptionsWrittenInput, Prisma.UserUncheckedCreateWithoutPrescriptionsWrittenInput>
+  where?: Prisma.UserWhereInput
+}
+
+export type UserUpdateToOneWithWhereWithoutPrescriptionsWrittenInput = {
+  where?: Prisma.UserWhereInput
+  data: Prisma.XOR<Prisma.UserUpdateWithoutPrescriptionsWrittenInput, Prisma.UserUncheckedUpdateWithoutPrescriptionsWrittenInput>
+}
+
+export type UserUpdateWithoutPrescriptionsWrittenInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  email?: Prisma.StringFieldUpdateOperationsInput | string
+  passwordHash?: Prisma.StringFieldUpdateOperationsInput | string
+  firstName?: Prisma.StringFieldUpdateOperationsInput | string
+  lastName?: Prisma.StringFieldUpdateOperationsInput | string
+  role?: Prisma.EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole
+  isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  clinic?: Prisma.ClinicUpdateOneWithoutUsersNestedInput
+  appointments?: Prisma.AppointmentUpdateManyWithoutDentistNestedInput
+  createdInvoices?: Prisma.InvoiceUpdateManyWithoutCreatedByNestedInput
+  treatmentPlansCreated?: Prisma.TreatmentPlanUpdateManyWithoutCreatedByNestedInput
+  treatmentPlanItemsCreated?: Prisma.TreatmentPlanItemUpdateManyWithoutCreatedByNestedInput
+  tasksCreated?: Prisma.TaskUpdateManyWithoutCreatedByNestedInput
+  tasksAssigned?: Prisma.TaskUpdateManyWithoutTargetUserNestedInput
+  orthoCasesDentist?: Prisma.OrthodonticCaseUpdateManyWithoutDentistNestedInput
+  orthoCasesCreated?: Prisma.OrthodonticCaseUpdateManyWithoutCreatedByNestedInput
+  orthoVisitsCreated?: Prisma.OrthodonticVisitUpdateManyWithoutCreatedByNestedInput
+  personalTodos?: Prisma.PersonalTodoUpdateManyWithoutUserNestedInput
+  documentsUploaded?: Prisma.PatientDocumentUpdateManyWithoutUploadedByNestedInput
+  expensesCreated?: Prisma.ExpenseUpdateManyWithoutCreatedByNestedInput
+  auditLogsActor?: Prisma.AuditLogUpdateManyWithoutUserNestedInput
+}
+
+export type UserUncheckedUpdateWithoutPrescriptionsWrittenInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  email?: Prisma.StringFieldUpdateOperationsInput | string
+  passwordHash?: Prisma.StringFieldUpdateOperationsInput | string
+  firstName?: Prisma.StringFieldUpdateOperationsInput | string
+  lastName?: Prisma.StringFieldUpdateOperationsInput | string
+  role?: Prisma.EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole
+  isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  clinicId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  appointments?: Prisma.AppointmentUncheckedUpdateManyWithoutDentistNestedInput
+  createdInvoices?: Prisma.InvoiceUncheckedUpdateManyWithoutCreatedByNestedInput
+  treatmentPlansCreated?: Prisma.TreatmentPlanUncheckedUpdateManyWithoutCreatedByNestedInput
+  treatmentPlanItemsCreated?: Prisma.TreatmentPlanItemUncheckedUpdateManyWithoutCreatedByNestedInput
+  tasksCreated?: Prisma.TaskUncheckedUpdateManyWithoutCreatedByNestedInput
+  tasksAssigned?: Prisma.TaskUncheckedUpdateManyWithoutTargetUserNestedInput
+  orthoCasesDentist?: Prisma.OrthodonticCaseUncheckedUpdateManyWithoutDentistNestedInput
+  orthoCasesCreated?: Prisma.OrthodonticCaseUncheckedUpdateManyWithoutCreatedByNestedInput
+  orthoVisitsCreated?: Prisma.OrthodonticVisitUncheckedUpdateManyWithoutCreatedByNestedInput
+  personalTodos?: Prisma.PersonalTodoUncheckedUpdateManyWithoutUserNestedInput
+  documentsUploaded?: Prisma.PatientDocumentUncheckedUpdateManyWithoutUploadedByNestedInput
+  expensesCreated?: Prisma.ExpenseUncheckedUpdateManyWithoutCreatedByNestedInput
+  auditLogsActor?: Prisma.AuditLogUncheckedUpdateManyWithoutUserNestedInput
 }
 
 export type UserCreateManyClinicInput = {
@@ -1863,6 +2601,10 @@ export type UserUpdateWithoutClinicInput = {
   orthoCasesCreated?: Prisma.OrthodonticCaseUpdateManyWithoutCreatedByNestedInput
   orthoVisitsCreated?: Prisma.OrthodonticVisitUpdateManyWithoutCreatedByNestedInput
   personalTodos?: Prisma.PersonalTodoUpdateManyWithoutUserNestedInput
+  documentsUploaded?: Prisma.PatientDocumentUpdateManyWithoutUploadedByNestedInput
+  expensesCreated?: Prisma.ExpenseUpdateManyWithoutCreatedByNestedInput
+  auditLogsActor?: Prisma.AuditLogUpdateManyWithoutUserNestedInput
+  prescriptionsWritten?: Prisma.PrescriptionUpdateManyWithoutDentistNestedInput
 }
 
 export type UserUncheckedUpdateWithoutClinicInput = {
@@ -1885,6 +2627,10 @@ export type UserUncheckedUpdateWithoutClinicInput = {
   orthoCasesCreated?: Prisma.OrthodonticCaseUncheckedUpdateManyWithoutCreatedByNestedInput
   orthoVisitsCreated?: Prisma.OrthodonticVisitUncheckedUpdateManyWithoutCreatedByNestedInput
   personalTodos?: Prisma.PersonalTodoUncheckedUpdateManyWithoutUserNestedInput
+  documentsUploaded?: Prisma.PatientDocumentUncheckedUpdateManyWithoutUploadedByNestedInput
+  expensesCreated?: Prisma.ExpenseUncheckedUpdateManyWithoutCreatedByNestedInput
+  auditLogsActor?: Prisma.AuditLogUncheckedUpdateManyWithoutUserNestedInput
+  prescriptionsWritten?: Prisma.PrescriptionUncheckedUpdateManyWithoutDentistNestedInput
 }
 
 export type UserUncheckedUpdateManyWithoutClinicInput = {
@@ -1915,6 +2661,10 @@ export type UserCountOutputType = {
   orthoCasesCreated: number
   orthoVisitsCreated: number
   personalTodos: number
+  documentsUploaded: number
+  expensesCreated: number
+  auditLogsActor: number
+  prescriptionsWritten: number
 }
 
 export type UserCountOutputTypeSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
@@ -1928,6 +2678,10 @@ export type UserCountOutputTypeSelect<ExtArgs extends runtime.Types.Extensions.I
   orthoCasesCreated?: boolean | UserCountOutputTypeCountOrthoCasesCreatedArgs
   orthoVisitsCreated?: boolean | UserCountOutputTypeCountOrthoVisitsCreatedArgs
   personalTodos?: boolean | UserCountOutputTypeCountPersonalTodosArgs
+  documentsUploaded?: boolean | UserCountOutputTypeCountDocumentsUploadedArgs
+  expensesCreated?: boolean | UserCountOutputTypeCountExpensesCreatedArgs
+  auditLogsActor?: boolean | UserCountOutputTypeCountAuditLogsActorArgs
+  prescriptionsWritten?: boolean | UserCountOutputTypeCountPrescriptionsWrittenArgs
 }
 
 /**
@@ -2010,6 +2764,34 @@ export type UserCountOutputTypeCountPersonalTodosArgs<ExtArgs extends runtime.Ty
   where?: Prisma.PersonalTodoWhereInput
 }
 
+/**
+ * UserCountOutputType without action
+ */
+export type UserCountOutputTypeCountDocumentsUploadedArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.PatientDocumentWhereInput
+}
+
+/**
+ * UserCountOutputType without action
+ */
+export type UserCountOutputTypeCountExpensesCreatedArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.ExpenseWhereInput
+}
+
+/**
+ * UserCountOutputType without action
+ */
+export type UserCountOutputTypeCountAuditLogsActorArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.AuditLogWhereInput
+}
+
+/**
+ * UserCountOutputType without action
+ */
+export type UserCountOutputTypeCountPrescriptionsWrittenArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.PrescriptionWhereInput
+}
+
 
 export type UserSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   id?: boolean
@@ -2033,6 +2815,10 @@ export type UserSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = r
   orthoCasesCreated?: boolean | Prisma.User$orthoCasesCreatedArgs<ExtArgs>
   orthoVisitsCreated?: boolean | Prisma.User$orthoVisitsCreatedArgs<ExtArgs>
   personalTodos?: boolean | Prisma.User$personalTodosArgs<ExtArgs>
+  documentsUploaded?: boolean | Prisma.User$documentsUploadedArgs<ExtArgs>
+  expensesCreated?: boolean | Prisma.User$expensesCreatedArgs<ExtArgs>
+  auditLogsActor?: boolean | Prisma.User$auditLogsActorArgs<ExtArgs>
+  prescriptionsWritten?: boolean | Prisma.User$prescriptionsWrittenArgs<ExtArgs>
   _count?: boolean | Prisma.UserCountOutputTypeDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["user"]>
 
@@ -2090,6 +2876,10 @@ export type UserInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = 
   orthoCasesCreated?: boolean | Prisma.User$orthoCasesCreatedArgs<ExtArgs>
   orthoVisitsCreated?: boolean | Prisma.User$orthoVisitsCreatedArgs<ExtArgs>
   personalTodos?: boolean | Prisma.User$personalTodosArgs<ExtArgs>
+  documentsUploaded?: boolean | Prisma.User$documentsUploadedArgs<ExtArgs>
+  expensesCreated?: boolean | Prisma.User$expensesCreatedArgs<ExtArgs>
+  auditLogsActor?: boolean | Prisma.User$auditLogsActorArgs<ExtArgs>
+  prescriptionsWritten?: boolean | Prisma.User$prescriptionsWrittenArgs<ExtArgs>
   _count?: boolean | Prisma.UserCountOutputTypeDefaultArgs<ExtArgs>
 }
 export type UserIncludeCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
@@ -2113,6 +2903,10 @@ export type $UserPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs =
     orthoCasesCreated: Prisma.$OrthodonticCasePayload<ExtArgs>[]
     orthoVisitsCreated: Prisma.$OrthodonticVisitPayload<ExtArgs>[]
     personalTodos: Prisma.$PersonalTodoPayload<ExtArgs>[]
+    documentsUploaded: Prisma.$PatientDocumentPayload<ExtArgs>[]
+    expensesCreated: Prisma.$ExpensePayload<ExtArgs>[]
+    auditLogsActor: Prisma.$AuditLogPayload<ExtArgs>[]
+    prescriptionsWritten: Prisma.$PrescriptionPayload<ExtArgs>[]
   }
   scalars: runtime.Types.Extensions.GetPayloadResult<{
     id: string
@@ -2530,6 +3324,10 @@ export interface Prisma__UserClient<T, Null = never, ExtArgs extends runtime.Typ
   orthoCasesCreated<T extends Prisma.User$orthoCasesCreatedArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$orthoCasesCreatedArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$OrthodonticCasePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   orthoVisitsCreated<T extends Prisma.User$orthoVisitsCreatedArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$orthoVisitsCreatedArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$OrthodonticVisitPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   personalTodos<T extends Prisma.User$personalTodosArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$personalTodosArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$PersonalTodoPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  documentsUploaded<T extends Prisma.User$documentsUploadedArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$documentsUploadedArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$PatientDocumentPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  expensesCreated<T extends Prisma.User$expensesCreatedArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$expensesCreatedArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$ExpensePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  auditLogsActor<T extends Prisma.User$auditLogsActorArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$auditLogsActorArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$AuditLogPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  prescriptionsWritten<T extends Prisma.User$prescriptionsWrittenArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$prescriptionsWrittenArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$PrescriptionPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   /**
    * Attaches callbacks for the resolution and/or rejection of the Promise.
    * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -3226,6 +4024,102 @@ export type User$personalTodosArgs<ExtArgs extends runtime.Types.Extensions.Inte
   take?: number
   skip?: number
   distinct?: Prisma.PersonalTodoScalarFieldEnum | Prisma.PersonalTodoScalarFieldEnum[]
+}
+
+/**
+ * User.documentsUploaded
+ */
+export type User$documentsUploadedArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the PatientDocument
+   */
+  select?: Prisma.PatientDocumentSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the PatientDocument
+   */
+  omit?: Prisma.PatientDocumentOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.PatientDocumentInclude<ExtArgs> | null
+  where?: Prisma.PatientDocumentWhereInput
+  orderBy?: Prisma.PatientDocumentOrderByWithRelationInput | Prisma.PatientDocumentOrderByWithRelationInput[]
+  cursor?: Prisma.PatientDocumentWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.PatientDocumentScalarFieldEnum | Prisma.PatientDocumentScalarFieldEnum[]
+}
+
+/**
+ * User.expensesCreated
+ */
+export type User$expensesCreatedArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the Expense
+   */
+  select?: Prisma.ExpenseSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the Expense
+   */
+  omit?: Prisma.ExpenseOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.ExpenseInclude<ExtArgs> | null
+  where?: Prisma.ExpenseWhereInput
+  orderBy?: Prisma.ExpenseOrderByWithRelationInput | Prisma.ExpenseOrderByWithRelationInput[]
+  cursor?: Prisma.ExpenseWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.ExpenseScalarFieldEnum | Prisma.ExpenseScalarFieldEnum[]
+}
+
+/**
+ * User.auditLogsActor
+ */
+export type User$auditLogsActorArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the AuditLog
+   */
+  select?: Prisma.AuditLogSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the AuditLog
+   */
+  omit?: Prisma.AuditLogOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.AuditLogInclude<ExtArgs> | null
+  where?: Prisma.AuditLogWhereInput
+  orderBy?: Prisma.AuditLogOrderByWithRelationInput | Prisma.AuditLogOrderByWithRelationInput[]
+  cursor?: Prisma.AuditLogWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.AuditLogScalarFieldEnum | Prisma.AuditLogScalarFieldEnum[]
+}
+
+/**
+ * User.prescriptionsWritten
+ */
+export type User$prescriptionsWrittenArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the Prescription
+   */
+  select?: Prisma.PrescriptionSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the Prescription
+   */
+  omit?: Prisma.PrescriptionOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.PrescriptionInclude<ExtArgs> | null
+  where?: Prisma.PrescriptionWhereInput
+  orderBy?: Prisma.PrescriptionOrderByWithRelationInput | Prisma.PrescriptionOrderByWithRelationInput[]
+  cursor?: Prisma.PrescriptionWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.PrescriptionScalarFieldEnum | Prisma.PrescriptionScalarFieldEnum[]
 }
 
 /**

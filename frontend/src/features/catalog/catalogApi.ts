@@ -15,6 +15,7 @@ export interface Procedure {
   durationMin: number;
   categoryId: string;
   category: ProcedureCategory;
+  isActive: boolean;
 }
 
 interface CategoriesResponse {
@@ -47,12 +48,6 @@ export const catalogApi = apiSlice.injectEndpoints({
       invalidatesTags: [{ type: "ProcedureCategory", id: "LIST" }],
     }),
 
-    getProcedures: builder.query<Procedure[], void>({
-      query: () => "/catalog/procedures",
-      transformResponse: (r: ProceduresResponse) => r.procedures,
-      providesTags: [{ type: "Procedure", id: "LIST" }],
-    }),
-
     createProcedure: builder.mutation<
       Procedure,
       {
@@ -80,13 +75,55 @@ export const catalogApi = apiSlice.injectEndpoints({
       transformResponse: (r: ProcedureResponse) => r.procedure,
       invalidatesTags: [{ type: "Procedure", id: "LIST" }],
     }),
+    getProcedures: builder.query<Procedure[], boolean | void>({
+      query: (includeInactive) => ({
+        url: "/catalog/procedures",
+        params: includeInactive ? { includeInactive: "true" } : undefined,
+      }),
+      transformResponse: (r: ProceduresResponse) => r.procedures,
+      providesTags: [{ type: "Procedure", id: "LIST" }],
+    }),
+
+    updateCategory: builder.mutation<
+      ProcedureCategory,
+      { id: string; data: Record<string, unknown> }
+    >({
+      query: ({ id, data }) => ({
+        url: `/catalog/categories/${id}`,
+        method: "PATCH",
+        body: data,
+      }),
+      transformResponse: (r: CategoryResponse) => r.category,
+      invalidatesTags: [{ type: "ProcedureCategory", id: "LIST" }],
+    }),
+
+    deleteCategory: builder.mutation<void, string>({
+      query: (id) => ({ url: `/catalog/categories/${id}`, method: "DELETE" }),
+      invalidatesTags: [{ type: "ProcedureCategory", id: "LIST" }],
+    }),
+
+    setProcedureActive: builder.mutation<
+      Procedure,
+      { id: string; isActive: boolean }
+    >({
+      query: ({ id, isActive }) => ({
+        url: `/catalog/procedures/${id}/status`,
+        method: "PATCH",
+        body: { isActive },
+      }),
+      transformResponse: (r: ProcedureResponse) => r.procedure,
+      invalidatesTags: [{ type: "Procedure", id: "LIST" }],
+    }),
   }),
 });
 
 export const {
   useGetCategoriesQuery,
   useCreateCategoryMutation,
+  useUpdateCategoryMutation,
+  useDeleteCategoryMutation,
   useGetProceduresQuery,
   useCreateProcedureMutation,
   useUpdateProcedureMutation,
+  useSetProcedureActiveMutation,
 } = catalogApi;

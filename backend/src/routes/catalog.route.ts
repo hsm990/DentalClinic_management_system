@@ -7,6 +7,8 @@ import {
   createCategorySchema,
   createProcedureSchema,
   updateProcedureSchema,
+  setProcedureActiveSchema,
+  updateCategorySchema,
 } from "../modules/catalog/schema";
 
 const router = Router();
@@ -35,5 +37,21 @@ router.patch(
   validate(updateProcedureSchema),
   catalogController.updateProcedure,
 );
-
+router.patch(
+  "/categories/:id",
+  requireRole("ADMIN"),
+  validate(updateCategorySchema),
+  catalogController.updateCategory,
+);
+router.delete(
+  "/categories/:id",
+  requireRole("ADMIN"),
+  catalogController.deleteCategory,
+);
+router.patch(
+  "/procedures/:id/status",
+  requireRole("ADMIN"),
+  validate(setProcedureActiveSchema),
+  catalogController.setProcedureActive,
+);
 export default router;

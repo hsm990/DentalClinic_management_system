@@ -121,19 +121,19 @@ async function main() {
     },
   });
 
-  const appointment = await prisma.appointment.upsert({
-    where: { id: "seed-appointment-1" },
-    update: {},
-    create: {
-      id: "seed-appointment-1",
-      scheduledAt: new Date("2026-08-10T09:00:00Z"),
-      reason: "Checkup",
-      status: "SCHEDULED",
-      patientId: patient.id,
-      dentistId: seededUsers.DENTIST.id,
-      clinicId: clinic.id,
-    },
-  });
+  // const appointment = await prisma.appointment.upsert({
+  //   where: { id: "seed-appointment-1" },
+  //   update: {},
+  //   create: {
+  //     id: "seed-appointment-1",
+  //     scheduledAt: new Date("2026-08-10T09:00:00Z"),
+  //     reason: "Checkup",
+  //     status: "SCHEDULED",
+  //     patientId: patient.id,
+  //     dentistId: seededUsers.DENTIST.id,
+  //     clinicId: clinic.id,
+  //   },
+  // });
   console.log("\nSeed complete.\n");
   console.log("Password for every seeded user: changeme123\n");
   console.log("Login accounts:");

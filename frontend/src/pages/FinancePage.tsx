@@ -14,6 +14,13 @@ import { StatCard } from "@/features/dashboard/StatCard";
 import { Card, CardHeader, CardTitle, CardContent } from "@/components/ui/card";
 import { Skeleton } from "@/components/ui/skeleton";
 import { DollarSign, Wallet, FileText, CreditCard } from "lucide-react";
+import {
+  useGetExpensesQuery,
+  useDeleteExpenseMutation,
+} from "@/features/expenses/expensesApi";
+import { AddExpenseDialog } from "@/features/finance/AddExpenseDialog";
+import { Link } from "react-router-dom";
+import { Scale } from "lucide-react";
 
 export function FinancePage() {
   const user = useAppSelector((state) => state.auth.user);
@@ -33,6 +40,16 @@ export function FinancePage() {
       skip: !isAdmin,
     },
   );
+  const { data: expenses } = useGetExpensesQuery({
+    from: from.toISOString(),
+    to: to.toISOString(),
+  });
+  const [deleteExpense] = useDeleteExpenseMutation();
+  const totalExpenses = (expenses ?? []).reduce(
+    (sum, e) => sum + Number(e.amount),
+    0,
+  );
+  const netProfit = (summary?.totalRevenue ?? 0) - totalExpenses;
 
   if (!isAdmin) {
     return <Navigate to="/" replace />;
@@ -85,6 +102,12 @@ export function FinancePage() {
               value={summary.paymentCount}
               icon={CreditCard}
             />
+            <StatCard
+              label="Net profit (collected - expenses)"
+              value={`$${netProfit.toFixed(2)}`}
+              icon={Scale}
+              tone={netProfit >= 0 ? "success" : "warning"}
+            />
           </div>
 
           <div className="grid gap-6 lg:grid-cols-2">
@@ -119,6 +142,53 @@ export function FinancePage() {
               <CategoryPieChart data={summary.revenueByCategory} />
             </CardContent>
           </Card>
+          <Card>
+            <CardHeader className="flex flex-row items-center justify-between">
+              <CardTitle className="text-base">
+                Expenses this period — ${totalExpenses.toFixed(2)}
+              </CardTitle>
+              <AddExpenseDialog />
+            </CardHeader>
+            <CardContent>
+              {expenses?.length === 0 ? (
+                <p className="text-sm text-muted-foreground">
+                  No expenses recorded for this range.
+                </p>
+              ) : (
+                <div className="space-y-1">
+                  {expenses?.map((e) => (
+                    <div
+                      key={e.id}
+                      className="flex items-center justify-between rounded-md border p-2 text-sm"
+                    >
+                      <div>
+                        <span className="font-medium">{e.category}</span>
+                        <span className="ml-2 text-muted-foreground">
+                          {e.notes}
+                        </span>
+                      </div>
+                      <div className="flex items-center gap-3">
+                        <span>${e.amount}</span>
+                        <button
+                          className="text-xs text-muted-foreground hover:text-destructive"
+                          onClick={() => deleteExpense(e.id)}
+                        >
+                          Remove
+                        </button>
+                      </div>
+                    </div>
+                  ))}
+                </div>
+              )}
+            </CardContent>
+          </Card>
+
+          <Link
+            to="/audit-log"
+            className="block text-sm text-primary hover:underline"
+          >
+            View audit log →
+          </Link>
         </>
       )}
     </div>

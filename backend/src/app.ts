@@ -18,6 +18,11 @@ import tasksRoutes from "./routes/tasks.route";
 import inventoryRoutes from "./routes/inventory.route";
 import orthodonticsRoutes from "./routes/orthodontics.route";
 import todosRoutes from "./routes/todos.route";
+import documentsRoutes from "./routes/documents.route";
+import expensesRoutes from "./routes/expenses.route";
+import auditRoutes from "./routes/audit.route";
+import prescriptionsRoutes from "./routes/prescriptions.route";
+import leadsRoutes from "./routes/leads.route";
 
 import authMiddleware from "./middleware/auth.middleware";
 
@@ -53,5 +58,10 @@ app.use("/api/v1/tasks", authMiddleware, tasksRoutes);
 app.use("/api/v1/inventory", authMiddleware, inventoryRoutes);
 app.use("/api/v1", authMiddleware, orthodonticsRoutes);
 app.use("/api/v1/todos", authMiddleware, todosRoutes);
+app.use("/api/v1", authMiddleware, documentsRoutes);
+app.use("/api/v1/expenses", authMiddleware, expensesRoutes);
+app.use("/api/v1/audit-logs", authMiddleware, auditRoutes);
+app.use("/api/v1", authMiddleware, prescriptionsRoutes);
+app.use("/api/v1/leads", leadsRoutes);
 app.use(errorMiddleware);
 export default app;

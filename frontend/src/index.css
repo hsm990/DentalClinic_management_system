@@ -9,10 +9,13 @@
     visibility: hidden;
   }
   #invoice-print-area,
-  #invoice-print-area * {
+  #invoice-print-area *,
+  #prescription-print-area,
+  #prescription-print-area * {
     visibility: visible;
   }
-  #invoice-print-area {
+  #invoice-print-area,
+  #prescription-print-area {
     position: absolute;
     top: 0;
     left: 0;
@@ -143,5 +146,6 @@
   }
   html {
     @apply font-sans;
+    scroll-behavior: smooth;
   }
 }

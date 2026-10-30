@@ -12,5 +12,12 @@ export const createProcedureSchema = z.object({
   durationMin: z.number().int().positive().optional(),
   categoryId: z.string().cuid(),
 });
+export const updateCategorySchema = z.object({
+  name: z.string().min(1).optional(),
+  sortOrder: z.number().int().optional(),
+});
 
+export const setProcedureActiveSchema = z.object({
+  isActive: z.boolean(),
+});
 export const updateProcedureSchema = createProcedureSchema.partial();

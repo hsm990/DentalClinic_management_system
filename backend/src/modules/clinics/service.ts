@@ -85,4 +85,40 @@ async function getClinicById(clinicId: string) {
   if (!clinic) throw new AppError("Clinic not found", 404, httpsStatus.ERROR);
   return clinic;
 }
-export default { onboardClinic, getMyClinic, getClinicById };
+async function updateMyClinic(requestingUser: RequestingUser, data: any) {
+  if (requestingUser.role !== "ADMIN")
+    throw new AppError(
+      "Only an ADMIN can edit clinic settings",
+      403,
+      httpsStatus.ERROR,
+    );
+  if (!requestingUser.clinicId)
+    throw new AppError(
+      "Your account has no clinic assigned",
+      422,
+      httpsStatus.ERROR,
+    );
+  return prisma.clinic.update({ where: { id: requestingUser.clinicId }, data });
+}
+async function listAllClinics(requestingUser: RequestingUser) {
+  if (requestingUser.role !== "SUPER_ADMIN") {
+    throw new AppError(
+      "Only SUPER_ADMIN can view all clinics",
+      403,
+      httpsStatus.ERROR,
+    );
+  }
+  return prisma.clinic.findMany({
+    include: {
+      _count: { select: { users: true, patients: true } },
+    },
+    orderBy: { createdAt: "desc" },
+  });
+}
+export default {
+  onboardClinic,
+  getMyClinic,
+  getClinicById,
+  updateMyClinic,
+  listAllClinics,
+};

@@ -17,3 +17,8 @@ export const onboardClinicSchema = z.object({
 export const clinicIdParamSchema = z.object({
   id: z.string().min(1),
 });
+export const updateClinicSchema = z.object({
+  name: z.string().min(1).optional(),
+  address: z.string().optional(),
+  phone: z.string().optional(),
+});

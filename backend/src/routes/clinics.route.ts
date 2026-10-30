@@ -4,10 +4,11 @@ import requireRole from "../middleware/rbac.middleware";
 import {
   onboardClinicSchema,
   clinicIdParamSchema,
+  updateClinicSchema,
 } from "../modules/clinics/schema";
 import clinicController from "../modules/clinics/controller";
 const router = Router();
-
+router.get("/", requireRole("SUPER_ADMIN"), clinicController.listAll);
 router
   .route("/onboard")
   .post(
@@ -23,5 +24,10 @@ router
     validate(clinicIdParamSchema, "params"),
     clinicController.getById,
   );
-
+router.patch(
+  "/me",
+  requireRole("ADMIN"),
+  validate(updateClinicSchema),
+  clinicController.updateMine,
+);
 export default router;

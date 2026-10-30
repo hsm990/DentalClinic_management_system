@@ -5,6 +5,7 @@ import { loggedOut } from "@/features/auth/authSlice";
 import { Button } from "@/components/ui/button";
 import { Separator } from "@/components/ui/separator";
 import { useRealtimeConnection } from "@/features/realtime/useRealtimeConnection";
+import { useGetMyClinicQuery } from "@/features/clinic/clinicApi";
 
 export function AppShell() {
   useRealtimeConnection();
@@ -12,9 +13,9 @@ export function AppShell() {
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
   const [logout] = useLogoutMutation();
-
+  const { data: clinic } = useGetMyClinicQuery();
   const baseNavItems = [
-    { to: "/", label: "Dashboard" },
+    { to: "/dashboard", label: "Dashboard" },
     { to: "/patients", label: "Patients" },
     { to: "/appointments", label: "Appointments" },
     { to: "/calendar", label: "Calendar" },
@@ -44,7 +45,7 @@ export function AppShell() {
     <div className="flex min-h-screen">
       <aside className="w-64 border-r bg-muted/20 p-4">
         <div className="mb-6">
-          <p className="font-semibold">HSL Dental Clinic</p>
+          <p className="font-semibold">{clinic?.name ?? "Loading..."}</p>{" "}
           <p className="text-sm text-muted-foreground">
             {user?.firstName} {user?.lastName} · {user?.role}
           </p>

@@ -3,6 +3,7 @@ import AppError from "../../common/AppError";
 import billingRepository from "./repository";
 import * as httpsStatus from "../../common/httpStatus";
 import emitters from "../../sockets/emitters";
+import { logAudit } from "../../common/auditLog";
 
 interface RequestingUser {
   id: string;
@@ -102,6 +103,14 @@ async function createInvoice(
     planItemMap,
   );
   emitters.emitInvoiceCreated(clinicId, invoice);
+  await logAudit({
+    clinicId,
+    userId: user.id,
+    action: "CREATE",
+    entityType: "Invoice",
+    entityId: invoice.id,
+    summary: `Created invoice #${invoice.invoiceNumber} for $${invoice.total}`,
+  });
   return invoice;
 }
 
@@ -220,7 +229,14 @@ async function recordPayment(
           : "PENDING";
 
     await tx.invoice.update({ where: { id: invoiceId }, data: { status } });
-
+    await logAudit({
+      clinicId,
+      userId: user.id,
+      action: "CREATE",
+      entityType: "Payment",
+      entityId: payment.id,
+      summary: `Recorded payment of $${data.amount} on invoice #${invoice.invoiceNumber}`,
+    });
     return payment;
   });
 }

@@ -19,6 +19,8 @@ import { ArchiveRestoreButtons } from "@/features/patients/ArchiveRestoreButtons
 import { useGetTreatmentPlansQuery } from "@/features/treatmentPlans/treatmentPlansApi";
 import { useGetMyClinicQuery } from "@/features/clinic/clinicApi";
 import { OrthodonticsPanel } from "@/features/orthodontics/OrthodonticsPanel";
+import { DocumentsPanel } from "@/features/documents/DocumentsPanel";
+import { PrescriptionsPanel } from "@/features/prescriptions/PrescriptionsPanel";
 
 export function PatientDetailPage() {
   const { data: clinic } = useGetMyClinicQuery();
@@ -102,6 +104,8 @@ export function PatientDetailPage() {
           <TabsTrigger value="treatment-plans">Treatment Plans</TabsTrigger>
           <TabsTrigger value="billing">Billing</TabsTrigger>
           <TabsTrigger value="orthodontics">Orthodontics</TabsTrigger>
+          <TabsTrigger value="documents">Documents</TabsTrigger>
+          <TabsTrigger value="prescriptions">Prescriptions</TabsTrigger>
         </TabsList>
         <TabsContent value="overview" className="space-y-6 pt-4">
           <div className="grid gap-4 sm:grid-cols-3">
@@ -229,6 +233,16 @@ export function PatientDetailPage() {
         </TabsContent>
         <TabsContent value="orthodontics" className="pt-4">
           <OrthodonticsPanel patientId={patient.id} />
+        </TabsContent>
+        <TabsContent value="documents" className="pt-4">
+          <DocumentsPanel patientId={patient.id} />
+        </TabsContent>
+
+        <TabsContent value="prescriptions" className="pt-4">
+          <PrescriptionsPanel
+            patientId={patient.id}
+            patientName={`${patient.firstName} ${patient.lastName}`}
+          />
         </TabsContent>
       </Tabs>
       {unbilledCompletedItems.length > 0 && (

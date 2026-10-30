@@ -23,9 +23,6 @@ async function listCategories(user: RequestingUser) {
 async function createCategory(user: RequestingUser, data: any) {
   return categoryRepository.create(requireClinicId(user), data);
 }
-async function listProcedures(user: RequestingUser) {
-  return procedureRepository.findAll(requireClinicId(user));
-}
 
 async function createProcedure(user: RequestingUser, data: any) {
   const clinicId = requireClinicId(user);
@@ -60,11 +57,55 @@ async function updateProcedure(user: RequestingUser, id: string, data: any) {
     throw new AppError("Procedure not found", 404, httpsStatus.ERROR);
   return updated;
 }
+async function updateCategory(user: RequestingUser, id: string, data: any) {
+  const clinicId = requireClinicId(user);
+  const updated = await categoryRepository.update(clinicId, id, data);
+  if (!updated)
+    throw new AppError("Category not found", 404, httpsStatus.ERROR);
+  return updated;
+}
+
+async function deleteCategory(user: RequestingUser, id: string) {
+  const clinicId = requireClinicId(user);
+  const procedureCount = await categoryRepository.countProcedures(clinicId, id);
+  if (procedureCount > 0) {
+    throw new AppError(
+      "Cannot delete a category with procedures in it. Move or deactivate them first.",
+      409,
+      httpsStatus.ERROR,
+    );
+  }
+  const deleted = await categoryRepository.remove(clinicId, id);
+  if (!deleted)
+    throw new AppError("Category not found", 404, httpsStatus.ERROR);
+}
+
+async function listProcedures(user: RequestingUser, includeInactive: boolean) {
+  return procedureRepository.findAll(requireClinicId(user), includeInactive);
+}
+
+async function setProcedureActive(
+  user: RequestingUser,
+  id: string,
+  isActive: boolean,
+) {
+  const updated = await procedureRepository.setActive(
+    requireClinicId(user),
+    id,
+    isActive,
+  );
+  if (!updated)
+    throw new AppError("Procedure not found", 404, httpsStatus.ERROR);
+  return updated;
+}
 
 export default {
   listCategories,
   createCategory,
+  updateCategory,
+  deleteCategory,
   listProcedures,
   createProcedure,
   updateProcedure,
+  setProcedureActive,
 };

@@ -66,7 +66,7 @@ function create(clinicId: string, input: any) {
   });
 }
 async function update(clinicId: string, id: string, data: any) {
-  const result = await prisma.patient.updateMany({
+  await prisma.patient.updateMany({
     where: { clinicId, id },
     data,
   });

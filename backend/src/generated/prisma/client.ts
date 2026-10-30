@@ -124,3 +124,28 @@ export type OrthodonticVisit = Prisma.OrthodonticVisitModel
  * 
  */
 export type PersonalTodo = Prisma.PersonalTodoModel
+/**
+ * Model PatientDocument
+ * 
+ */
+export type PatientDocument = Prisma.PatientDocumentModel
+/**
+ * Model Expense
+ * 
+ */
+export type Expense = Prisma.ExpenseModel
+/**
+ * Model AuditLog
+ * 
+ */
+export type AuditLog = Prisma.AuditLogModel
+/**
+ * Model Prescription
+ * 
+ */
+export type Prescription = Prisma.PrescriptionModel
+/**
+ * Model Lead
+ * 
+ */
+export type Lead = Prisma.LeadModel

@@ -2,6 +2,7 @@ import repository from "./repository";
 import AppError from "../../common/AppError";
 import * as httpsStatus from "../../common/httpStatus";
 import prisma from "../../config/prisma";
+import { logAudit } from "../../common/auditLog";
 interface RequestingUser {
   id: string;
   role: string;
@@ -66,15 +67,32 @@ async function deletePatient(user: RequestingUser, id: string) {
       httpsStatus.ERROR,
     );
   }
-
   await prisma.$transaction([
     prisma.toothChartEntry.deleteMany({ where: { patientId: id } }), // no FK risk here since tooth chart has no dependents
     prisma.patient.delete({ where: { id } }),
   ]);
+  await logAudit({
+    clinicId: user.clinicId!,
+    userId: user.id,
+    action: "DELETE",
+    entityType: "Patient",
+    entityId: id,
+    summary: `Deleted patient`,
+  });
 }
 async function archivePatient(user: RequestingUser, id: string) {
   const updated = await repository.setActive(requireClinicId(user), id, false);
   if (!updated) throw new AppError("Patient not found", 404, httpsStatus.ERROR);
+
+  await logAudit({
+    clinicId: user.clinicId!,
+    userId: user.id,
+    action: "STATUS_CHANGE",
+    entityType: "Patient",
+    entityId: id,
+    summary: `Archived patient ${updated.firstName} ${updated.lastName}`,
+  });
+
   return updated;
 }
 

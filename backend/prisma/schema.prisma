@@ -102,6 +102,10 @@ model Clinic {
   invoices            Invoice[]
   tasks               Task[]
   inventoryItems      InventoryItem[]
+  documents           PatientDocument[]
+  expenses            Expense[]
+  auditLogs           AuditLog[]
+  prescriptions       Prescription[]
 }
 
 model User {
@@ -123,12 +127,16 @@ model User {
   treatmentPlansCreated     TreatmentPlan[]     @relation("TreatmentPlanCreatedBy")
   treatmentPlanItemsCreated TreatmentPlanItem[] @relation("TreatmentPlanItemCreatedBy")
 
-  tasksCreated       Task[]             @relation("TaskCreatedBy")
-  tasksAssigned      Task[]             @relation("TaskAssignedToUser")
-  orthoCasesDentist  OrthodonticCase[]  @relation("OrthoCaseDentist")
-  orthoCasesCreated  OrthodonticCase[]  @relation("OrthoCaseCreatedBy")
-  orthoVisitsCreated OrthodonticVisit[] @relation("OrthoVisitCreatedBy")
-  personalTodos      PersonalTodo[]
+  tasksCreated         Task[]             @relation("TaskCreatedBy")
+  tasksAssigned        Task[]             @relation("TaskAssignedToUser")
+  orthoCasesDentist    OrthodonticCase[]  @relation("OrthoCaseDentist")
+  orthoCasesCreated    OrthodonticCase[]  @relation("OrthoCaseCreatedBy")
+  orthoVisitsCreated   OrthodonticVisit[] @relation("OrthoVisitCreatedBy")
+  personalTodos        PersonalTodo[]
+  documentsUploaded    PatientDocument[]
+  expensesCreated      Expense[]          @relation("ExpenseCreatedBy")
+  auditLogsActor       AuditLog[]         @relation("AuditLogActor")
+  prescriptionsWritten Prescription[]     @relation("PrescriptionDentist")
 
   @@index([clinicId])
 }
@@ -176,6 +184,8 @@ model Patient {
   treatmentPlans   TreatmentPlan[]
   invoices         Invoice[]
   orthodonticCases OrthodonticCase[]
+  documents        PatientDocument[]
+  prescriptions    Prescription[]
 
   @@index([clinicId])
 }
@@ -423,4 +433,102 @@ model PersonalTodo {
   user User @relation(fields: [userId], references: [id])
 
   @@index([userId, date])
+}
+
+model PatientDocument {
+  id           String   @id @default(cuid())
+  label        String
+  fileName     String
+  cloudinaryId String // public_id — needed to delete or re-sign later
+  resourceType String // "image" or "raw" — Cloudinary needs this for deletion/signing
+  mimeType     String
+  fileSize     Int
+  patientId    String
+  clinicId     String
+  uploadedById String?
+  createdAt    DateTime @default(now())
+
+  patient    Patient @relation(fields: [patientId], references: [id])
+  clinic     Clinic  @relation(fields: [clinicId], references: [id])
+  uploadedBy User?   @relation(fields: [uploadedById], references: [id])
+
+  @@index([patientId])
+  @@index([clinicId])
+}
+
+model Expense {
+  id          String   @id @default(cuid())
+  category    String // e.g. "Rent", "Salaries", "Supplies", "Utilities"
+  amount      Decimal  @db.Decimal(10, 2)
+  date        DateTime
+  notes       String?
+  clinicId    String
+  createdById String?
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  clinic    Clinic @relation(fields: [clinicId], references: [id])
+  createdBy User?  @relation("ExpenseCreatedBy", fields: [createdById], references: [id])
+
+  @@index([clinicId, date])
+}
+
+enum AuditAction {
+  CREATE
+  UPDATE
+  DELETE
+  STATUS_CHANGE
+}
+
+model AuditLog {
+  id         String      @id @default(cuid())
+  action     AuditAction
+  entityType String // e.g. "Patient", "Invoice", "User", "Procedure"
+  entityId   String
+  summary    String // short human-readable description, e.g. "Archived patient"
+  metadata   Json? // optional extra detail (before/after values, etc.)
+  clinicId   String
+  userId     String?
+  createdAt  DateTime    @default(now())
+
+  clinic Clinic @relation(fields: [clinicId], references: [id])
+  user   User?  @relation("AuditLogActor", fields: [userId], references: [id])
+
+  @@index([clinicId, createdAt])
+  @@index([entityType, entityId])
+}
+
+model Prescription {
+  id           String   @id @default(cuid())
+  medications  Json // array of { name, dosage, frequency, duration }
+  instructions String?
+  patientId    String
+  dentistId    String
+  clinicId     String
+  createdAt    DateTime @default(now())
+
+  patient Patient @relation(fields: [patientId], references: [id])
+  dentist User    @relation("PrescriptionDentist", fields: [dentistId], references: [id])
+  clinic  Clinic  @relation(fields: [clinicId], references: [id])
+
+  @@index([patientId])
+  @@index([clinicId])
+}
+
+enum LeadStatus {
+  NEW
+  CONTACTED
+  CONVERTED
+  DECLINED
+}
+
+model Lead {
+  id          String     @id @default(cuid())
+  clinicName  String
+  contactName String
+  email       String
+  phone       String?
+  message     String?
+  status      LeadStatus @default(NEW)
+  createdAt   DateTime   @default(now())
 }

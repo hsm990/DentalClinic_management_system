@@ -67,7 +67,12 @@ export const ModelName = {
   Task: 'Task',
   OrthodonticCase: 'OrthodonticCase',
   OrthodonticVisit: 'OrthodonticVisit',
-  PersonalTodo: 'PersonalTodo'
+  PersonalTodo: 'PersonalTodo',
+  PatientDocument: 'PatientDocument',
+  Expense: 'Expense',
+  AuditLog: 'AuditLog',
+  Prescription: 'Prescription',
+  Lead: 'Lead'
 } as const
 
 export type ModelName = (typeof ModelName)[keyof typeof ModelName]
@@ -350,12 +355,101 @@ export const PersonalTodoScalarFieldEnum = {
 export type PersonalTodoScalarFieldEnum = (typeof PersonalTodoScalarFieldEnum)[keyof typeof PersonalTodoScalarFieldEnum]
 
 
+export const PatientDocumentScalarFieldEnum = {
+  id: 'id',
+  label: 'label',
+  fileName: 'fileName',
+  cloudinaryId: 'cloudinaryId',
+  resourceType: 'resourceType',
+  mimeType: 'mimeType',
+  fileSize: 'fileSize',
+  patientId: 'patientId',
+  clinicId: 'clinicId',
+  uploadedById: 'uploadedById',
+  createdAt: 'createdAt'
+} as const
+
+export type PatientDocumentScalarFieldEnum = (typeof PatientDocumentScalarFieldEnum)[keyof typeof PatientDocumentScalarFieldEnum]
+
+
+export const ExpenseScalarFieldEnum = {
+  id: 'id',
+  category: 'category',
+  amount: 'amount',
+  date: 'date',
+  notes: 'notes',
+  clinicId: 'clinicId',
+  createdById: 'createdById',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+} as const
+
+export type ExpenseScalarFieldEnum = (typeof ExpenseScalarFieldEnum)[keyof typeof ExpenseScalarFieldEnum]
+
+
+export const AuditLogScalarFieldEnum = {
+  id: 'id',
+  action: 'action',
+  entityType: 'entityType',
+  entityId: 'entityId',
+  summary: 'summary',
+  metadata: 'metadata',
+  clinicId: 'clinicId',
+  userId: 'userId',
+  createdAt: 'createdAt'
+} as const
+
+export type AuditLogScalarFieldEnum = (typeof AuditLogScalarFieldEnum)[keyof typeof AuditLogScalarFieldEnum]
+
+
+export const PrescriptionScalarFieldEnum = {
+  id: 'id',
+  medications: 'medications',
+  instructions: 'instructions',
+  patientId: 'patientId',
+  dentistId: 'dentistId',
+  clinicId: 'clinicId',
+  createdAt: 'createdAt'
+} as const
+
+export type PrescriptionScalarFieldEnum = (typeof PrescriptionScalarFieldEnum)[keyof typeof PrescriptionScalarFieldEnum]
+
+
+export const LeadScalarFieldEnum = {
+  id: 'id',
+  clinicName: 'clinicName',
+  contactName: 'contactName',
+  email: 'email',
+  phone: 'phone',
+  message: 'message',
+  status: 'status',
+  createdAt: 'createdAt'
+} as const
+
+export type LeadScalarFieldEnum = (typeof LeadScalarFieldEnum)[keyof typeof LeadScalarFieldEnum]
+
+
 export const SortOrder = {
   asc: 'asc',
   desc: 'desc'
 } as const
 
 export type SortOrder = (typeof SortOrder)[keyof typeof SortOrder]
+
+
+export const NullableJsonNullValueInput = {
+  DbNull: DbNull,
+  JsonNull: JsonNull
+} as const
+
+export type NullableJsonNullValueInput = (typeof NullableJsonNullValueInput)[keyof typeof NullableJsonNullValueInput]
+
+
+export const JsonNullValueInput = {
+  JsonNull: JsonNull
+} as const
+
+export type JsonNullValueInput = (typeof JsonNullValueInput)[keyof typeof JsonNullValueInput]
 
 
 export const QueryMode = {
@@ -372,4 +466,13 @@ export const NullsOrder = {
 } as const
 
 export type NullsOrder = (typeof NullsOrder)[keyof typeof NullsOrder]
+
+
+export const JsonNullValueFilter = {
+  DbNull: DbNull,
+  JsonNull: JsonNull,
+  AnyNull: AnyNull
+} as const
+
+export type JsonNullValueFilter = (typeof JsonNullValueFilter)[keyof typeof JsonNullValueFilter]
 

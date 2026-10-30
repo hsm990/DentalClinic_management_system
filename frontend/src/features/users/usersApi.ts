@@ -52,8 +52,38 @@ export const usersApi = apiSlice.injectEndpoints({
       transformResponse: (r: CreateUserResponse) => r.user,
       invalidatesTags: [{ type: "Staff", id: "LIST" }],
     }),
+    updateStaff: builder.mutation<
+      StaffMember,
+      { id: string; data: Record<string, unknown> }
+    >({
+      query: ({ id, data }) => ({
+        url: `/users/${id}`,
+        method: "PATCH",
+        body: data,
+      }),
+      transformResponse: (r: { staff: StaffMember }) => r.staff,
+      invalidatesTags: [{ type: "Staff", id: "LIST" }],
+    }),
+
+    setStaffActive: builder.mutation<
+      StaffMember,
+      { id: string; isActive: boolean }
+    >({
+      query: ({ id, isActive }) => ({
+        url: `/users/${id}/status`,
+        method: "PATCH",
+        body: { isActive },
+      }),
+      transformResponse: (r: { staff: StaffMember }) => r.staff,
+      invalidatesTags: [{ type: "Staff", id: "LIST" }],
+    }),
   }),
 });
 
-export const { useGetDentistsQuery, useGetStaffQuery, useCreateStaffMutation } =
-  usersApi;
+export const {
+  useGetDentistsQuery,
+  useGetStaffQuery,
+  useCreateStaffMutation,
+  useUpdateStaffMutation,
+  useSetStaffActiveMutation,
+} = usersApi;
