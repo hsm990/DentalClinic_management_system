@@ -21,17 +21,23 @@ export function StatCard({
   tone = "default",
 }: StatCardProps) {
   return (
-    <Card>
-      <CardContent className="flex items-center gap-4 p-5">
-        <div className="rounded-lg bg-muted p-2.5">
-          <Icon className="h-5 w-5 text-muted-foreground" />
-        </div>
+    <Card className="rounded-lg border-[#E5EAE6] bg-[#FBFCFB]">
+      <CardContent className="flex items-center justify-between gap-4 p-4">
         <div>
-          <p className="text-sm text-muted-foreground">{label}</p>
-          <p className={`text-xl font-semibold ${TONE_CLASSES[tone]}`}>
+          <p className="max-w-[10rem] text-[10px] leading-4 uppercase tracking-wider text-[#7B867F]">
+            {label}
+          </p>
+          <p
+            className={`ff-mono mt-2 text-lg font-medium ${TONE_CLASSES[tone]}`}
+          >
             {value}
           </p>
         </div>
+        {Icon && (
+          <div className="rounded-lg border border-[#E2E7E3] bg-white p-2.5">
+            <Icon className="h-4 w-4 text-[#1F5D4C]" />
+          </div>
+        )}
       </CardContent>
     </Card>
   );

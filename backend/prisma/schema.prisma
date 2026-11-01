@@ -27,6 +27,12 @@ enum TaskTargetType {
   CLINIC
 }
 
+enum ClinicPlan {
+  TRIAL
+  BASIC
+  PRO
+}
+
 enum UserRole {
   SUPER_ADMIN
   ADMIN
@@ -86,13 +92,15 @@ enum PaymentMethod {
 // ---------- MODELS ----------
 
 model Clinic {
-  id        String   @id @default(cuid())
+  id        String     @id @default(cuid())
   name      String
   address   String?
   phone     String?
-  isActive  Boolean  @default(true)
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
+  isActive  Boolean    @default(true)
+  createdAt DateTime   @default(now())
+  updatedAt DateTime   @updatedAt
+  plan      ClinicPlan @default(TRIAL)
+  paidUntil DateTime?
 
   users               User[]
   patients            Patient[]
@@ -109,16 +117,17 @@ model Clinic {
 }
 
 model User {
-  id           String   @id @default(cuid())
-  email        String   @unique
+  id           String    @id @default(cuid())
+  email        String    @unique
   passwordHash String
   firstName    String
   lastName     String
-  role         UserRole @default(RECEPTIONIST)
-  isActive     Boolean  @default(true)
+  role         UserRole  @default(RECEPTIONIST)
+  isActive     Boolean   @default(true)
   clinicId     String?
-  createdAt    DateTime @default(now())
-  updatedAt    DateTime @updatedAt
+  createdAt    DateTime  @default(now())
+  updatedAt    DateTime  @updatedAt
+  lastLoginAt  DateTime?
 
   clinic          Clinic?       @relation(fields: [clinicId], references: [id])
   appointments    Appointment[] @relation("DentistAppointments")
@@ -487,12 +496,11 @@ model AuditLog {
   entityId   String
   summary    String // short human-readable description, e.g. "Archived patient"
   metadata   Json? // optional extra detail (before/after values, etc.)
-  clinicId   String
   userId     String?
   createdAt  DateTime    @default(now())
-
-  clinic Clinic @relation(fields: [clinicId], references: [id])
-  user   User?  @relation("AuditLogActor", fields: [userId], references: [id])
+  clinicId   String?
+  clinic     Clinic?     @relation(fields: [clinicId], references: [id])
+  user       User?       @relation("AuditLogActor", fields: [userId], references: [id])
 
   @@index([clinicId, createdAt])
   @@index([entityType, entityId])
@@ -523,12 +531,13 @@ enum LeadStatus {
 }
 
 model Lead {
-  id          String     @id @default(cuid())
-  clinicName  String
-  contactName String
-  email       String
-  phone       String?
-  message     String?
-  status      LeadStatus @default(NEW)
-  createdAt   DateTime   @default(now())
+  id                String     @id @default(cuid())
+  clinicName        String
+  contactName       String
+  email             String
+  phone             String?
+  message           String?
+  status            LeadStatus @default(NEW)
+  createdAt         DateTime   @default(now())
+  convertedClinicId String?
 }

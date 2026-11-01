@@ -32,6 +32,8 @@ export type ClinicMinAggregateOutputType = {
   isActive: boolean | null
   createdAt: Date | null
   updatedAt: Date | null
+  plan: $Enums.ClinicPlan | null
+  paidUntil: Date | null
 }
 
 export type ClinicMaxAggregateOutputType = {
@@ -42,6 +44,8 @@ export type ClinicMaxAggregateOutputType = {
   isActive: boolean | null
   createdAt: Date | null
   updatedAt: Date | null
+  plan: $Enums.ClinicPlan | null
+  paidUntil: Date | null
 }
 
 export type ClinicCountAggregateOutputType = {
@@ -52,6 +56,8 @@ export type ClinicCountAggregateOutputType = {
   isActive: number
   createdAt: number
   updatedAt: number
+  plan: number
+  paidUntil: number
   _all: number
 }
 
@@ -64,6 +70,8 @@ export type ClinicMinAggregateInputType = {
   isActive?: true
   createdAt?: true
   updatedAt?: true
+  plan?: true
+  paidUntil?: true
 }
 
 export type ClinicMaxAggregateInputType = {
@@ -74,6 +82,8 @@ export type ClinicMaxAggregateInputType = {
   isActive?: true
   createdAt?: true
   updatedAt?: true
+  plan?: true
+  paidUntil?: true
 }
 
 export type ClinicCountAggregateInputType = {
@@ -84,6 +94,8 @@ export type ClinicCountAggregateInputType = {
   isActive?: true
   createdAt?: true
   updatedAt?: true
+  plan?: true
+  paidUntil?: true
   _all?: true
 }
 
@@ -167,6 +179,8 @@ export type ClinicGroupByOutputType = {
   isActive: boolean
   createdAt: Date
   updatedAt: Date
+  plan: $Enums.ClinicPlan
+  paidUntil: Date | null
   _count: ClinicCountAggregateOutputType | null
   _min: ClinicMinAggregateOutputType | null
   _max: ClinicMaxAggregateOutputType | null
@@ -198,6 +212,8 @@ export type ClinicWhereInput = {
   isActive?: Prisma.BoolFilter<"Clinic"> | boolean
   createdAt?: Prisma.DateTimeFilter<"Clinic"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"Clinic"> | Date | string
+  plan?: Prisma.EnumClinicPlanFilter<"Clinic"> | $Enums.ClinicPlan
+  paidUntil?: Prisma.DateTimeNullableFilter<"Clinic"> | Date | string | null
   users?: Prisma.UserListRelationFilter
   patients?: Prisma.PatientListRelationFilter
   procedureCategories?: Prisma.ProcedureCategoryListRelationFilter
@@ -220,6 +236,8 @@ export type ClinicOrderByWithRelationInput = {
   isActive?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
+  plan?: Prisma.SortOrder
+  paidUntil?: Prisma.SortOrderInput | Prisma.SortOrder
   users?: Prisma.UserOrderByRelationAggregateInput
   patients?: Prisma.PatientOrderByRelationAggregateInput
   procedureCategories?: Prisma.ProcedureCategoryOrderByRelationAggregateInput
@@ -245,6 +263,8 @@ export type ClinicWhereUniqueInput = Prisma.AtLeast<{
   isActive?: Prisma.BoolFilter<"Clinic"> | boolean
   createdAt?: Prisma.DateTimeFilter<"Clinic"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"Clinic"> | Date | string
+  plan?: Prisma.EnumClinicPlanFilter<"Clinic"> | $Enums.ClinicPlan
+  paidUntil?: Prisma.DateTimeNullableFilter<"Clinic"> | Date | string | null
   users?: Prisma.UserListRelationFilter
   patients?: Prisma.PatientListRelationFilter
   procedureCategories?: Prisma.ProcedureCategoryListRelationFilter
@@ -267,6 +287,8 @@ export type ClinicOrderByWithAggregationInput = {
   isActive?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
+  plan?: Prisma.SortOrder
+  paidUntil?: Prisma.SortOrderInput | Prisma.SortOrder
   _count?: Prisma.ClinicCountOrderByAggregateInput
   _max?: Prisma.ClinicMaxOrderByAggregateInput
   _min?: Prisma.ClinicMinOrderByAggregateInput
@@ -283,6 +305,8 @@ export type ClinicScalarWhereWithAggregatesInput = {
   isActive?: Prisma.BoolWithAggregatesFilter<"Clinic"> | boolean
   createdAt?: Prisma.DateTimeWithAggregatesFilter<"Clinic"> | Date | string
   updatedAt?: Prisma.DateTimeWithAggregatesFilter<"Clinic"> | Date | string
+  plan?: Prisma.EnumClinicPlanWithAggregatesFilter<"Clinic"> | $Enums.ClinicPlan
+  paidUntil?: Prisma.DateTimeNullableWithAggregatesFilter<"Clinic"> | Date | string | null
 }
 
 export type ClinicCreateInput = {
@@ -293,6 +317,8 @@ export type ClinicCreateInput = {
   isActive?: boolean
   createdAt?: Date | string
   updatedAt?: Date | string
+  plan?: $Enums.ClinicPlan
+  paidUntil?: Date | string | null
   users?: Prisma.UserCreateNestedManyWithoutClinicInput
   patients?: Prisma.PatientCreateNestedManyWithoutClinicInput
   procedureCategories?: Prisma.ProcedureCategoryCreateNestedManyWithoutClinicInput
@@ -315,6 +341,8 @@ export type ClinicUncheckedCreateInput = {
   isActive?: boolean
   createdAt?: Date | string
   updatedAt?: Date | string
+  plan?: $Enums.ClinicPlan
+  paidUntil?: Date | string | null
   users?: Prisma.UserUncheckedCreateNestedManyWithoutClinicInput
   patients?: Prisma.PatientUncheckedCreateNestedManyWithoutClinicInput
   procedureCategories?: Prisma.ProcedureCategoryUncheckedCreateNestedManyWithoutClinicInput
@@ -337,6 +365,8 @@ export type ClinicUpdateInput = {
   isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  plan?: Prisma.EnumClinicPlanFieldUpdateOperationsInput | $Enums.ClinicPlan
+  paidUntil?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   users?: Prisma.UserUpdateManyWithoutClinicNestedInput
   patients?: Prisma.PatientUpdateManyWithoutClinicNestedInput
   procedureCategories?: Prisma.ProcedureCategoryUpdateManyWithoutClinicNestedInput
@@ -359,6 +389,8 @@ export type ClinicUncheckedUpdateInput = {
   isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  plan?: Prisma.EnumClinicPlanFieldUpdateOperationsInput | $Enums.ClinicPlan
+  paidUntil?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   users?: Prisma.UserUncheckedUpdateManyWithoutClinicNestedInput
   patients?: Prisma.PatientUncheckedUpdateManyWithoutClinicNestedInput
   procedureCategories?: Prisma.ProcedureCategoryUncheckedUpdateManyWithoutClinicNestedInput
@@ -381,6 +413,8 @@ export type ClinicCreateManyInput = {
   isActive?: boolean
   createdAt?: Date | string
   updatedAt?: Date | string
+  plan?: $Enums.ClinicPlan
+  paidUntil?: Date | string | null
 }
 
 export type ClinicUpdateManyMutationInput = {
@@ -391,6 +425,8 @@ export type ClinicUpdateManyMutationInput = {
   isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  plan?: Prisma.EnumClinicPlanFieldUpdateOperationsInput | $Enums.ClinicPlan
+  paidUntil?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
 }
 
 export type ClinicUncheckedUpdateManyInput = {
@@ -401,6 +437,8 @@ export type ClinicUncheckedUpdateManyInput = {
   isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  plan?: Prisma.EnumClinicPlanFieldUpdateOperationsInput | $Enums.ClinicPlan
+  paidUntil?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
 }
 
 export type ClinicCountOrderByAggregateInput = {
@@ -411,6 +449,8 @@ export type ClinicCountOrderByAggregateInput = {
   isActive?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
+  plan?: Prisma.SortOrder
+  paidUntil?: Prisma.SortOrder
 }
 
 export type ClinicMaxOrderByAggregateInput = {
@@ -421,6 +461,8 @@ export type ClinicMaxOrderByAggregateInput = {
   isActive?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
+  plan?: Prisma.SortOrder
+  paidUntil?: Prisma.SortOrder
 }
 
 export type ClinicMinOrderByAggregateInput = {
@@ -431,6 +473,8 @@ export type ClinicMinOrderByAggregateInput = {
   isActive?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
+  plan?: Prisma.SortOrder
+  paidUntil?: Prisma.SortOrder
 }
 
 export type ClinicNullableScalarRelationFilter = {
@@ -457,6 +501,14 @@ export type BoolFieldUpdateOperationsInput = {
 
 export type DateTimeFieldUpdateOperationsInput = {
   set?: Date | string
+}
+
+export type EnumClinicPlanFieldUpdateOperationsInput = {
+  set?: $Enums.ClinicPlan
+}
+
+export type NullableDateTimeFieldUpdateOperationsInput = {
+  set?: Date | string | null
 }
 
 export type ClinicCreateNestedOneWithoutUsersInput = {
@@ -607,10 +659,12 @@ export type ClinicCreateNestedOneWithoutAuditLogsInput = {
   connect?: Prisma.ClinicWhereUniqueInput
 }
 
-export type ClinicUpdateOneRequiredWithoutAuditLogsNestedInput = {
+export type ClinicUpdateOneWithoutAuditLogsNestedInput = {
   create?: Prisma.XOR<Prisma.ClinicCreateWithoutAuditLogsInput, Prisma.ClinicUncheckedCreateWithoutAuditLogsInput>
   connectOrCreate?: Prisma.ClinicCreateOrConnectWithoutAuditLogsInput
   upsert?: Prisma.ClinicUpsertWithoutAuditLogsInput
+  disconnect?: Prisma.ClinicWhereInput | boolean
+  delete?: Prisma.ClinicWhereInput | boolean
   connect?: Prisma.ClinicWhereUniqueInput
   update?: Prisma.XOR<Prisma.XOR<Prisma.ClinicUpdateToOneWithWhereWithoutAuditLogsInput, Prisma.ClinicUpdateWithoutAuditLogsInput>, Prisma.ClinicUncheckedUpdateWithoutAuditLogsInput>
 }
@@ -637,6 +691,8 @@ export type ClinicCreateWithoutUsersInput = {
   isActive?: boolean
   createdAt?: Date | string
   updatedAt?: Date | string
+  plan?: $Enums.ClinicPlan
+  paidUntil?: Date | string | null
   patients?: Prisma.PatientCreateNestedManyWithoutClinicInput
   procedureCategories?: Prisma.ProcedureCategoryCreateNestedManyWithoutClinicInput
   procedures?: Prisma.ProcedureCreateNestedManyWithoutClinicInput
@@ -658,6 +714,8 @@ export type ClinicUncheckedCreateWithoutUsersInput = {
   isActive?: boolean
   createdAt?: Date | string
   updatedAt?: Date | string
+  plan?: $Enums.ClinicPlan
+  paidUntil?: Date | string | null
   patients?: Prisma.PatientUncheckedCreateNestedManyWithoutClinicInput
   procedureCategories?: Prisma.ProcedureCategoryUncheckedCreateNestedManyWithoutClinicInput
   procedures?: Prisma.ProcedureUncheckedCreateNestedManyWithoutClinicInput
@@ -695,6 +753,8 @@ export type ClinicUpdateWithoutUsersInput = {
   isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  plan?: Prisma.EnumClinicPlanFieldUpdateOperationsInput | $Enums.ClinicPlan
+  paidUntil?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   patients?: Prisma.PatientUpdateManyWithoutClinicNestedInput
   procedureCategories?: Prisma.ProcedureCategoryUpdateManyWithoutClinicNestedInput
   procedures?: Prisma.ProcedureUpdateManyWithoutClinicNestedInput
@@ -716,6 +776,8 @@ export type ClinicUncheckedUpdateWithoutUsersInput = {
   isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  plan?: Prisma.EnumClinicPlanFieldUpdateOperationsInput | $Enums.ClinicPlan
+  paidUntil?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   patients?: Prisma.PatientUncheckedUpdateManyWithoutClinicNestedInput
   procedureCategories?: Prisma.ProcedureCategoryUncheckedUpdateManyWithoutClinicNestedInput
   procedures?: Prisma.ProcedureUncheckedUpdateManyWithoutClinicNestedInput
@@ -737,6 +799,8 @@ export type ClinicCreateWithoutInventoryItemsInput = {
   isActive?: boolean
   createdAt?: Date | string
   updatedAt?: Date | string
+  plan?: $Enums.ClinicPlan
+  paidUntil?: Date | string | null
   users?: Prisma.UserCreateNestedManyWithoutClinicInput
   patients?: Prisma.PatientCreateNestedManyWithoutClinicInput
   procedureCategories?: Prisma.ProcedureCategoryCreateNestedManyWithoutClinicInput
@@ -758,6 +822,8 @@ export type ClinicUncheckedCreateWithoutInventoryItemsInput = {
   isActive?: boolean
   createdAt?: Date | string
   updatedAt?: Date | string
+  plan?: $Enums.ClinicPlan
+  paidUntil?: Date | string | null
   users?: Prisma.UserUncheckedCreateNestedManyWithoutClinicInput
   patients?: Prisma.PatientUncheckedCreateNestedManyWithoutClinicInput
   procedureCategories?: Prisma.ProcedureCategoryUncheckedCreateNestedManyWithoutClinicInput
@@ -795,6 +861,8 @@ export type ClinicUpdateWithoutInventoryItemsInput = {
   isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  plan?: Prisma.EnumClinicPlanFieldUpdateOperationsInput | $Enums.ClinicPlan
+  paidUntil?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   users?: Prisma.UserUpdateManyWithoutClinicNestedInput
   patients?: Prisma.PatientUpdateManyWithoutClinicNestedInput
   procedureCategories?: Prisma.ProcedureCategoryUpdateManyWithoutClinicNestedInput
@@ -816,6 +884,8 @@ export type ClinicUncheckedUpdateWithoutInventoryItemsInput = {
   isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  plan?: Prisma.EnumClinicPlanFieldUpdateOperationsInput | $Enums.ClinicPlan
+  paidUntil?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   users?: Prisma.UserUncheckedUpdateManyWithoutClinicNestedInput
   patients?: Prisma.PatientUncheckedUpdateManyWithoutClinicNestedInput
   procedureCategories?: Prisma.ProcedureCategoryUncheckedUpdateManyWithoutClinicNestedInput
@@ -837,6 +907,8 @@ export type ClinicCreateWithoutPatientsInput = {
   isActive?: boolean
   createdAt?: Date | string
   updatedAt?: Date | string
+  plan?: $Enums.ClinicPlan
+  paidUntil?: Date | string | null
   users?: Prisma.UserCreateNestedManyWithoutClinicInput
   procedureCategories?: Prisma.ProcedureCategoryCreateNestedManyWithoutClinicInput
   procedures?: Prisma.ProcedureCreateNestedManyWithoutClinicInput
@@ -858,6 +930,8 @@ export type ClinicUncheckedCreateWithoutPatientsInput = {
   isActive?: boolean
   createdAt?: Date | string
   updatedAt?: Date | string
+  plan?: $Enums.ClinicPlan
+  paidUntil?: Date | string | null
   users?: Prisma.UserUncheckedCreateNestedManyWithoutClinicInput
   procedureCategories?: Prisma.ProcedureCategoryUncheckedCreateNestedManyWithoutClinicInput
   procedures?: Prisma.ProcedureUncheckedCreateNestedManyWithoutClinicInput
@@ -895,6 +969,8 @@ export type ClinicUpdateWithoutPatientsInput = {
   isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  plan?: Prisma.EnumClinicPlanFieldUpdateOperationsInput | $Enums.ClinicPlan
+  paidUntil?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   users?: Prisma.UserUpdateManyWithoutClinicNestedInput
   procedureCategories?: Prisma.ProcedureCategoryUpdateManyWithoutClinicNestedInput
   procedures?: Prisma.ProcedureUpdateManyWithoutClinicNestedInput
@@ -916,6 +992,8 @@ export type ClinicUncheckedUpdateWithoutPatientsInput = {
   isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  plan?: Prisma.EnumClinicPlanFieldUpdateOperationsInput | $Enums.ClinicPlan
+  paidUntil?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   users?: Prisma.UserUncheckedUpdateManyWithoutClinicNestedInput
   procedureCategories?: Prisma.ProcedureCategoryUncheckedUpdateManyWithoutClinicNestedInput
   procedures?: Prisma.ProcedureUncheckedUpdateManyWithoutClinicNestedInput
@@ -937,6 +1015,8 @@ export type ClinicCreateWithoutProcedureCategoriesInput = {
   isActive?: boolean
   createdAt?: Date | string
   updatedAt?: Date | string
+  plan?: $Enums.ClinicPlan
+  paidUntil?: Date | string | null
   users?: Prisma.UserCreateNestedManyWithoutClinicInput
   patients?: Prisma.PatientCreateNestedManyWithoutClinicInput
   procedures?: Prisma.ProcedureCreateNestedManyWithoutClinicInput
@@ -958,6 +1038,8 @@ export type ClinicUncheckedCreateWithoutProcedureCategoriesInput = {
   isActive?: boolean
   createdAt?: Date | string
   updatedAt?: Date | string
+  plan?: $Enums.ClinicPlan
+  paidUntil?: Date | string | null
   users?: Prisma.UserUncheckedCreateNestedManyWithoutClinicInput
   patients?: Prisma.PatientUncheckedCreateNestedManyWithoutClinicInput
   procedures?: Prisma.ProcedureUncheckedCreateNestedManyWithoutClinicInput
@@ -995,6 +1077,8 @@ export type ClinicUpdateWithoutProcedureCategoriesInput = {
   isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  plan?: Prisma.EnumClinicPlanFieldUpdateOperationsInput | $Enums.ClinicPlan
+  paidUntil?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   users?: Prisma.UserUpdateManyWithoutClinicNestedInput
   patients?: Prisma.PatientUpdateManyWithoutClinicNestedInput
   procedures?: Prisma.ProcedureUpdateManyWithoutClinicNestedInput
@@ -1016,6 +1100,8 @@ export type ClinicUncheckedUpdateWithoutProcedureCategoriesInput = {
   isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  plan?: Prisma.EnumClinicPlanFieldUpdateOperationsInput | $Enums.ClinicPlan
+  paidUntil?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   users?: Prisma.UserUncheckedUpdateManyWithoutClinicNestedInput
   patients?: Prisma.PatientUncheckedUpdateManyWithoutClinicNestedInput
   procedures?: Prisma.ProcedureUncheckedUpdateManyWithoutClinicNestedInput
@@ -1037,6 +1123,8 @@ export type ClinicCreateWithoutProceduresInput = {
   isActive?: boolean
   createdAt?: Date | string
   updatedAt?: Date | string
+  plan?: $Enums.ClinicPlan
+  paidUntil?: Date | string | null
   users?: Prisma.UserCreateNestedManyWithoutClinicInput
   patients?: Prisma.PatientCreateNestedManyWithoutClinicInput
   procedureCategories?: Prisma.ProcedureCategoryCreateNestedManyWithoutClinicInput
@@ -1058,6 +1146,8 @@ export type ClinicUncheckedCreateWithoutProceduresInput = {
   isActive?: boolean
   createdAt?: Date | string
   updatedAt?: Date | string
+  plan?: $Enums.ClinicPlan
+  paidUntil?: Date | string | null
   users?: Prisma.UserUncheckedCreateNestedManyWithoutClinicInput
   patients?: Prisma.PatientUncheckedCreateNestedManyWithoutClinicInput
   procedureCategories?: Prisma.ProcedureCategoryUncheckedCreateNestedManyWithoutClinicInput
@@ -1095,6 +1185,8 @@ export type ClinicUpdateWithoutProceduresInput = {
   isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  plan?: Prisma.EnumClinicPlanFieldUpdateOperationsInput | $Enums.ClinicPlan
+  paidUntil?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   users?: Prisma.UserUpdateManyWithoutClinicNestedInput
   patients?: Prisma.PatientUpdateManyWithoutClinicNestedInput
   procedureCategories?: Prisma.ProcedureCategoryUpdateManyWithoutClinicNestedInput
@@ -1116,6 +1208,8 @@ export type ClinicUncheckedUpdateWithoutProceduresInput = {
   isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  plan?: Prisma.EnumClinicPlanFieldUpdateOperationsInput | $Enums.ClinicPlan
+  paidUntil?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   users?: Prisma.UserUncheckedUpdateManyWithoutClinicNestedInput
   patients?: Prisma.PatientUncheckedUpdateManyWithoutClinicNestedInput
   procedureCategories?: Prisma.ProcedureCategoryUncheckedUpdateManyWithoutClinicNestedInput
@@ -1137,6 +1231,8 @@ export type ClinicCreateWithoutAppointmentsInput = {
   isActive?: boolean
   createdAt?: Date | string
   updatedAt?: Date | string
+  plan?: $Enums.ClinicPlan
+  paidUntil?: Date | string | null
   users?: Prisma.UserCreateNestedManyWithoutClinicInput
   patients?: Prisma.PatientCreateNestedManyWithoutClinicInput
   procedureCategories?: Prisma.ProcedureCategoryCreateNestedManyWithoutClinicInput
@@ -1158,6 +1254,8 @@ export type ClinicUncheckedCreateWithoutAppointmentsInput = {
   isActive?: boolean
   createdAt?: Date | string
   updatedAt?: Date | string
+  plan?: $Enums.ClinicPlan
+  paidUntil?: Date | string | null
   users?: Prisma.UserUncheckedCreateNestedManyWithoutClinicInput
   patients?: Prisma.PatientUncheckedCreateNestedManyWithoutClinicInput
   procedureCategories?: Prisma.ProcedureCategoryUncheckedCreateNestedManyWithoutClinicInput
@@ -1195,6 +1293,8 @@ export type ClinicUpdateWithoutAppointmentsInput = {
   isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  plan?: Prisma.EnumClinicPlanFieldUpdateOperationsInput | $Enums.ClinicPlan
+  paidUntil?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   users?: Prisma.UserUpdateManyWithoutClinicNestedInput
   patients?: Prisma.PatientUpdateManyWithoutClinicNestedInput
   procedureCategories?: Prisma.ProcedureCategoryUpdateManyWithoutClinicNestedInput
@@ -1216,6 +1316,8 @@ export type ClinicUncheckedUpdateWithoutAppointmentsInput = {
   isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  plan?: Prisma.EnumClinicPlanFieldUpdateOperationsInput | $Enums.ClinicPlan
+  paidUntil?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   users?: Prisma.UserUncheckedUpdateManyWithoutClinicNestedInput
   patients?: Prisma.PatientUncheckedUpdateManyWithoutClinicNestedInput
   procedureCategories?: Prisma.ProcedureCategoryUncheckedUpdateManyWithoutClinicNestedInput
@@ -1237,6 +1339,8 @@ export type ClinicCreateWithoutInvoicesInput = {
   isActive?: boolean
   createdAt?: Date | string
   updatedAt?: Date | string
+  plan?: $Enums.ClinicPlan
+  paidUntil?: Date | string | null
   users?: Prisma.UserCreateNestedManyWithoutClinicInput
   patients?: Prisma.PatientCreateNestedManyWithoutClinicInput
   procedureCategories?: Prisma.ProcedureCategoryCreateNestedManyWithoutClinicInput
@@ -1258,6 +1362,8 @@ export type ClinicUncheckedCreateWithoutInvoicesInput = {
   isActive?: boolean
   createdAt?: Date | string
   updatedAt?: Date | string
+  plan?: $Enums.ClinicPlan
+  paidUntil?: Date | string | null
   users?: Prisma.UserUncheckedCreateNestedManyWithoutClinicInput
   patients?: Prisma.PatientUncheckedCreateNestedManyWithoutClinicInput
   procedureCategories?: Prisma.ProcedureCategoryUncheckedCreateNestedManyWithoutClinicInput
@@ -1295,6 +1401,8 @@ export type ClinicUpdateWithoutInvoicesInput = {
   isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  plan?: Prisma.EnumClinicPlanFieldUpdateOperationsInput | $Enums.ClinicPlan
+  paidUntil?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   users?: Prisma.UserUpdateManyWithoutClinicNestedInput
   patients?: Prisma.PatientUpdateManyWithoutClinicNestedInput
   procedureCategories?: Prisma.ProcedureCategoryUpdateManyWithoutClinicNestedInput
@@ -1316,6 +1424,8 @@ export type ClinicUncheckedUpdateWithoutInvoicesInput = {
   isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  plan?: Prisma.EnumClinicPlanFieldUpdateOperationsInput | $Enums.ClinicPlan
+  paidUntil?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   users?: Prisma.UserUncheckedUpdateManyWithoutClinicNestedInput
   patients?: Prisma.PatientUncheckedUpdateManyWithoutClinicNestedInput
   procedureCategories?: Prisma.ProcedureCategoryUncheckedUpdateManyWithoutClinicNestedInput
@@ -1337,6 +1447,8 @@ export type ClinicCreateWithoutTasksInput = {
   isActive?: boolean
   createdAt?: Date | string
   updatedAt?: Date | string
+  plan?: $Enums.ClinicPlan
+  paidUntil?: Date | string | null
   users?: Prisma.UserCreateNestedManyWithoutClinicInput
   patients?: Prisma.PatientCreateNestedManyWithoutClinicInput
   procedureCategories?: Prisma.ProcedureCategoryCreateNestedManyWithoutClinicInput
@@ -1358,6 +1470,8 @@ export type ClinicUncheckedCreateWithoutTasksInput = {
   isActive?: boolean
   createdAt?: Date | string
   updatedAt?: Date | string
+  plan?: $Enums.ClinicPlan
+  paidUntil?: Date | string | null
   users?: Prisma.UserUncheckedCreateNestedManyWithoutClinicInput
   patients?: Prisma.PatientUncheckedCreateNestedManyWithoutClinicInput
   procedureCategories?: Prisma.ProcedureCategoryUncheckedCreateNestedManyWithoutClinicInput
@@ -1395,6 +1509,8 @@ export type ClinicUpdateWithoutTasksInput = {
   isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  plan?: Prisma.EnumClinicPlanFieldUpdateOperationsInput | $Enums.ClinicPlan
+  paidUntil?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   users?: Prisma.UserUpdateManyWithoutClinicNestedInput
   patients?: Prisma.PatientUpdateManyWithoutClinicNestedInput
   procedureCategories?: Prisma.ProcedureCategoryUpdateManyWithoutClinicNestedInput
@@ -1416,6 +1532,8 @@ export type ClinicUncheckedUpdateWithoutTasksInput = {
   isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  plan?: Prisma.EnumClinicPlanFieldUpdateOperationsInput | $Enums.ClinicPlan
+  paidUntil?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   users?: Prisma.UserUncheckedUpdateManyWithoutClinicNestedInput
   patients?: Prisma.PatientUncheckedUpdateManyWithoutClinicNestedInput
   procedureCategories?: Prisma.ProcedureCategoryUncheckedUpdateManyWithoutClinicNestedInput
@@ -1437,6 +1555,8 @@ export type ClinicCreateWithoutDocumentsInput = {
   isActive?: boolean
   createdAt?: Date | string
   updatedAt?: Date | string
+  plan?: $Enums.ClinicPlan
+  paidUntil?: Date | string | null
   users?: Prisma.UserCreateNestedManyWithoutClinicInput
   patients?: Prisma.PatientCreateNestedManyWithoutClinicInput
   procedureCategories?: Prisma.ProcedureCategoryCreateNestedManyWithoutClinicInput
@@ -1458,6 +1578,8 @@ export type ClinicUncheckedCreateWithoutDocumentsInput = {
   isActive?: boolean
   createdAt?: Date | string
   updatedAt?: Date | string
+  plan?: $Enums.ClinicPlan
+  paidUntil?: Date | string | null
   users?: Prisma.UserUncheckedCreateNestedManyWithoutClinicInput
   patients?: Prisma.PatientUncheckedCreateNestedManyWithoutClinicInput
   procedureCategories?: Prisma.ProcedureCategoryUncheckedCreateNestedManyWithoutClinicInput
@@ -1495,6 +1617,8 @@ export type ClinicUpdateWithoutDocumentsInput = {
   isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  plan?: Prisma.EnumClinicPlanFieldUpdateOperationsInput | $Enums.ClinicPlan
+  paidUntil?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   users?: Prisma.UserUpdateManyWithoutClinicNestedInput
   patients?: Prisma.PatientUpdateManyWithoutClinicNestedInput
   procedureCategories?: Prisma.ProcedureCategoryUpdateManyWithoutClinicNestedInput
@@ -1516,6 +1640,8 @@ export type ClinicUncheckedUpdateWithoutDocumentsInput = {
   isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  plan?: Prisma.EnumClinicPlanFieldUpdateOperationsInput | $Enums.ClinicPlan
+  paidUntil?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   users?: Prisma.UserUncheckedUpdateManyWithoutClinicNestedInput
   patients?: Prisma.PatientUncheckedUpdateManyWithoutClinicNestedInput
   procedureCategories?: Prisma.ProcedureCategoryUncheckedUpdateManyWithoutClinicNestedInput
@@ -1537,6 +1663,8 @@ export type ClinicCreateWithoutExpensesInput = {
   isActive?: boolean
   createdAt?: Date | string
   updatedAt?: Date | string
+  plan?: $Enums.ClinicPlan
+  paidUntil?: Date | string | null
   users?: Prisma.UserCreateNestedManyWithoutClinicInput
   patients?: Prisma.PatientCreateNestedManyWithoutClinicInput
   procedureCategories?: Prisma.ProcedureCategoryCreateNestedManyWithoutClinicInput
@@ -1558,6 +1686,8 @@ export type ClinicUncheckedCreateWithoutExpensesInput = {
   isActive?: boolean
   createdAt?: Date | string
   updatedAt?: Date | string
+  plan?: $Enums.ClinicPlan
+  paidUntil?: Date | string | null
   users?: Prisma.UserUncheckedCreateNestedManyWithoutClinicInput
   patients?: Prisma.PatientUncheckedCreateNestedManyWithoutClinicInput
   procedureCategories?: Prisma.ProcedureCategoryUncheckedCreateNestedManyWithoutClinicInput
@@ -1595,6 +1725,8 @@ export type ClinicUpdateWithoutExpensesInput = {
   isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  plan?: Prisma.EnumClinicPlanFieldUpdateOperationsInput | $Enums.ClinicPlan
+  paidUntil?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   users?: Prisma.UserUpdateManyWithoutClinicNestedInput
   patients?: Prisma.PatientUpdateManyWithoutClinicNestedInput
   procedureCategories?: Prisma.ProcedureCategoryUpdateManyWithoutClinicNestedInput
@@ -1616,6 +1748,8 @@ export type ClinicUncheckedUpdateWithoutExpensesInput = {
   isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  plan?: Prisma.EnumClinicPlanFieldUpdateOperationsInput | $Enums.ClinicPlan
+  paidUntil?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   users?: Prisma.UserUncheckedUpdateManyWithoutClinicNestedInput
   patients?: Prisma.PatientUncheckedUpdateManyWithoutClinicNestedInput
   procedureCategories?: Prisma.ProcedureCategoryUncheckedUpdateManyWithoutClinicNestedInput
@@ -1637,6 +1771,8 @@ export type ClinicCreateWithoutAuditLogsInput = {
   isActive?: boolean
   createdAt?: Date | string
   updatedAt?: Date | string
+  plan?: $Enums.ClinicPlan
+  paidUntil?: Date | string | null
   users?: Prisma.UserCreateNestedManyWithoutClinicInput
   patients?: Prisma.PatientCreateNestedManyWithoutClinicInput
   procedureCategories?: Prisma.ProcedureCategoryCreateNestedManyWithoutClinicInput
@@ -1658,6 +1794,8 @@ export type ClinicUncheckedCreateWithoutAuditLogsInput = {
   isActive?: boolean
   createdAt?: Date | string
   updatedAt?: Date | string
+  plan?: $Enums.ClinicPlan
+  paidUntil?: Date | string | null
   users?: Prisma.UserUncheckedCreateNestedManyWithoutClinicInput
   patients?: Prisma.PatientUncheckedCreateNestedManyWithoutClinicInput
   procedureCategories?: Prisma.ProcedureCategoryUncheckedCreateNestedManyWithoutClinicInput
@@ -1695,6 +1833,8 @@ export type ClinicUpdateWithoutAuditLogsInput = {
   isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  plan?: Prisma.EnumClinicPlanFieldUpdateOperationsInput | $Enums.ClinicPlan
+  paidUntil?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   users?: Prisma.UserUpdateManyWithoutClinicNestedInput
   patients?: Prisma.PatientUpdateManyWithoutClinicNestedInput
   procedureCategories?: Prisma.ProcedureCategoryUpdateManyWithoutClinicNestedInput
@@ -1716,6 +1856,8 @@ export type ClinicUncheckedUpdateWithoutAuditLogsInput = {
   isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  plan?: Prisma.EnumClinicPlanFieldUpdateOperationsInput | $Enums.ClinicPlan
+  paidUntil?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   users?: Prisma.UserUncheckedUpdateManyWithoutClinicNestedInput
   patients?: Prisma.PatientUncheckedUpdateManyWithoutClinicNestedInput
   procedureCategories?: Prisma.ProcedureCategoryUncheckedUpdateManyWithoutClinicNestedInput
@@ -1737,6 +1879,8 @@ export type ClinicCreateWithoutPrescriptionsInput = {
   isActive?: boolean
   createdAt?: Date | string
   updatedAt?: Date | string
+  plan?: $Enums.ClinicPlan
+  paidUntil?: Date | string | null
   users?: Prisma.UserCreateNestedManyWithoutClinicInput
   patients?: Prisma.PatientCreateNestedManyWithoutClinicInput
   procedureCategories?: Prisma.ProcedureCategoryCreateNestedManyWithoutClinicInput
@@ -1758,6 +1902,8 @@ export type ClinicUncheckedCreateWithoutPrescriptionsInput = {
   isActive?: boolean
   createdAt?: Date | string
   updatedAt?: Date | string
+  plan?: $Enums.ClinicPlan
+  paidUntil?: Date | string | null
   users?: Prisma.UserUncheckedCreateNestedManyWithoutClinicInput
   patients?: Prisma.PatientUncheckedCreateNestedManyWithoutClinicInput
   procedureCategories?: Prisma.ProcedureCategoryUncheckedCreateNestedManyWithoutClinicInput
@@ -1795,6 +1941,8 @@ export type ClinicUpdateWithoutPrescriptionsInput = {
   isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  plan?: Prisma.EnumClinicPlanFieldUpdateOperationsInput | $Enums.ClinicPlan
+  paidUntil?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   users?: Prisma.UserUpdateManyWithoutClinicNestedInput
   patients?: Prisma.PatientUpdateManyWithoutClinicNestedInput
   procedureCategories?: Prisma.ProcedureCategoryUpdateManyWithoutClinicNestedInput
@@ -1816,6 +1964,8 @@ export type ClinicUncheckedUpdateWithoutPrescriptionsInput = {
   isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  plan?: Prisma.EnumClinicPlanFieldUpdateOperationsInput | $Enums.ClinicPlan
+  paidUntil?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   users?: Prisma.UserUncheckedUpdateManyWithoutClinicNestedInput
   patients?: Prisma.PatientUncheckedUpdateManyWithoutClinicNestedInput
   procedureCategories?: Prisma.ProcedureCategoryUncheckedUpdateManyWithoutClinicNestedInput
@@ -1967,6 +2117,8 @@ export type ClinicSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs =
   isActive?: boolean
   createdAt?: boolean
   updatedAt?: boolean
+  plan?: boolean
+  paidUntil?: boolean
   users?: boolean | Prisma.Clinic$usersArgs<ExtArgs>
   patients?: boolean | Prisma.Clinic$patientsArgs<ExtArgs>
   procedureCategories?: boolean | Prisma.Clinic$procedureCategoriesArgs<ExtArgs>
@@ -1990,6 +2142,8 @@ export type ClinicSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Extens
   isActive?: boolean
   createdAt?: boolean
   updatedAt?: boolean
+  plan?: boolean
+  paidUntil?: boolean
 }, ExtArgs["result"]["clinic"]>
 
 export type ClinicSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
@@ -2000,6 +2154,8 @@ export type ClinicSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Extens
   isActive?: boolean
   createdAt?: boolean
   updatedAt?: boolean
+  plan?: boolean
+  paidUntil?: boolean
 }, ExtArgs["result"]["clinic"]>
 
 export type ClinicSelectScalar = {
@@ -2010,9 +2166,11 @@ export type ClinicSelectScalar = {
   isActive?: boolean
   createdAt?: boolean
   updatedAt?: boolean
+  plan?: boolean
+  paidUntil?: boolean
 }
 
-export type ClinicOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "name" | "address" | "phone" | "isActive" | "createdAt" | "updatedAt", ExtArgs["result"]["clinic"]>
+export type ClinicOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "name" | "address" | "phone" | "isActive" | "createdAt" | "updatedAt" | "plan" | "paidUntil", ExtArgs["result"]["clinic"]>
 export type ClinicInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   users?: boolean | Prisma.Clinic$usersArgs<ExtArgs>
   patients?: boolean | Prisma.Clinic$patientsArgs<ExtArgs>
@@ -2055,6 +2213,8 @@ export type $ClinicPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs
     isActive: boolean
     createdAt: Date
     updatedAt: Date
+    plan: $Enums.ClinicPlan
+    paidUntil: Date | null
   }, ExtArgs["result"]["clinic"]>
   composites: {}
 }
@@ -2497,6 +2657,8 @@ export interface ClinicFieldRefs {
   readonly isActive: Prisma.FieldRef<"Clinic", 'Boolean'>
   readonly createdAt: Prisma.FieldRef<"Clinic", 'DateTime'>
   readonly updatedAt: Prisma.FieldRef<"Clinic", 'DateTime'>
+  readonly plan: Prisma.FieldRef<"Clinic", 'ClinicPlan'>
+  readonly paidUntil: Prisma.FieldRef<"Clinic", 'DateTime'>
 }
     
 

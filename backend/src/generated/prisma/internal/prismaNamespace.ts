@@ -2112,7 +2112,9 @@ export const ClinicScalarFieldEnum = {
   phone: 'phone',
   isActive: 'isActive',
   createdAt: 'createdAt',
-  updatedAt: 'updatedAt'
+  updatedAt: 'updatedAt',
+  plan: 'plan',
+  paidUntil: 'paidUntil'
 } as const
 
 export type ClinicScalarFieldEnum = (typeof ClinicScalarFieldEnum)[keyof typeof ClinicScalarFieldEnum]
@@ -2128,7 +2130,8 @@ export const UserScalarFieldEnum = {
   isActive: 'isActive',
   clinicId: 'clinicId',
   createdAt: 'createdAt',
-  updatedAt: 'updatedAt'
+  updatedAt: 'updatedAt',
+  lastLoginAt: 'lastLoginAt'
 } as const
 
 export type UserScalarFieldEnum = (typeof UserScalarFieldEnum)[keyof typeof UserScalarFieldEnum]
@@ -2408,9 +2411,9 @@ export const AuditLogScalarFieldEnum = {
   entityId: 'entityId',
   summary: 'summary',
   metadata: 'metadata',
-  clinicId: 'clinicId',
   userId: 'userId',
-  createdAt: 'createdAt'
+  createdAt: 'createdAt',
+  clinicId: 'clinicId'
 } as const
 
 export type AuditLogScalarFieldEnum = (typeof AuditLogScalarFieldEnum)[keyof typeof AuditLogScalarFieldEnum]
@@ -2437,7 +2440,8 @@ export const LeadScalarFieldEnum = {
   phone: 'phone',
   message: 'message',
   status: 'status',
-  createdAt: 'createdAt'
+  createdAt: 'createdAt',
+  convertedClinicId: 'convertedClinicId'
 } as const
 
 export type LeadScalarFieldEnum = (typeof LeadScalarFieldEnum)[keyof typeof LeadScalarFieldEnum]
@@ -2529,6 +2533,20 @@ export type DateTimeFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel
  * Reference to a field of type 'DateTime[]'
  */
 export type ListDateTimeFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'DateTime[]'>
+    
+
+
+/**
+ * Reference to a field of type 'ClinicPlan'
+ */
+export type EnumClinicPlanFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'ClinicPlan'>
+    
+
+
+/**
+ * Reference to a field of type 'ClinicPlan[]'
+ */
+export type ListEnumClinicPlanFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'ClinicPlan[]'>
     
 
 

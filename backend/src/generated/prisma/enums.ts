@@ -36,6 +36,15 @@ export const TaskTargetType = {
 export type TaskTargetType = (typeof TaskTargetType)[keyof typeof TaskTargetType]
 
 
+export const ClinicPlan = {
+  TRIAL: 'TRIAL',
+  BASIC: 'BASIC',
+  PRO: 'PRO'
+} as const
+
+export type ClinicPlan = (typeof ClinicPlan)[keyof typeof ClinicPlan]
+
+
 export const UserRole = {
   SUPER_ADMIN: 'SUPER_ADMIN',
   ADMIN: 'ADMIN',

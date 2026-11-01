@@ -35,6 +35,7 @@ export type UserMinAggregateOutputType = {
   clinicId: string | null
   createdAt: Date | null
   updatedAt: Date | null
+  lastLoginAt: Date | null
 }
 
 export type UserMaxAggregateOutputType = {
@@ -48,6 +49,7 @@ export type UserMaxAggregateOutputType = {
   clinicId: string | null
   createdAt: Date | null
   updatedAt: Date | null
+  lastLoginAt: Date | null
 }
 
 export type UserCountAggregateOutputType = {
@@ -61,6 +63,7 @@ export type UserCountAggregateOutputType = {
   clinicId: number
   createdAt: number
   updatedAt: number
+  lastLoginAt: number
   _all: number
 }
 
@@ -76,6 +79,7 @@ export type UserMinAggregateInputType = {
   clinicId?: true
   createdAt?: true
   updatedAt?: true
+  lastLoginAt?: true
 }
 
 export type UserMaxAggregateInputType = {
@@ -89,6 +93,7 @@ export type UserMaxAggregateInputType = {
   clinicId?: true
   createdAt?: true
   updatedAt?: true
+  lastLoginAt?: true
 }
 
 export type UserCountAggregateInputType = {
@@ -102,6 +107,7 @@ export type UserCountAggregateInputType = {
   clinicId?: true
   createdAt?: true
   updatedAt?: true
+  lastLoginAt?: true
   _all?: true
 }
 
@@ -188,6 +194,7 @@ export type UserGroupByOutputType = {
   clinicId: string | null
   createdAt: Date
   updatedAt: Date
+  lastLoginAt: Date | null
   _count: UserCountAggregateOutputType | null
   _min: UserMinAggregateOutputType | null
   _max: UserMaxAggregateOutputType | null
@@ -222,6 +229,7 @@ export type UserWhereInput = {
   clinicId?: Prisma.StringNullableFilter<"User"> | string | null
   createdAt?: Prisma.DateTimeFilter<"User"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"User"> | Date | string
+  lastLoginAt?: Prisma.DateTimeNullableFilter<"User"> | Date | string | null
   clinic?: Prisma.XOR<Prisma.ClinicNullableScalarRelationFilter, Prisma.ClinicWhereInput> | null
   appointments?: Prisma.AppointmentListRelationFilter
   createdInvoices?: Prisma.InvoiceListRelationFilter
@@ -250,6 +258,7 @@ export type UserOrderByWithRelationInput = {
   clinicId?: Prisma.SortOrderInput | Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
+  lastLoginAt?: Prisma.SortOrderInput | Prisma.SortOrder
   clinic?: Prisma.ClinicOrderByWithRelationInput
   appointments?: Prisma.AppointmentOrderByRelationAggregateInput
   createdInvoices?: Prisma.InvoiceOrderByRelationAggregateInput
@@ -281,6 +290,7 @@ export type UserWhereUniqueInput = Prisma.AtLeast<{
   clinicId?: Prisma.StringNullableFilter<"User"> | string | null
   createdAt?: Prisma.DateTimeFilter<"User"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"User"> | Date | string
+  lastLoginAt?: Prisma.DateTimeNullableFilter<"User"> | Date | string | null
   clinic?: Prisma.XOR<Prisma.ClinicNullableScalarRelationFilter, Prisma.ClinicWhereInput> | null
   appointments?: Prisma.AppointmentListRelationFilter
   createdInvoices?: Prisma.InvoiceListRelationFilter
@@ -309,6 +319,7 @@ export type UserOrderByWithAggregationInput = {
   clinicId?: Prisma.SortOrderInput | Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
+  lastLoginAt?: Prisma.SortOrderInput | Prisma.SortOrder
   _count?: Prisma.UserCountOrderByAggregateInput
   _max?: Prisma.UserMaxOrderByAggregateInput
   _min?: Prisma.UserMinOrderByAggregateInput
@@ -328,6 +339,7 @@ export type UserScalarWhereWithAggregatesInput = {
   clinicId?: Prisma.StringNullableWithAggregatesFilter<"User"> | string | null
   createdAt?: Prisma.DateTimeWithAggregatesFilter<"User"> | Date | string
   updatedAt?: Prisma.DateTimeWithAggregatesFilter<"User"> | Date | string
+  lastLoginAt?: Prisma.DateTimeNullableWithAggregatesFilter<"User"> | Date | string | null
 }
 
 export type UserCreateInput = {
@@ -340,6 +352,7 @@ export type UserCreateInput = {
   isActive?: boolean
   createdAt?: Date | string
   updatedAt?: Date | string
+  lastLoginAt?: Date | string | null
   clinic?: Prisma.ClinicCreateNestedOneWithoutUsersInput
   appointments?: Prisma.AppointmentCreateNestedManyWithoutDentistInput
   createdInvoices?: Prisma.InvoiceCreateNestedManyWithoutCreatedByInput
@@ -368,6 +381,7 @@ export type UserUncheckedCreateInput = {
   clinicId?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
+  lastLoginAt?: Date | string | null
   appointments?: Prisma.AppointmentUncheckedCreateNestedManyWithoutDentistInput
   createdInvoices?: Prisma.InvoiceUncheckedCreateNestedManyWithoutCreatedByInput
   treatmentPlansCreated?: Prisma.TreatmentPlanUncheckedCreateNestedManyWithoutCreatedByInput
@@ -394,6 +408,7 @@ export type UserUpdateInput = {
   isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  lastLoginAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   clinic?: Prisma.ClinicUpdateOneWithoutUsersNestedInput
   appointments?: Prisma.AppointmentUpdateManyWithoutDentistNestedInput
   createdInvoices?: Prisma.InvoiceUpdateManyWithoutCreatedByNestedInput
@@ -422,6 +437,7 @@ export type UserUncheckedUpdateInput = {
   clinicId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  lastLoginAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   appointments?: Prisma.AppointmentUncheckedUpdateManyWithoutDentistNestedInput
   createdInvoices?: Prisma.InvoiceUncheckedUpdateManyWithoutCreatedByNestedInput
   treatmentPlansCreated?: Prisma.TreatmentPlanUncheckedUpdateManyWithoutCreatedByNestedInput
@@ -449,6 +465,7 @@ export type UserCreateManyInput = {
   clinicId?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
+  lastLoginAt?: Date | string | null
 }
 
 export type UserUpdateManyMutationInput = {
@@ -461,6 +478,7 @@ export type UserUpdateManyMutationInput = {
   isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  lastLoginAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
 }
 
 export type UserUncheckedUpdateManyInput = {
@@ -474,6 +492,7 @@ export type UserUncheckedUpdateManyInput = {
   clinicId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  lastLoginAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
 }
 
 export type UserListRelationFilter = {
@@ -497,6 +516,7 @@ export type UserCountOrderByAggregateInput = {
   clinicId?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
+  lastLoginAt?: Prisma.SortOrder
 }
 
 export type UserMaxOrderByAggregateInput = {
@@ -510,6 +530,7 @@ export type UserMaxOrderByAggregateInput = {
   clinicId?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
+  lastLoginAt?: Prisma.SortOrder
 }
 
 export type UserMinOrderByAggregateInput = {
@@ -523,6 +544,7 @@ export type UserMinOrderByAggregateInput = {
   clinicId?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
+  lastLoginAt?: Prisma.SortOrder
 }
 
 export type UserScalarRelationFilter = {
@@ -805,6 +827,7 @@ export type UserCreateWithoutClinicInput = {
   isActive?: boolean
   createdAt?: Date | string
   updatedAt?: Date | string
+  lastLoginAt?: Date | string | null
   appointments?: Prisma.AppointmentCreateNestedManyWithoutDentistInput
   createdInvoices?: Prisma.InvoiceCreateNestedManyWithoutCreatedByInput
   treatmentPlansCreated?: Prisma.TreatmentPlanCreateNestedManyWithoutCreatedByInput
@@ -831,6 +854,7 @@ export type UserUncheckedCreateWithoutClinicInput = {
   isActive?: boolean
   createdAt?: Date | string
   updatedAt?: Date | string
+  lastLoginAt?: Date | string | null
   appointments?: Prisma.AppointmentUncheckedCreateNestedManyWithoutDentistInput
   createdInvoices?: Prisma.InvoiceUncheckedCreateNestedManyWithoutCreatedByInput
   treatmentPlansCreated?: Prisma.TreatmentPlanUncheckedCreateNestedManyWithoutCreatedByInput
@@ -887,6 +911,7 @@ export type UserScalarWhereInput = {
   clinicId?: Prisma.StringNullableFilter<"User"> | string | null
   createdAt?: Prisma.DateTimeFilter<"User"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"User"> | Date | string
+  lastLoginAt?: Prisma.DateTimeNullableFilter<"User"> | Date | string | null
 }
 
 export type UserCreateWithoutAppointmentsInput = {
@@ -899,6 +924,7 @@ export type UserCreateWithoutAppointmentsInput = {
   isActive?: boolean
   createdAt?: Date | string
   updatedAt?: Date | string
+  lastLoginAt?: Date | string | null
   clinic?: Prisma.ClinicCreateNestedOneWithoutUsersInput
   createdInvoices?: Prisma.InvoiceCreateNestedManyWithoutCreatedByInput
   treatmentPlansCreated?: Prisma.TreatmentPlanCreateNestedManyWithoutCreatedByInput
@@ -926,6 +952,7 @@ export type UserUncheckedCreateWithoutAppointmentsInput = {
   clinicId?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
+  lastLoginAt?: Date | string | null
   createdInvoices?: Prisma.InvoiceUncheckedCreateNestedManyWithoutCreatedByInput
   treatmentPlansCreated?: Prisma.TreatmentPlanUncheckedCreateNestedManyWithoutCreatedByInput
   treatmentPlanItemsCreated?: Prisma.TreatmentPlanItemUncheckedCreateNestedManyWithoutCreatedByInput
@@ -967,6 +994,7 @@ export type UserUpdateWithoutAppointmentsInput = {
   isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  lastLoginAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   clinic?: Prisma.ClinicUpdateOneWithoutUsersNestedInput
   createdInvoices?: Prisma.InvoiceUpdateManyWithoutCreatedByNestedInput
   treatmentPlansCreated?: Prisma.TreatmentPlanUpdateManyWithoutCreatedByNestedInput
@@ -994,6 +1022,7 @@ export type UserUncheckedUpdateWithoutAppointmentsInput = {
   clinicId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  lastLoginAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdInvoices?: Prisma.InvoiceUncheckedUpdateManyWithoutCreatedByNestedInput
   treatmentPlansCreated?: Prisma.TreatmentPlanUncheckedUpdateManyWithoutCreatedByNestedInput
   treatmentPlanItemsCreated?: Prisma.TreatmentPlanItemUncheckedUpdateManyWithoutCreatedByNestedInput
@@ -1019,6 +1048,7 @@ export type UserCreateWithoutTreatmentPlansCreatedInput = {
   isActive?: boolean
   createdAt?: Date | string
   updatedAt?: Date | string
+  lastLoginAt?: Date | string | null
   clinic?: Prisma.ClinicCreateNestedOneWithoutUsersInput
   appointments?: Prisma.AppointmentCreateNestedManyWithoutDentistInput
   createdInvoices?: Prisma.InvoiceCreateNestedManyWithoutCreatedByInput
@@ -1046,6 +1076,7 @@ export type UserUncheckedCreateWithoutTreatmentPlansCreatedInput = {
   clinicId?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
+  lastLoginAt?: Date | string | null
   appointments?: Prisma.AppointmentUncheckedCreateNestedManyWithoutDentistInput
   createdInvoices?: Prisma.InvoiceUncheckedCreateNestedManyWithoutCreatedByInput
   treatmentPlanItemsCreated?: Prisma.TreatmentPlanItemUncheckedCreateNestedManyWithoutCreatedByInput
@@ -1087,6 +1118,7 @@ export type UserUpdateWithoutTreatmentPlansCreatedInput = {
   isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  lastLoginAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   clinic?: Prisma.ClinicUpdateOneWithoutUsersNestedInput
   appointments?: Prisma.AppointmentUpdateManyWithoutDentistNestedInput
   createdInvoices?: Prisma.InvoiceUpdateManyWithoutCreatedByNestedInput
@@ -1114,6 +1146,7 @@ export type UserUncheckedUpdateWithoutTreatmentPlansCreatedInput = {
   clinicId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  lastLoginAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   appointments?: Prisma.AppointmentUncheckedUpdateManyWithoutDentistNestedInput
   createdInvoices?: Prisma.InvoiceUncheckedUpdateManyWithoutCreatedByNestedInput
   treatmentPlanItemsCreated?: Prisma.TreatmentPlanItemUncheckedUpdateManyWithoutCreatedByNestedInput
@@ -1139,6 +1172,7 @@ export type UserCreateWithoutTreatmentPlanItemsCreatedInput = {
   isActive?: boolean
   createdAt?: Date | string
   updatedAt?: Date | string
+  lastLoginAt?: Date | string | null
   clinic?: Prisma.ClinicCreateNestedOneWithoutUsersInput
   appointments?: Prisma.AppointmentCreateNestedManyWithoutDentistInput
   createdInvoices?: Prisma.InvoiceCreateNestedManyWithoutCreatedByInput
@@ -1166,6 +1200,7 @@ export type UserUncheckedCreateWithoutTreatmentPlanItemsCreatedInput = {
   clinicId?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
+  lastLoginAt?: Date | string | null
   appointments?: Prisma.AppointmentUncheckedCreateNestedManyWithoutDentistInput
   createdInvoices?: Prisma.InvoiceUncheckedCreateNestedManyWithoutCreatedByInput
   treatmentPlansCreated?: Prisma.TreatmentPlanUncheckedCreateNestedManyWithoutCreatedByInput
@@ -1207,6 +1242,7 @@ export type UserUpdateWithoutTreatmentPlanItemsCreatedInput = {
   isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  lastLoginAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   clinic?: Prisma.ClinicUpdateOneWithoutUsersNestedInput
   appointments?: Prisma.AppointmentUpdateManyWithoutDentistNestedInput
   createdInvoices?: Prisma.InvoiceUpdateManyWithoutCreatedByNestedInput
@@ -1234,6 +1270,7 @@ export type UserUncheckedUpdateWithoutTreatmentPlanItemsCreatedInput = {
   clinicId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  lastLoginAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   appointments?: Prisma.AppointmentUncheckedUpdateManyWithoutDentistNestedInput
   createdInvoices?: Prisma.InvoiceUncheckedUpdateManyWithoutCreatedByNestedInput
   treatmentPlansCreated?: Prisma.TreatmentPlanUncheckedUpdateManyWithoutCreatedByNestedInput
@@ -1259,6 +1296,7 @@ export type UserCreateWithoutCreatedInvoicesInput = {
   isActive?: boolean
   createdAt?: Date | string
   updatedAt?: Date | string
+  lastLoginAt?: Date | string | null
   clinic?: Prisma.ClinicCreateNestedOneWithoutUsersInput
   appointments?: Prisma.AppointmentCreateNestedManyWithoutDentistInput
   treatmentPlansCreated?: Prisma.TreatmentPlanCreateNestedManyWithoutCreatedByInput
@@ -1286,6 +1324,7 @@ export type UserUncheckedCreateWithoutCreatedInvoicesInput = {
   clinicId?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
+  lastLoginAt?: Date | string | null
   appointments?: Prisma.AppointmentUncheckedCreateNestedManyWithoutDentistInput
   treatmentPlansCreated?: Prisma.TreatmentPlanUncheckedCreateNestedManyWithoutCreatedByInput
   treatmentPlanItemsCreated?: Prisma.TreatmentPlanItemUncheckedCreateNestedManyWithoutCreatedByInput
@@ -1327,6 +1366,7 @@ export type UserUpdateWithoutCreatedInvoicesInput = {
   isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  lastLoginAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   clinic?: Prisma.ClinicUpdateOneWithoutUsersNestedInput
   appointments?: Prisma.AppointmentUpdateManyWithoutDentistNestedInput
   treatmentPlansCreated?: Prisma.TreatmentPlanUpdateManyWithoutCreatedByNestedInput
@@ -1354,6 +1394,7 @@ export type UserUncheckedUpdateWithoutCreatedInvoicesInput = {
   clinicId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  lastLoginAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   appointments?: Prisma.AppointmentUncheckedUpdateManyWithoutDentistNestedInput
   treatmentPlansCreated?: Prisma.TreatmentPlanUncheckedUpdateManyWithoutCreatedByNestedInput
   treatmentPlanItemsCreated?: Prisma.TreatmentPlanItemUncheckedUpdateManyWithoutCreatedByNestedInput
@@ -1379,6 +1420,7 @@ export type UserCreateWithoutTasksCreatedInput = {
   isActive?: boolean
   createdAt?: Date | string
   updatedAt?: Date | string
+  lastLoginAt?: Date | string | null
   clinic?: Prisma.ClinicCreateNestedOneWithoutUsersInput
   appointments?: Prisma.AppointmentCreateNestedManyWithoutDentistInput
   createdInvoices?: Prisma.InvoiceCreateNestedManyWithoutCreatedByInput
@@ -1406,6 +1448,7 @@ export type UserUncheckedCreateWithoutTasksCreatedInput = {
   clinicId?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
+  lastLoginAt?: Date | string | null
   appointments?: Prisma.AppointmentUncheckedCreateNestedManyWithoutDentistInput
   createdInvoices?: Prisma.InvoiceUncheckedCreateNestedManyWithoutCreatedByInput
   treatmentPlansCreated?: Prisma.TreatmentPlanUncheckedCreateNestedManyWithoutCreatedByInput
@@ -1436,6 +1479,7 @@ export type UserCreateWithoutTasksAssignedInput = {
   isActive?: boolean
   createdAt?: Date | string
   updatedAt?: Date | string
+  lastLoginAt?: Date | string | null
   clinic?: Prisma.ClinicCreateNestedOneWithoutUsersInput
   appointments?: Prisma.AppointmentCreateNestedManyWithoutDentistInput
   createdInvoices?: Prisma.InvoiceCreateNestedManyWithoutCreatedByInput
@@ -1463,6 +1507,7 @@ export type UserUncheckedCreateWithoutTasksAssignedInput = {
   clinicId?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
+  lastLoginAt?: Date | string | null
   appointments?: Prisma.AppointmentUncheckedCreateNestedManyWithoutDentistInput
   createdInvoices?: Prisma.InvoiceUncheckedCreateNestedManyWithoutCreatedByInput
   treatmentPlansCreated?: Prisma.TreatmentPlanUncheckedCreateNestedManyWithoutCreatedByInput
@@ -1504,6 +1549,7 @@ export type UserUpdateWithoutTasksCreatedInput = {
   isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  lastLoginAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   clinic?: Prisma.ClinicUpdateOneWithoutUsersNestedInput
   appointments?: Prisma.AppointmentUpdateManyWithoutDentistNestedInput
   createdInvoices?: Prisma.InvoiceUpdateManyWithoutCreatedByNestedInput
@@ -1531,6 +1577,7 @@ export type UserUncheckedUpdateWithoutTasksCreatedInput = {
   clinicId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  lastLoginAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   appointments?: Prisma.AppointmentUncheckedUpdateManyWithoutDentistNestedInput
   createdInvoices?: Prisma.InvoiceUncheckedUpdateManyWithoutCreatedByNestedInput
   treatmentPlansCreated?: Prisma.TreatmentPlanUncheckedUpdateManyWithoutCreatedByNestedInput
@@ -1567,6 +1614,7 @@ export type UserUpdateWithoutTasksAssignedInput = {
   isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  lastLoginAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   clinic?: Prisma.ClinicUpdateOneWithoutUsersNestedInput
   appointments?: Prisma.AppointmentUpdateManyWithoutDentistNestedInput
   createdInvoices?: Prisma.InvoiceUpdateManyWithoutCreatedByNestedInput
@@ -1594,6 +1642,7 @@ export type UserUncheckedUpdateWithoutTasksAssignedInput = {
   clinicId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  lastLoginAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   appointments?: Prisma.AppointmentUncheckedUpdateManyWithoutDentistNestedInput
   createdInvoices?: Prisma.InvoiceUncheckedUpdateManyWithoutCreatedByNestedInput
   treatmentPlansCreated?: Prisma.TreatmentPlanUncheckedUpdateManyWithoutCreatedByNestedInput
@@ -1619,6 +1668,7 @@ export type UserCreateWithoutOrthoCasesDentistInput = {
   isActive?: boolean
   createdAt?: Date | string
   updatedAt?: Date | string
+  lastLoginAt?: Date | string | null
   clinic?: Prisma.ClinicCreateNestedOneWithoutUsersInput
   appointments?: Prisma.AppointmentCreateNestedManyWithoutDentistInput
   createdInvoices?: Prisma.InvoiceCreateNestedManyWithoutCreatedByInput
@@ -1646,6 +1696,7 @@ export type UserUncheckedCreateWithoutOrthoCasesDentistInput = {
   clinicId?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
+  lastLoginAt?: Date | string | null
   appointments?: Prisma.AppointmentUncheckedCreateNestedManyWithoutDentistInput
   createdInvoices?: Prisma.InvoiceUncheckedCreateNestedManyWithoutCreatedByInput
   treatmentPlansCreated?: Prisma.TreatmentPlanUncheckedCreateNestedManyWithoutCreatedByInput
@@ -1676,6 +1727,7 @@ export type UserCreateWithoutOrthoCasesCreatedInput = {
   isActive?: boolean
   createdAt?: Date | string
   updatedAt?: Date | string
+  lastLoginAt?: Date | string | null
   clinic?: Prisma.ClinicCreateNestedOneWithoutUsersInput
   appointments?: Prisma.AppointmentCreateNestedManyWithoutDentistInput
   createdInvoices?: Prisma.InvoiceCreateNestedManyWithoutCreatedByInput
@@ -1703,6 +1755,7 @@ export type UserUncheckedCreateWithoutOrthoCasesCreatedInput = {
   clinicId?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
+  lastLoginAt?: Date | string | null
   appointments?: Prisma.AppointmentUncheckedCreateNestedManyWithoutDentistInput
   createdInvoices?: Prisma.InvoiceUncheckedCreateNestedManyWithoutCreatedByInput
   treatmentPlansCreated?: Prisma.TreatmentPlanUncheckedCreateNestedManyWithoutCreatedByInput
@@ -1744,6 +1797,7 @@ export type UserUpdateWithoutOrthoCasesDentistInput = {
   isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  lastLoginAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   clinic?: Prisma.ClinicUpdateOneWithoutUsersNestedInput
   appointments?: Prisma.AppointmentUpdateManyWithoutDentistNestedInput
   createdInvoices?: Prisma.InvoiceUpdateManyWithoutCreatedByNestedInput
@@ -1771,6 +1825,7 @@ export type UserUncheckedUpdateWithoutOrthoCasesDentistInput = {
   clinicId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  lastLoginAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   appointments?: Prisma.AppointmentUncheckedUpdateManyWithoutDentistNestedInput
   createdInvoices?: Prisma.InvoiceUncheckedUpdateManyWithoutCreatedByNestedInput
   treatmentPlansCreated?: Prisma.TreatmentPlanUncheckedUpdateManyWithoutCreatedByNestedInput
@@ -1807,6 +1862,7 @@ export type UserUpdateWithoutOrthoCasesCreatedInput = {
   isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  lastLoginAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   clinic?: Prisma.ClinicUpdateOneWithoutUsersNestedInput
   appointments?: Prisma.AppointmentUpdateManyWithoutDentistNestedInput
   createdInvoices?: Prisma.InvoiceUpdateManyWithoutCreatedByNestedInput
@@ -1834,6 +1890,7 @@ export type UserUncheckedUpdateWithoutOrthoCasesCreatedInput = {
   clinicId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  lastLoginAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   appointments?: Prisma.AppointmentUncheckedUpdateManyWithoutDentistNestedInput
   createdInvoices?: Prisma.InvoiceUncheckedUpdateManyWithoutCreatedByNestedInput
   treatmentPlansCreated?: Prisma.TreatmentPlanUncheckedUpdateManyWithoutCreatedByNestedInput
@@ -1859,6 +1916,7 @@ export type UserCreateWithoutOrthoVisitsCreatedInput = {
   isActive?: boolean
   createdAt?: Date | string
   updatedAt?: Date | string
+  lastLoginAt?: Date | string | null
   clinic?: Prisma.ClinicCreateNestedOneWithoutUsersInput
   appointments?: Prisma.AppointmentCreateNestedManyWithoutDentistInput
   createdInvoices?: Prisma.InvoiceCreateNestedManyWithoutCreatedByInput
@@ -1886,6 +1944,7 @@ export type UserUncheckedCreateWithoutOrthoVisitsCreatedInput = {
   clinicId?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
+  lastLoginAt?: Date | string | null
   appointments?: Prisma.AppointmentUncheckedCreateNestedManyWithoutDentistInput
   createdInvoices?: Prisma.InvoiceUncheckedCreateNestedManyWithoutCreatedByInput
   treatmentPlansCreated?: Prisma.TreatmentPlanUncheckedCreateNestedManyWithoutCreatedByInput
@@ -1927,6 +1986,7 @@ export type UserUpdateWithoutOrthoVisitsCreatedInput = {
   isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  lastLoginAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   clinic?: Prisma.ClinicUpdateOneWithoutUsersNestedInput
   appointments?: Prisma.AppointmentUpdateManyWithoutDentistNestedInput
   createdInvoices?: Prisma.InvoiceUpdateManyWithoutCreatedByNestedInput
@@ -1954,6 +2014,7 @@ export type UserUncheckedUpdateWithoutOrthoVisitsCreatedInput = {
   clinicId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  lastLoginAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   appointments?: Prisma.AppointmentUncheckedUpdateManyWithoutDentistNestedInput
   createdInvoices?: Prisma.InvoiceUncheckedUpdateManyWithoutCreatedByNestedInput
   treatmentPlansCreated?: Prisma.TreatmentPlanUncheckedUpdateManyWithoutCreatedByNestedInput
@@ -1979,6 +2040,7 @@ export type UserCreateWithoutPersonalTodosInput = {
   isActive?: boolean
   createdAt?: Date | string
   updatedAt?: Date | string
+  lastLoginAt?: Date | string | null
   clinic?: Prisma.ClinicCreateNestedOneWithoutUsersInput
   appointments?: Prisma.AppointmentCreateNestedManyWithoutDentistInput
   createdInvoices?: Prisma.InvoiceCreateNestedManyWithoutCreatedByInput
@@ -2006,6 +2068,7 @@ export type UserUncheckedCreateWithoutPersonalTodosInput = {
   clinicId?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
+  lastLoginAt?: Date | string | null
   appointments?: Prisma.AppointmentUncheckedCreateNestedManyWithoutDentistInput
   createdInvoices?: Prisma.InvoiceUncheckedCreateNestedManyWithoutCreatedByInput
   treatmentPlansCreated?: Prisma.TreatmentPlanUncheckedCreateNestedManyWithoutCreatedByInput
@@ -2047,6 +2110,7 @@ export type UserUpdateWithoutPersonalTodosInput = {
   isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  lastLoginAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   clinic?: Prisma.ClinicUpdateOneWithoutUsersNestedInput
   appointments?: Prisma.AppointmentUpdateManyWithoutDentistNestedInput
   createdInvoices?: Prisma.InvoiceUpdateManyWithoutCreatedByNestedInput
@@ -2074,6 +2138,7 @@ export type UserUncheckedUpdateWithoutPersonalTodosInput = {
   clinicId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  lastLoginAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   appointments?: Prisma.AppointmentUncheckedUpdateManyWithoutDentistNestedInput
   createdInvoices?: Prisma.InvoiceUncheckedUpdateManyWithoutCreatedByNestedInput
   treatmentPlansCreated?: Prisma.TreatmentPlanUncheckedUpdateManyWithoutCreatedByNestedInput
@@ -2099,6 +2164,7 @@ export type UserCreateWithoutDocumentsUploadedInput = {
   isActive?: boolean
   createdAt?: Date | string
   updatedAt?: Date | string
+  lastLoginAt?: Date | string | null
   clinic?: Prisma.ClinicCreateNestedOneWithoutUsersInput
   appointments?: Prisma.AppointmentCreateNestedManyWithoutDentistInput
   createdInvoices?: Prisma.InvoiceCreateNestedManyWithoutCreatedByInput
@@ -2126,6 +2192,7 @@ export type UserUncheckedCreateWithoutDocumentsUploadedInput = {
   clinicId?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
+  lastLoginAt?: Date | string | null
   appointments?: Prisma.AppointmentUncheckedCreateNestedManyWithoutDentistInput
   createdInvoices?: Prisma.InvoiceUncheckedCreateNestedManyWithoutCreatedByInput
   treatmentPlansCreated?: Prisma.TreatmentPlanUncheckedCreateNestedManyWithoutCreatedByInput
@@ -2167,6 +2234,7 @@ export type UserUpdateWithoutDocumentsUploadedInput = {
   isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  lastLoginAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   clinic?: Prisma.ClinicUpdateOneWithoutUsersNestedInput
   appointments?: Prisma.AppointmentUpdateManyWithoutDentistNestedInput
   createdInvoices?: Prisma.InvoiceUpdateManyWithoutCreatedByNestedInput
@@ -2194,6 +2262,7 @@ export type UserUncheckedUpdateWithoutDocumentsUploadedInput = {
   clinicId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  lastLoginAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   appointments?: Prisma.AppointmentUncheckedUpdateManyWithoutDentistNestedInput
   createdInvoices?: Prisma.InvoiceUncheckedUpdateManyWithoutCreatedByNestedInput
   treatmentPlansCreated?: Prisma.TreatmentPlanUncheckedUpdateManyWithoutCreatedByNestedInput
@@ -2219,6 +2288,7 @@ export type UserCreateWithoutExpensesCreatedInput = {
   isActive?: boolean
   createdAt?: Date | string
   updatedAt?: Date | string
+  lastLoginAt?: Date | string | null
   clinic?: Prisma.ClinicCreateNestedOneWithoutUsersInput
   appointments?: Prisma.AppointmentCreateNestedManyWithoutDentistInput
   createdInvoices?: Prisma.InvoiceCreateNestedManyWithoutCreatedByInput
@@ -2246,6 +2316,7 @@ export type UserUncheckedCreateWithoutExpensesCreatedInput = {
   clinicId?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
+  lastLoginAt?: Date | string | null
   appointments?: Prisma.AppointmentUncheckedCreateNestedManyWithoutDentistInput
   createdInvoices?: Prisma.InvoiceUncheckedCreateNestedManyWithoutCreatedByInput
   treatmentPlansCreated?: Prisma.TreatmentPlanUncheckedCreateNestedManyWithoutCreatedByInput
@@ -2287,6 +2358,7 @@ export type UserUpdateWithoutExpensesCreatedInput = {
   isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  lastLoginAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   clinic?: Prisma.ClinicUpdateOneWithoutUsersNestedInput
   appointments?: Prisma.AppointmentUpdateManyWithoutDentistNestedInput
   createdInvoices?: Prisma.InvoiceUpdateManyWithoutCreatedByNestedInput
@@ -2314,6 +2386,7 @@ export type UserUncheckedUpdateWithoutExpensesCreatedInput = {
   clinicId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  lastLoginAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   appointments?: Prisma.AppointmentUncheckedUpdateManyWithoutDentistNestedInput
   createdInvoices?: Prisma.InvoiceUncheckedUpdateManyWithoutCreatedByNestedInput
   treatmentPlansCreated?: Prisma.TreatmentPlanUncheckedUpdateManyWithoutCreatedByNestedInput
@@ -2339,6 +2412,7 @@ export type UserCreateWithoutAuditLogsActorInput = {
   isActive?: boolean
   createdAt?: Date | string
   updatedAt?: Date | string
+  lastLoginAt?: Date | string | null
   clinic?: Prisma.ClinicCreateNestedOneWithoutUsersInput
   appointments?: Prisma.AppointmentCreateNestedManyWithoutDentistInput
   createdInvoices?: Prisma.InvoiceCreateNestedManyWithoutCreatedByInput
@@ -2366,6 +2440,7 @@ export type UserUncheckedCreateWithoutAuditLogsActorInput = {
   clinicId?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
+  lastLoginAt?: Date | string | null
   appointments?: Prisma.AppointmentUncheckedCreateNestedManyWithoutDentistInput
   createdInvoices?: Prisma.InvoiceUncheckedCreateNestedManyWithoutCreatedByInput
   treatmentPlansCreated?: Prisma.TreatmentPlanUncheckedCreateNestedManyWithoutCreatedByInput
@@ -2407,6 +2482,7 @@ export type UserUpdateWithoutAuditLogsActorInput = {
   isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  lastLoginAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   clinic?: Prisma.ClinicUpdateOneWithoutUsersNestedInput
   appointments?: Prisma.AppointmentUpdateManyWithoutDentistNestedInput
   createdInvoices?: Prisma.InvoiceUpdateManyWithoutCreatedByNestedInput
@@ -2434,6 +2510,7 @@ export type UserUncheckedUpdateWithoutAuditLogsActorInput = {
   clinicId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  lastLoginAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   appointments?: Prisma.AppointmentUncheckedUpdateManyWithoutDentistNestedInput
   createdInvoices?: Prisma.InvoiceUncheckedUpdateManyWithoutCreatedByNestedInput
   treatmentPlansCreated?: Prisma.TreatmentPlanUncheckedUpdateManyWithoutCreatedByNestedInput
@@ -2459,6 +2536,7 @@ export type UserCreateWithoutPrescriptionsWrittenInput = {
   isActive?: boolean
   createdAt?: Date | string
   updatedAt?: Date | string
+  lastLoginAt?: Date | string | null
   clinic?: Prisma.ClinicCreateNestedOneWithoutUsersInput
   appointments?: Prisma.AppointmentCreateNestedManyWithoutDentistInput
   createdInvoices?: Prisma.InvoiceCreateNestedManyWithoutCreatedByInput
@@ -2486,6 +2564,7 @@ export type UserUncheckedCreateWithoutPrescriptionsWrittenInput = {
   clinicId?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
+  lastLoginAt?: Date | string | null
   appointments?: Prisma.AppointmentUncheckedCreateNestedManyWithoutDentistInput
   createdInvoices?: Prisma.InvoiceUncheckedCreateNestedManyWithoutCreatedByInput
   treatmentPlansCreated?: Prisma.TreatmentPlanUncheckedCreateNestedManyWithoutCreatedByInput
@@ -2527,6 +2606,7 @@ export type UserUpdateWithoutPrescriptionsWrittenInput = {
   isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  lastLoginAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   clinic?: Prisma.ClinicUpdateOneWithoutUsersNestedInput
   appointments?: Prisma.AppointmentUpdateManyWithoutDentistNestedInput
   createdInvoices?: Prisma.InvoiceUpdateManyWithoutCreatedByNestedInput
@@ -2554,6 +2634,7 @@ export type UserUncheckedUpdateWithoutPrescriptionsWrittenInput = {
   clinicId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  lastLoginAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   appointments?: Prisma.AppointmentUncheckedUpdateManyWithoutDentistNestedInput
   createdInvoices?: Prisma.InvoiceUncheckedUpdateManyWithoutCreatedByNestedInput
   treatmentPlansCreated?: Prisma.TreatmentPlanUncheckedUpdateManyWithoutCreatedByNestedInput
@@ -2579,6 +2660,7 @@ export type UserCreateManyClinicInput = {
   isActive?: boolean
   createdAt?: Date | string
   updatedAt?: Date | string
+  lastLoginAt?: Date | string | null
 }
 
 export type UserUpdateWithoutClinicInput = {
@@ -2591,6 +2673,7 @@ export type UserUpdateWithoutClinicInput = {
   isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  lastLoginAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   appointments?: Prisma.AppointmentUpdateManyWithoutDentistNestedInput
   createdInvoices?: Prisma.InvoiceUpdateManyWithoutCreatedByNestedInput
   treatmentPlansCreated?: Prisma.TreatmentPlanUpdateManyWithoutCreatedByNestedInput
@@ -2617,6 +2700,7 @@ export type UserUncheckedUpdateWithoutClinicInput = {
   isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  lastLoginAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   appointments?: Prisma.AppointmentUncheckedUpdateManyWithoutDentistNestedInput
   createdInvoices?: Prisma.InvoiceUncheckedUpdateManyWithoutCreatedByNestedInput
   treatmentPlansCreated?: Prisma.TreatmentPlanUncheckedUpdateManyWithoutCreatedByNestedInput
@@ -2643,6 +2727,7 @@ export type UserUncheckedUpdateManyWithoutClinicInput = {
   isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  lastLoginAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
 }
 
 
@@ -2804,6 +2889,7 @@ export type UserSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = r
   clinicId?: boolean
   createdAt?: boolean
   updatedAt?: boolean
+  lastLoginAt?: boolean
   clinic?: boolean | Prisma.User$clinicArgs<ExtArgs>
   appointments?: boolean | Prisma.User$appointmentsArgs<ExtArgs>
   createdInvoices?: boolean | Prisma.User$createdInvoicesArgs<ExtArgs>
@@ -2833,6 +2919,7 @@ export type UserSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Extensio
   clinicId?: boolean
   createdAt?: boolean
   updatedAt?: boolean
+  lastLoginAt?: boolean
   clinic?: boolean | Prisma.User$clinicArgs<ExtArgs>
 }, ExtArgs["result"]["user"]>
 
@@ -2847,6 +2934,7 @@ export type UserSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensio
   clinicId?: boolean
   createdAt?: boolean
   updatedAt?: boolean
+  lastLoginAt?: boolean
   clinic?: boolean | Prisma.User$clinicArgs<ExtArgs>
 }, ExtArgs["result"]["user"]>
 
@@ -2861,9 +2949,10 @@ export type UserSelectScalar = {
   clinicId?: boolean
   createdAt?: boolean
   updatedAt?: boolean
+  lastLoginAt?: boolean
 }
 
-export type UserOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "email" | "passwordHash" | "firstName" | "lastName" | "role" | "isActive" | "clinicId" | "createdAt" | "updatedAt", ExtArgs["result"]["user"]>
+export type UserOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "email" | "passwordHash" | "firstName" | "lastName" | "role" | "isActive" | "clinicId" | "createdAt" | "updatedAt" | "lastLoginAt", ExtArgs["result"]["user"]>
 export type UserInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   clinic?: boolean | Prisma.User$clinicArgs<ExtArgs>
   appointments?: boolean | Prisma.User$appointmentsArgs<ExtArgs>
@@ -2919,6 +3008,7 @@ export type $UserPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs =
     clinicId: string | null
     createdAt: Date
     updatedAt: Date
+    lastLoginAt: Date | null
   }, ExtArgs["result"]["user"]>
   composites: {}
 }
@@ -3367,6 +3457,7 @@ export interface UserFieldRefs {
   readonly clinicId: Prisma.FieldRef<"User", 'String'>
   readonly createdAt: Prisma.FieldRef<"User", 'DateTime'>
   readonly updatedAt: Prisma.FieldRef<"User", 'DateTime'>
+  readonly lastLoginAt: Prisma.FieldRef<"User", 'DateTime'>
 }
     
 
