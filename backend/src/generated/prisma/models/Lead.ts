@@ -33,6 +33,7 @@ export type LeadMinAggregateOutputType = {
   message: string | null
   status: $Enums.LeadStatus | null
   createdAt: Date | null
+  convertedClinicId: string | null
 }
 
 export type LeadMaxAggregateOutputType = {
@@ -44,6 +45,7 @@ export type LeadMaxAggregateOutputType = {
   message: string | null
   status: $Enums.LeadStatus | null
   createdAt: Date | null
+  convertedClinicId: string | null
 }
 
 export type LeadCountAggregateOutputType = {
@@ -55,6 +57,7 @@ export type LeadCountAggregateOutputType = {
   message: number
   status: number
   createdAt: number
+  convertedClinicId: number
   _all: number
 }
 
@@ -68,6 +71,7 @@ export type LeadMinAggregateInputType = {
   message?: true
   status?: true
   createdAt?: true
+  convertedClinicId?: true
 }
 
 export type LeadMaxAggregateInputType = {
@@ -79,6 +83,7 @@ export type LeadMaxAggregateInputType = {
   message?: true
   status?: true
   createdAt?: true
+  convertedClinicId?: true
 }
 
 export type LeadCountAggregateInputType = {
@@ -90,6 +95,7 @@ export type LeadCountAggregateInputType = {
   message?: true
   status?: true
   createdAt?: true
+  convertedClinicId?: true
   _all?: true
 }
 
@@ -174,6 +180,7 @@ export type LeadGroupByOutputType = {
   message: string | null
   status: $Enums.LeadStatus
   createdAt: Date
+  convertedClinicId: string | null
   _count: LeadCountAggregateOutputType | null
   _min: LeadMinAggregateOutputType | null
   _max: LeadMaxAggregateOutputType | null
@@ -206,6 +213,7 @@ export type LeadWhereInput = {
   message?: Prisma.StringNullableFilter<"Lead"> | string | null
   status?: Prisma.EnumLeadStatusFilter<"Lead"> | $Enums.LeadStatus
   createdAt?: Prisma.DateTimeFilter<"Lead"> | Date | string
+  convertedClinicId?: Prisma.StringNullableFilter<"Lead"> | string | null
 }
 
 export type LeadOrderByWithRelationInput = {
@@ -217,6 +225,7 @@ export type LeadOrderByWithRelationInput = {
   message?: Prisma.SortOrderInput | Prisma.SortOrder
   status?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
+  convertedClinicId?: Prisma.SortOrderInput | Prisma.SortOrder
 }
 
 export type LeadWhereUniqueInput = Prisma.AtLeast<{
@@ -231,6 +240,7 @@ export type LeadWhereUniqueInput = Prisma.AtLeast<{
   message?: Prisma.StringNullableFilter<"Lead"> | string | null
   status?: Prisma.EnumLeadStatusFilter<"Lead"> | $Enums.LeadStatus
   createdAt?: Prisma.DateTimeFilter<"Lead"> | Date | string
+  convertedClinicId?: Prisma.StringNullableFilter<"Lead"> | string | null
 }, "id">
 
 export type LeadOrderByWithAggregationInput = {
@@ -242,6 +252,7 @@ export type LeadOrderByWithAggregationInput = {
   message?: Prisma.SortOrderInput | Prisma.SortOrder
   status?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
+  convertedClinicId?: Prisma.SortOrderInput | Prisma.SortOrder
   _count?: Prisma.LeadCountOrderByAggregateInput
   _max?: Prisma.LeadMaxOrderByAggregateInput
   _min?: Prisma.LeadMinOrderByAggregateInput
@@ -259,6 +270,7 @@ export type LeadScalarWhereWithAggregatesInput = {
   message?: Prisma.StringNullableWithAggregatesFilter<"Lead"> | string | null
   status?: Prisma.EnumLeadStatusWithAggregatesFilter<"Lead"> | $Enums.LeadStatus
   createdAt?: Prisma.DateTimeWithAggregatesFilter<"Lead"> | Date | string
+  convertedClinicId?: Prisma.StringNullableWithAggregatesFilter<"Lead"> | string | null
 }
 
 export type LeadCreateInput = {
@@ -270,6 +282,7 @@ export type LeadCreateInput = {
   message?: string | null
   status?: $Enums.LeadStatus
   createdAt?: Date | string
+  convertedClinicId?: string | null
 }
 
 export type LeadUncheckedCreateInput = {
@@ -281,6 +294,7 @@ export type LeadUncheckedCreateInput = {
   message?: string | null
   status?: $Enums.LeadStatus
   createdAt?: Date | string
+  convertedClinicId?: string | null
 }
 
 export type LeadUpdateInput = {
@@ -292,6 +306,7 @@ export type LeadUpdateInput = {
   message?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   status?: Prisma.EnumLeadStatusFieldUpdateOperationsInput | $Enums.LeadStatus
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  convertedClinicId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
 }
 
 export type LeadUncheckedUpdateInput = {
@@ -303,6 +318,7 @@ export type LeadUncheckedUpdateInput = {
   message?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   status?: Prisma.EnumLeadStatusFieldUpdateOperationsInput | $Enums.LeadStatus
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  convertedClinicId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
 }
 
 export type LeadCreateManyInput = {
@@ -314,6 +330,7 @@ export type LeadCreateManyInput = {
   message?: string | null
   status?: $Enums.LeadStatus
   createdAt?: Date | string
+  convertedClinicId?: string | null
 }
 
 export type LeadUpdateManyMutationInput = {
@@ -325,6 +342,7 @@ export type LeadUpdateManyMutationInput = {
   message?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   status?: Prisma.EnumLeadStatusFieldUpdateOperationsInput | $Enums.LeadStatus
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  convertedClinicId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
 }
 
 export type LeadUncheckedUpdateManyInput = {
@@ -336,6 +354,7 @@ export type LeadUncheckedUpdateManyInput = {
   message?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   status?: Prisma.EnumLeadStatusFieldUpdateOperationsInput | $Enums.LeadStatus
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  convertedClinicId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
 }
 
 export type LeadCountOrderByAggregateInput = {
@@ -347,6 +366,7 @@ export type LeadCountOrderByAggregateInput = {
   message?: Prisma.SortOrder
   status?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
+  convertedClinicId?: Prisma.SortOrder
 }
 
 export type LeadMaxOrderByAggregateInput = {
@@ -358,6 +378,7 @@ export type LeadMaxOrderByAggregateInput = {
   message?: Prisma.SortOrder
   status?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
+  convertedClinicId?: Prisma.SortOrder
 }
 
 export type LeadMinOrderByAggregateInput = {
@@ -369,6 +390,7 @@ export type LeadMinOrderByAggregateInput = {
   message?: Prisma.SortOrder
   status?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
+  convertedClinicId?: Prisma.SortOrder
 }
 
 export type EnumLeadStatusFieldUpdateOperationsInput = {
@@ -386,6 +408,7 @@ export type LeadSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = r
   message?: boolean
   status?: boolean
   createdAt?: boolean
+  convertedClinicId?: boolean
 }, ExtArgs["result"]["lead"]>
 
 export type LeadSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
@@ -397,6 +420,7 @@ export type LeadSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Extensio
   message?: boolean
   status?: boolean
   createdAt?: boolean
+  convertedClinicId?: boolean
 }, ExtArgs["result"]["lead"]>
 
 export type LeadSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
@@ -408,6 +432,7 @@ export type LeadSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensio
   message?: boolean
   status?: boolean
   createdAt?: boolean
+  convertedClinicId?: boolean
 }, ExtArgs["result"]["lead"]>
 
 export type LeadSelectScalar = {
@@ -419,9 +444,10 @@ export type LeadSelectScalar = {
   message?: boolean
   status?: boolean
   createdAt?: boolean
+  convertedClinicId?: boolean
 }
 
-export type LeadOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "clinicName" | "contactName" | "email" | "phone" | "message" | "status" | "createdAt", ExtArgs["result"]["lead"]>
+export type LeadOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "clinicName" | "contactName" | "email" | "phone" | "message" | "status" | "createdAt" | "convertedClinicId", ExtArgs["result"]["lead"]>
 
 export type $LeadPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   name: "Lead"
@@ -435,6 +461,7 @@ export type $LeadPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs =
     message: string | null
     status: $Enums.LeadStatus
     createdAt: Date
+    convertedClinicId: string | null
   }, ExtArgs["result"]["lead"]>
   composites: {}
 }
@@ -866,6 +893,7 @@ export interface LeadFieldRefs {
   readonly message: Prisma.FieldRef<"Lead", 'String'>
   readonly status: Prisma.FieldRef<"Lead", 'LeadStatus'>
   readonly createdAt: Prisma.FieldRef<"Lead", 'DateTime'>
+  readonly convertedClinicId: Prisma.FieldRef<"Lead", 'String'>
 }
     
 

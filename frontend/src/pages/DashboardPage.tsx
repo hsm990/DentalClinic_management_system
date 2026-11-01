@@ -92,14 +92,18 @@ export function DashboardPage() {
 
   return (
     <div className="space-y-6">
-      <div className="flex items-center justify-between">
+      <div className="flex items-start justify-between">
         <div>
-          <h1 className="text-2xl font-semibold">
-            {user?.role === "DENTIST" ? "Your day" : "Dashboard"}
-          </h1>
-          <p className="text-sm text-muted-foreground">
+          <p className="ff-mono text-[10px] uppercase tracking-wider text-[#8A948E]">
             {format(today, "EEEE, MMMM d, yyyy")}
           </p>
+          <h1 className="ff-display mt-1 text-2xl font-medium tracking-tight xl:text-[1.75rem]">
+            {user?.role === "DENTIST"
+              ? `Good day, ${user?.firstName ?? "Doctor"}`
+              : user?.role === "RECEPTIONIST"
+                ? "Front desk overview"
+                : "Dashboard"}
+          </h1>
         </div>
         <div className="flex gap-2">
           <CreatePatientDialog />
@@ -166,44 +170,48 @@ export function DashboardPage() {
       </div>
 
       {/* Today's schedule */}
-      <Card>
-        <CardHeader className="flex flex-row items-center justify-between">
-          <CardTitle className="text-base">
+      <Card className="rounded-xl border-[#E5EAE6]">
+        <CardHeader className="flex flex-row items-center justify-between border-b border-[#E8ECE9] px-5 py-3.5">
+          <CardTitle className="ff-display text-base font-medium">
             {isDentist ? "Your appointments today" : "Today's schedule"}
           </CardTitle>
           <Link to="/calendar">
-            <Button variant="ghost" size="sm">
+            <Button variant="ghost" size="sm" className="text-xs text-[#7B867F]">
               View calendar <ArrowRight className="ml-1 h-4 w-4" />
             </Button>
           </Link>
         </CardHeader>
-        <CardContent>
+        <CardContent className="px-2 py-2">
           {loadingAppointments && <Skeleton className="h-32 w-full" />}
 
           {!loadingAppointments && sortedToday.length === 0 && (
-            <p className="py-6 text-center text-sm text-muted-foreground">
+            <p className="py-6 text-center text-sm text-[#89938D]">
               No appointments today.
             </p>
           )}
 
-          <div className="space-y-2">
+          <div className="divide-y divide-[#F0F2F0]">
             {sortedToday.map((appt) => (
               <div
                 key={appt.id}
-                className="flex cursor-pointer items-center justify-between rounded-md border p-3 hover:bg-muted/50"
+                className="flex cursor-pointer items-center justify-between rounded-md px-3 py-3 transition-colors hover:bg-[#F8F9F8]"
                 onClick={() => navigate(`/patients/${appt.patient.id}`)}
               >
-                <div>
-                  <p className="text-sm font-medium">
-                    {format(new Date(appt.scheduledAt), "h:mm a")} —{" "}
-                    {appt.patient.firstName} {appt.patient.lastName}
-                  </p>
-                  <p className="text-xs text-muted-foreground">
-                    {isDentist
-                      ? ""
-                      : `Dr. ${appt.dentist.firstName} ${appt.dentist.lastName} · `}
-                    {appt.reason || "No reason given"}
-                  </p>
+                <div className="flex items-center gap-4">
+                  <span className="ff-mono text-xs text-[#7B867F]">
+                    {format(new Date(appt.scheduledAt), "HH:mm")}
+                  </span>
+                  <div>
+                    <p className="text-sm font-medium text-[#13201C]">
+                      {appt.patient.firstName} {appt.patient.lastName}
+                    </p>
+                    <p className="mt-0.5 text-xs text-[#89938D]">
+                      {isDentist
+                        ? ""
+                        : `Dr. ${appt.dentist.firstName} ${appt.dentist.lastName} · `}
+                      {appt.reason || "No reason given"}
+                    </p>
+                  </div>
                 </div>
                 <Badge variant={STATUS_BADGE_VARIANT[appt.status]}>
                   {STATUS_LABELS[appt.status]}
@@ -213,7 +221,7 @@ export function DashboardPage() {
           </div>
         </CardContent>
       </Card>
-      <Card>
+      <Card className="rounded-xl border-[#E5EAE6]">
         <CardContent className="p-5">
           <DayTodoList date={today} />
         </CardContent>
