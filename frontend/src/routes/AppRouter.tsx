@@ -23,6 +23,12 @@ import { DemoDashboardPage } from "@/demo/pages/DemoDashboardPage";
 import { DemoPatientsPage } from "@/demo/pages/DemoPatientsPage";
 import { DemoPatientDetailPage } from "@/demo/pages/DemoPatientDetailPage";
 import { DemoAppointmentsPage } from "@/demo/pages/DemoAppointmentsPage";
+import { DemoCalendarPage } from "@/demo/pages/DemoCalendarPage";
+import { DemoTasksPage } from "@/demo/pages/DemoTasksPage";
+import { DemoInventoryPage } from "@/demo/pages/DemoInventoryPage";
+import { DemoFinancePage } from "@/demo/pages/DemoFinancePage";
+import { SuperAdminShell } from "@/features/super-admin/SuperAdminShell";
+
 const router = createBrowserRouter([
   { path: "/", element: <LandingPage /> },
   { path: "/request-demo", element: <RequestDemoPage /> },
@@ -38,6 +44,10 @@ const router = createBrowserRouter([
       { path: "patients", element: <DemoPatientsPage /> },
       { path: "patients/:id", element: <DemoPatientDetailPage /> },
       { path: "appointments", element: <DemoAppointmentsPage /> },
+      { path: "calendar", element: <DemoCalendarPage /> },
+      { path: "tasks", element: <DemoTasksPage /> },
+      { path: "inventory", element: <DemoInventoryPage /> },
+      { path: "finance", element: <DemoFinancePage /> },
     ],
   },
   {
@@ -48,7 +58,11 @@ const router = createBrowserRouter([
   {
     element: <ProtectedRoute />,
     children: [
-      { path: "/super-admin", element: <SuperAdminPage /> },
+      {
+        element: <SuperAdminShell />,
+        children: [{ path: "/super-admin", element: <SuperAdminPage /> }],
+      },
+
       {
         element: <ClinicStaffOnlyRoute />,
         children: [

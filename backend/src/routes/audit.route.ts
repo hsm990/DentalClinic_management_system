@@ -11,4 +11,9 @@ router.get(
   validate(listAuditLogsQuerySchema, "query"),
   auditController.list,
 );
+router.get(
+  "/platform",
+  requireRole("SUPER_ADMIN"),
+  auditController.listPlatform,
+);
 export default router;

@@ -5,6 +5,10 @@ const navItems = [
   { to: "/try", label: "Dashboard" },
   { to: "/try/patients", label: "Patients" },
   { to: "/try/appointments", label: "Appointments" },
+  { to: "/try/calendar", label: "Calendar" },
+  { to: "/try/tasks", label: "Tasks" },
+  { to: "/try/inventory", label: "Inventory" },
+  { to: "/try/finance", label: "Finance" },
 ];
 
 export function DemoAppShell() {

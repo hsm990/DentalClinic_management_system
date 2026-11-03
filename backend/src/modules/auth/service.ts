@@ -6,6 +6,8 @@ import { TokenPayload } from "../../common/generateJwt";
 import { SignOptions } from "jsonwebtoken";
 import * as httpsStatus from "../../common/httpStatus";
 import jwt from "jsonwebtoken";
+import { getClinicAccessIssue } from "../../common/clinicAccess";
+
 function accessToken(payload: TokenPayload) {
   return generateJwt(
     payload,
@@ -23,14 +25,27 @@ function refreshToken(payload: TokenPayload) {
 }
 
 async function logIn(email: string, password: string) {
-  const user = await prisma.user.findUnique({ where: { email } });
-  if (!user || !user.isActive) {
-    throw new AppError("user not found", 404, httpsStatus.ERROR);
+  const user = await prisma.user.findUnique({
+    where: { email },
+    include: {
+      clinic: { select: { isActive: true, plan: true, paidUntil: true } },
+    },
+  });
+  if (
+    !user ||
+    !user.isActive ||
+    !(await bcrypt.compare(password, user.passwordHash))
+  ) {
+    throw new AppError("Invalid email or password", 401, httpsStatus.ERROR);
   }
-  const matchPassword = await bcrypt.compare(password, user.passwordHash);
-  if (!matchPassword) {
-    throw new AppError("password not correct", 401, httpsStatus.ERROR);
-  }
+  const accessIssue = getClinicAccessIssue(user.clinic);
+  if (accessIssue) throw new AppError(accessIssue, 403, httpsStatus.ERROR);
+
+  await prisma.user.update({
+    where: { id: user.id },
+    data: { lastLoginAt: new Date() },
+  });
+
   const payload: TokenPayload = {
     id: user.id,
     role: user.role,
@@ -48,18 +63,13 @@ async function logIn(email: string, password: string) {
     },
   };
 }
-function refreshAccessToken(refreshToken: string) {
+async function refreshAccessToken(token: string) {
+  let decoded: TokenPayload;
   try {
-    const decoded = jwt.verify(
-      refreshToken,
+    decoded = jwt.verify(
+      token,
       process.env.JWT_REFRESH_SECRET!,
     ) as TokenPayload;
-    const payload: TokenPayload = {
-      id: decoded.id,
-      role: decoded.role,
-      clinicId: decoded.clinicId,
-    };
-    return accessToken(payload);
   } catch {
     throw new AppError(
       "Invalid or expired refresh token",
@@ -67,8 +77,38 @@ function refreshAccessToken(refreshToken: string) {
       httpsStatus.ERROR,
     );
   }
-}
 
+  const user = await prisma.user.findUnique({
+    where: { id: decoded.id },
+    include: {
+      clinic: { select: { isActive: true, plan: true, paidUntil: true } },
+    },
+  });
+  if (!user || !user.isActive || getClinicAccessIssue(user.clinic)) {
+    throw new AppError("Account is no longer active", 401, httpsStatus.ERROR);
+  }
+
+  // role and clinicId come fresh from the DB, so a role change also applies at next refresh
+  return accessToken({ id: user.id, role: user.role, clinicId: user.clinicId });
+}
+async function changePassword(
+  userId: string,
+  currentPassword: string,
+  newPassword: string,
+) {
+  const user = await prisma.user.findUnique({ where: { id: userId } });
+  if (!user) throw new AppError("User not found", 404, httpsStatus.ERROR);
+
+  const ok = await bcrypt.compare(currentPassword, user.passwordHash);
+  // 400, not 401: a 401 would trigger the frontend's refresh-and-retry logic
+  if (!ok)
+    throw new AppError("Current password is incorrect", 400, httpsStatus.ERROR);
+
+  await prisma.user.update({
+    where: { id: userId },
+    data: { passwordHash: await bcrypt.hash(newPassword, 10) },
+  });
+}
 async function getCurrentUser(userId: string) {
   const user = await prisma.user.findUnique({
     where: { id: userId },
@@ -85,4 +125,4 @@ async function getCurrentUser(userId: string) {
   if (!user) throw new AppError("User not found", 404, httpsStatus.ERROR);
   return user;
 }
-export default { logIn, refreshAccessToken, getCurrentUser };
+export default { logIn, refreshAccessToken, getCurrentUser, changePassword };

@@ -45,7 +45,6 @@ app.get(
     res.json({ status: "ok", db: "connected" });
   }),
 );
-
 app.use("/api/v1/auth", authRouter);
 app.use("/api/v1/clinics", authMiddleware, clinicsRouter);
 app.use("/api/v1/users", authMiddleware, usersRouter);
@@ -61,7 +60,8 @@ app.use("/api/v1/todos", authMiddleware, todosRoutes);
 app.use("/api/v1", authMiddleware, documentsRoutes);
 app.use("/api/v1/expenses", authMiddleware, expensesRoutes);
 app.use("/api/v1/audit-logs", authMiddleware, auditRoutes);
-app.use("/api/v1", authMiddleware, prescriptionsRoutes);
 app.use("/api/v1/leads", leadsRoutes);
+app.use("/api/v1", authMiddleware, prescriptionsRoutes);
+
 app.use(errorMiddleware);
 export default app;

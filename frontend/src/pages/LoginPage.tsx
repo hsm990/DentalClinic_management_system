@@ -9,6 +9,7 @@ import { loginSchema, type LoginFormValues } from "@/features/auth/schema";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
+import { apiSlice } from "@/lib/apiBaseQuery";
 
 export function LoginPage() {
   const [login, { isLoading }] = useLoginMutation();
@@ -22,17 +23,17 @@ export function LoginPage() {
   } = useForm<LoginFormValues>({
     resolver: zodResolver(loginSchema),
   });
-
   async function onSubmit(values: LoginFormValues) {
     try {
       const result = await login(values).unwrap();
+      dispatch(apiSlice.util.resetApiState()); // fresh cache per session
       dispatch(credentialsSet(result as any));
       navigate(
         result.user.role === "SUPER_ADMIN" ? "/super-admin" : "/dashboard",
         { replace: true },
-      ); // was: navigate("/dashboard", { replace: true });
-    } catch {
-      toast.error("Invalid email or password");
+      );
+    } catch (err: any) {
+      toast.error(err?.data?.error?.message ?? "Invalid email or password");
     }
   }
 
@@ -64,9 +65,7 @@ export function LoginPage() {
           </div>
         </div>
 
-        <p className="ff-mono text-[10px] text-white/40">
-          app.hslclinic.com
-        </p>
+        <p className="ff-mono text-[10px] text-white/40">app.hslclinic.com</p>
       </aside>
 
       {/* Form panel */}

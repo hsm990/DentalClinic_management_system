@@ -24,13 +24,19 @@ const login = asyncHandler(async (req: Request, res: Response) => {
 
 const refresh = asyncHandler(async (req: Request, res: Response) => {
   const token = req.cookies?.refreshToken;
-  if (!token) {
+  if (!token)
     throw new AppError("No refresh token provided", 401, httpStatus.ERROR);
-  }
-  const accessToken = authService.refreshAccessToken(token);
+  const accessToken = await authService.refreshAccessToken(token); // await added
   res.json({ accessToken });
 });
-
+const changePassword = asyncHandler(async (req: Request, res: Response) => {
+  await authService.changePassword(
+    req.user!.id,
+    req.body.currentPassword,
+    req.body.newPassword,
+  );
+  res.json({ message: "Password updated" });
+});
 const me = asyncHandler(async (req: Request, res: Response) => {
   const currentUser = await authService.getCurrentUser(req.user!.id);
   res.json({ user: currentUser });
@@ -41,4 +47,4 @@ const logout = asyncHandler(async (_req: Request, res: Response) => {
   res.json({ message: "Logged out successfully" });
 });
 
-export default { login, refresh, me, logout };
+export default { login, refresh, me, logout, changePassword };

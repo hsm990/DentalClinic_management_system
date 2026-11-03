@@ -33,7 +33,10 @@ export const auditApi = apiSlice.injectEndpoints({
     >({
       query: (args) => ({ url: "/audit-logs", params: args ?? undefined }),
     }),
+    getPlatformAuditLogs: builder.query<AuditLogsResponse, void>({
+      query: () => "/audit-logs/platform",
+    }),
   }),
 });
 
-export const { useGetAuditLogsQuery } = auditApi;
+export const { useGetAuditLogsQuery, useGetPlatformAuditLogsQuery } = auditApi;

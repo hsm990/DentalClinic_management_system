@@ -1,5 +1,5 @@
 import { useForm } from "react-hook-form";
-import { useState } from "react";
+import { useState, type ReactElement } from "react";
 import { toast } from "sonner";
 import { useOnboardClinicMutation } from "@/features/clinic/clinicApi";
 import { Button } from "@/components/ui/button";
@@ -13,7 +13,16 @@ import {
   DialogTrigger,
   DialogFooter,
 } from "@/components/ui/dialog";
-
+interface OnboardClinicDialogProps {
+  trigger?: ReactElement;
+  prefill?: {
+    clinicName?: string;
+    contactName?: string;
+    email?: string;
+    phone?: string;
+  };
+  leadId?: string; // new
+}
 interface FormValues {
   clinicName: string;
   address: string;
@@ -24,19 +33,10 @@ interface FormValues {
   password: string;
 }
 
-interface OnboardClinicDialogProps {
-  trigger?: React.ReactNode;
-  prefill?: {
-    clinicName?: string;
-    contactName?: string;
-    email?: string;
-    phone?: string;
-  };
-}
-
 export function OnboardClinicDialog({
   trigger,
   prefill,
+  leadId,
 }: OnboardClinicDialogProps) {
   const [open, setOpen] = useState(false);
   const [onboardClinic, { isLoading }] = useOnboardClinicMutation();
@@ -70,6 +70,7 @@ export function OnboardClinicDialog({
           firstName: values.adminFirstName,
           lastName: values.adminLastName,
         },
+        leadId,
       }).unwrap();
       toast.success("Clinic onboarded");
       reset();

@@ -94,6 +94,7 @@ export function LeadsTab() {
                 )}
                 {lead.status !== "CONVERTED" && lead.status !== "DECLINED" && (
                   <OnboardClinicDialog
+                    leadId={lead.id}
                     trigger={<Button size="sm">Onboard</Button>}
                     prefill={{
                       clinicName: lead.clinicName,

@@ -1,7 +1,7 @@
 import prisma from "../config/prisma";
 
 interface LogAuditParams {
-  clinicId: string;
+  clinicId?: string;
   userId?: string;
   action: "CREATE" | "UPDATE" | "DELETE" | "STATUS_CHANGE";
   entityType: string;

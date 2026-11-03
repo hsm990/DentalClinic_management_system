@@ -63,6 +63,30 @@ export interface DemoInvoice {
   total: number;
 }
 
+export interface DemoTask {
+  id: string;
+  title: string;
+  assignee: string;
+  done: boolean;
+  createdAt: string;
+}
+
+export interface DemoStockItem {
+  id: string;
+  name: string;
+  quantity: number;
+  minQuantity: number;
+  unit: string;
+}
+
+export interface DemoExpense {
+  id: string;
+  category: string;
+  amount: number;
+  date: string;
+  note?: string;
+}
+
 interface DemoState {
   patients: DemoPatient[];
   toothCharts: Record<string, DemoToothEntry[]>; // patientId -> entries
@@ -70,6 +94,9 @@ interface DemoState {
   procedures: DemoProcedure[];
   treatmentPlans: DemoTreatmentPlan[];
   invoices: DemoInvoice[];
+  tasks: DemoTask[];
+  stockItems: DemoStockItem[];
+  expenses: DemoExpense[];
 }
 
 function seedData(): DemoState {
@@ -88,6 +115,15 @@ function seedData(): DemoState {
     d.setHours(h, m, 0, 0);
     return d.toISOString();
   };
+  const onDay = (offset: number) => {
+    const d = new Date(today);
+    d.setDate(d.getDate() + offset);
+    d.setHours(10, 0, 0, 0);
+    return d.toISOString();
+  };
+
+  const taskId = nextId("task");
+  const stockId = nextId("stock");
 
   return {
     patients: [
@@ -150,6 +186,30 @@ function seedData(): DemoState {
         status: "SCHEDULED",
         reason: "Consultation",
       },
+      {
+        id: nextId("appt"),
+        patientId: p2,
+        dentistName: "Dr. H. Slimani",
+        scheduledAt: onDay(2),
+        status: "SCHEDULED",
+        reason: "Follow-up",
+      },
+      {
+        id: nextId("appt"),
+        patientId: p3,
+        dentistName: "Dr. S. Benali",
+        scheduledAt: onDay(-3),
+        status: "COMPLETED",
+        reason: "Cleaning",
+      },
+      {
+        id: nextId("appt"),
+        patientId: p1,
+        dentistName: "Dr. H. Slimani",
+        scheduledAt: onDay(4),
+        status: "SCHEDULED",
+        reason: "Filling",
+      },
     ],
     procedures: [
       {
@@ -191,6 +251,75 @@ function seedData(): DemoState {
       },
     ],
     invoices: [],
+    tasks: [
+      {
+        id: taskId,
+        title: "Call Amine T. to confirm tomorrow's appointment",
+        assignee: "Reception",
+        done: false,
+        createdAt: onDay(0),
+      },
+      {
+        id: nextId("task"),
+        title: "Order more composite resin",
+        assignee: "Dr. S. Benali",
+        done: false,
+        createdAt: onDay(-1),
+      },
+      {
+        id: nextId("task"),
+        title: "Send invoice reminder to N. Belkacem",
+        assignee: "Reception",
+        done: true,
+        createdAt: onDay(-2),
+      },
+    ],
+    stockItems: [
+      {
+        id: stockId,
+        name: "Composite resin A2",
+        quantity: 8,
+        minQuantity: 10,
+        unit: "syringes",
+      },
+      {
+        id: nextId("stock"),
+        name: "Latex gloves (M)",
+        quantity: 45,
+        minQuantity: 20,
+        unit: "boxes",
+      },
+      {
+        id: nextId("stock"),
+        name: "Local anesthetic 2%",
+        quantity: 12,
+        minQuantity: 8,
+        unit: "vials",
+      },
+      {
+        id: nextId("stock"),
+        name: "Surgical masks",
+        quantity: 3,
+        minQuantity: 5,
+        unit: "boxes",
+      },
+    ],
+    expenses: [
+      {
+        id: nextId("expense"),
+        category: "Rent",
+        amount: 80000,
+        date: onDay(-10),
+        note: "Monthly clinic rent",
+      },
+      {
+        id: nextId("expense"),
+        category: "Supplies",
+        amount: 23500,
+        date: onDay(-4),
+        note: "Dental supply order",
+      },
+    ],
   };
 }
 
@@ -217,6 +346,13 @@ interface DemoContextValue extends DemoState {
   ) => void;
   createInvoiceFromItem: (planId: string, itemId: string) => void;
   recordPayment: (invoiceId: string, amount: number, method: string) => void;
+  addTask: (title: string, assignee: string) => void;
+  toggleTask: (id: string) => void;
+  adjustStock: (id: string, delta: number) => void;
+  addStockItem: (
+    data: Omit<DemoStockItem, "id">
+  ) => void;
+  addExpense: (data: Omit<DemoExpense, "id">) => void;
 }
 
 const DemoContext = createContext<DemoContextValue | null>(null);
@@ -383,6 +519,49 @@ export function DemoDataProvider({ children }: { children: ReactNode }) {
       ),
     }));
 
+  const addTask: DemoContextValue["addTask"] = (title, assignee) =>
+    setState((s) => ({
+      ...s,
+      tasks: [
+        {
+          id: nextId("task"),
+          title,
+          assignee,
+          done: false,
+          createdAt: new Date().toISOString(),
+        },
+        ...s.tasks,
+      ],
+    }));
+
+  const toggleTask: DemoContextValue["toggleTask"] = (id) =>
+    setState((s) => ({
+      ...s,
+      tasks: s.tasks.map((t) => (t.id === id ? { ...t, done: !t.done } : t)),
+    }));
+
+  const adjustStock: DemoContextValue["adjustStock"] = (id, delta) =>
+    setState((s) => ({
+      ...s,
+      stockItems: s.stockItems.map((i) =>
+        i.id === id
+          ? { ...i, quantity: Math.max(0, i.quantity + delta) }
+          : i,
+      ),
+    }));
+
+  const addStockItem: DemoContextValue["addStockItem"] = (data) =>
+    setState((s) => ({
+      ...s,
+      stockItems: [...s.stockItems, { ...data, id: nextId("stock") }],
+    }));
+
+  const addExpense: DemoContextValue["addExpense"] = (data) =>
+    setState((s) => ({
+      ...s,
+      expenses: [...s.expenses, { ...data, id: nextId("expense") }],
+    }));
+
   return (
     <DemoContext.Provider
       value={{
@@ -396,6 +575,11 @@ export function DemoDataProvider({ children }: { children: ReactNode }) {
         updatePlanItemStatus,
         createInvoiceFromItem,
         recordPayment,
+        addTask,
+        toggleTask,
+        adjustStock,
+        addStockItem,
+        addExpense,
       }}
     >
       {children}

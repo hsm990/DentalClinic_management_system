@@ -17,5 +17,7 @@ async function listLogs(user: RequestingUser, filters: any) {
     );
   return auditRepository.findAll(user.clinicId, filters);
 }
-
-export default { listLogs };
+async function listPlatformLogs(filters: any) {
+  return auditRepository.findAll(null as any, filters);
+}
+export default { listLogs, listPlatformLogs };
